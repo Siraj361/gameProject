@@ -7,37 +7,46 @@ import SignupModal from "./SignupModal";
 
 function App() {
   const [openMenu, setOpenMenu] = useState(false);
-
   const [loginOpen, setLoginOpen] = useState(false);
   const [signupOpen, setSignupOpen] = useState(false);
 
   return (
-    <div className="min-h-screen bg-[#06142d]">
+    <div className="min-h-screen bg-[#24120f] flex justify-center">
 
-      <Header
-        setOpenMenu={setOpenMenu}
-        setLoginOpen={setLoginOpen}
-        setSignupOpen={setSignupOpen}
-      />
+      {/* Mobile Screen */}
+      <div className="relative w-full max-w-[430px] min-h-screen bg-[#1a0f0b] overflow-hidden shadow-2xl">
 
-      <Sidebar
-        openMenu={openMenu}
-        setOpenMenu={setOpenMenu}
-      />
+        <Header
+          setOpenMenu={setOpenMenu}
+          setLoginOpen={setLoginOpen}
+          setSignupOpen={setSignupOpen}
+        />
 
-      <LoginModal
-        loginOpen={loginOpen}
-        setLoginOpen={setLoginOpen}
-      />
+        {/* Your Page Content */}
+        <div className="pb-28">
+          {/* Cards / Games / Banner */}
+        </div>
 
-      <SignupModal
-        signupOpen={signupOpen}
-        setSignupOpen={setSignupOpen}
-      />
+        <Sidebar
+          openMenu={openMenu}
+          setOpenMenu={setOpenMenu}
+        />
 
-      <BottomNavbar
-        setLoginOpen={setLoginOpen}
-      />
+        <LoginModal
+          loginOpen={loginOpen}
+          setLoginOpen={setLoginOpen}
+        />
+
+        <SignupModal
+          signupOpen={signupOpen}
+          setSignupOpen={setSignupOpen}
+        />
+
+        <BottomNavbar
+          setLoginOpen={setLoginOpen}
+        />
+
+      </div>
 
     </div>
   );

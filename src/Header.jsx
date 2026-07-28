@@ -6,52 +6,95 @@ const Header = ({
   setSignupOpen,
 }) => {
   return (
-    <header className="w-full bg-gradient-to-r from-[#02152d] via-[#062f63] to-[#02152d] border-b border-blue-500/20">
-
-      <div className="max-w-7xl mx-auto flex items-center justify-between px-4 md:px-8 py-4">
+    <header
+      className="
+      w-full
+      bg-gradient-to-b
+      from-[#2b1609]
+      via-[#1d1007]
+      to-[#130905]
+      border-b
+      border-yellow-700/50
+      sticky
+      top-0
+      z-40
+    "
+    >
+      <div className="w-full flex items-center justify-between px-3 py-3">
 
         {/* Left */}
+        <div className="flex items-center gap-3">
 
-        <div className="flex items-center gap-4">
-
+          {/* Menu */}
           <div className="relative">
 
             <button
               onClick={() => setOpenMenu(true)}
-              className="w-14 h-14 md:w-16 md:h-16 rounded-full border-2 border-cyan-400 bg-[#08244a] flex items-center justify-center shadow-lg hover:scale-105 duration-300"
+              className="
+              w-12
+              h-12
+              md:w-14
+              md:h-14
+              rounded-full
+              bg-[#3b2209]
+              border-2
+              border-yellow-600
+              flex
+              items-center
+              justify-center
+              shadow-lg
+              hover:scale-105
+              duration-300
+            "
             >
-
               <div className="space-y-1">
-
-                <span className="block w-6 h-1 bg-cyan-300 rounded"></span>
-                <span className="block w-4 h-1 bg-cyan-300 rounded"></span>
-                <span className="block w-6 h-1 bg-cyan-300 rounded"></span>
-
+                <span className="block w-5 h-[3px] bg-yellow-300 rounded"></span>
+                <span className="block w-4 h-[3px] bg-yellow-300 rounded"></span>
+                <span className="block w-5 h-[3px] bg-yellow-300 rounded"></span>
               </div>
-
             </button>
 
-            <span className="absolute -top-1 -right-1 w-6 h-6 rounded-full bg-red-600 text-white flex items-center justify-center text-xs font-bold">
+            <span
+              className="
+              absolute
+              -top-1
+              -right-1
+              w-5
+              h-5
+              rounded-full
+              bg-red-600
+              text-white
+              text-[10px]
+              font-bold
+              flex
+              items-center
+              justify-center
+              border
+              border-white
+            "
+            >
               1
             </span>
 
           </div>
 
+          {/* Logo */}
+
           <div>
 
-            <h1 className="text-3xl md:text-5xl font-bold">
+            <h1 className="leading-none font-black">
 
-              <span className="text-cyan-400">
-                66RS
+              <span className="text-yellow-400 text-3xl md:text-4xl">
+                33RS
               </span>
 
-              <span className="text-white text-xl md:text-3xl">
+              <span className="text-white text-lg md:text-xl">
                 .com
               </span>
 
             </h1>
 
-            <p className="text-cyan-200 text-[10px] md:text-xs tracking-[5px] uppercase">
+            <p className="text-[9px] text-yellow-200 tracking-[3px] uppercase">
               Gaming Platform
             </p>
 
@@ -61,18 +104,50 @@ const Header = ({
 
         {/* Right */}
 
-        <div className="flex gap-3">
+        <div className="flex items-center gap-2">
 
           <button
             onClick={() => setLoginOpen(true)}
-            className="px-6 md:px-10 py-2 md:py-3 rounded-full bg-gradient-to-r from-orange-400 to-amber-700 text-white font-bold shadow-lg hover:scale-105 duration-300"
+            className="
+            px-4
+            md:px-6
+            py-2
+            rounded-full
+            bg-gradient-to-r
+            from-[#ffb347]
+            via-[#ff8c00]
+            to-[#b85d00]
+            border
+            border-yellow-300
+            text-white
+            font-bold
+            text-sm
+            md:text-base
+            hover:scale-105
+            duration-300
+          "
           >
             Log In
           </button>
 
           <button
             onClick={() => setSignupOpen(true)}
-            className="px-6 md:px-10 py-2 md:py-3 rounded-full border-2 border-cyan-400 text-cyan-300 font-bold hover:bg-cyan-500 hover:text-white duration-300"
+            className="
+            px-4
+            md:px-6
+            py-2
+            rounded-full
+            border
+            border-yellow-500
+            bg-[#2d1a0d]
+            text-yellow-300
+            font-bold
+            text-sm
+            md:text-base
+            hover:bg-[#5a3412]
+            hover:text-white
+            duration-300
+          "
           >
             Sign Up
           </button>
@@ -80,7 +155,6 @@ const Header = ({
         </div>
 
       </div>
-
     </header>
   );
 };

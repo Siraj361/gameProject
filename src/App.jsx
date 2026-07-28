@@ -35,7 +35,9 @@ function App() {
         setSignupOpen={setSignupOpen}
       />
 
-      <BottomNavbar />
+      <BottomNavbar
+        setLoginOpen={setLoginOpen}
+      />
 
     </div>
   );

@@ -23,30 +23,29 @@ function App() {
 
     <div
       className="
-      min-h-screen
+      w-screen
+      h-screen
 
-      bg-gradient-to-br
-      from-[#020617]
-      via-[#061b3a]
-      to-[#020617]
+      overflow-hidden
+
+      bg-[#020617]
 
       flex
       justify-center
-      items-center
-
-      p-4
       "
     >
 
 
 
 
-
-      {/* MOBILE WEB FRAME */}
+      {/* MOBILE SCREEN */}
 
       <div
         className="
-        relative
+        fixed
+
+        top-0
+        bottom-0
 
         w-full
         max-w-[430px]
@@ -61,22 +60,14 @@ function App() {
         flex-col
 
 
-        rounded-[35px]
+        border-x
+        border-cyan-900/40
 
 
-        border-[3px]
-        border-cyan-800/40
-
-
-        shadow-[0_0_50px_rgba(0,200,255,0.45)]
-
-
-        ring-4
-        ring-cyan-500/10
+        shadow-[0_0_15px_rgba(0,0,0,0.6)]
 
         "
       >
-
 
 
 
@@ -100,8 +91,6 @@ function App() {
 
 
 
-
-
         {/* CONTENT */}
 
         <main
@@ -112,21 +101,14 @@ function App() {
 
           pb-24
 
-          scrollbar-hide
-
           "
         >
 
-
-
           <HeroSectoin />
-
 
           <PromoCards />
 
-
         </main>
-
 
 
 
@@ -152,8 +134,7 @@ function App() {
 
 
 
-
-        {/* LOGIN MODAL */}
+        {/* LOGIN */}
 
         <LoginModal
 
@@ -170,8 +151,7 @@ function App() {
 
 
 
-
-        {/* SIGNUP MODAL */}
+        {/* SIGNUP */}
 
         <SignupModal
 
@@ -188,8 +168,7 @@ function App() {
 
 
 
-
-        {/* BOTTOM NAVBAR */}
+        {/* BOTTOM NAV */}
 
         <BottomNavbar
 
@@ -199,17 +178,12 @@ function App() {
 
 
 
-
-
-
       </div>
-
 
 
     </div>
 
   );
-
 }
 
 

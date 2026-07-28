@@ -10,151 +10,264 @@ const Header = ({
       className="
       w-full
       bg-gradient-to-b
-      from-[#2b1609]
-      via-[#1d1007]
-      to-[#130905]
+      from-[#061b3a]
+      via-[#071426]
+      to-[#020617]
       border-b
-      border-yellow-700/50
+      border-cyan-700/50
       sticky
       top-0
       z-40
-    "
+      "
     >
-      <div className="w-full flex items-center justify-between px-3 py-3">
 
-        {/* Left */}
-        <div className="flex items-center gap-3">
+      <div
+        className="
+        max-w-[430px]
+        mx-auto
+        flex
+        items-center
+        justify-between
+        px-3
+        py-3
+        "
+      >
 
-          {/* Menu */}
+        {/* Left Side */}
+        <div className="flex items-center gap-2">
+
+
+          {/* Menu Button */}
           <div className="relative">
 
             <button
               onClick={() => setOpenMenu(true)}
               className="
-              w-12
-              h-12
-              md:w-14
-              md:h-14
+              w-10
+              h-10
               rounded-full
-              bg-[#3b2209]
+
+              bg-[#020617]
+
               border-2
-              border-yellow-600
+              border-cyan-500
+
               flex
               items-center
               justify-center
-              shadow-lg
+
+              shadow-[0_0_15px_rgba(0,200,255,.4)]
+
               hover:scale-105
               duration-300
-            "
+              "
             >
+
               <div className="space-y-1">
-                <span className="block w-5 h-[3px] bg-yellow-300 rounded"></span>
-                <span className="block w-4 h-[3px] bg-yellow-300 rounded"></span>
-                <span className="block w-5 h-[3px] bg-yellow-300 rounded"></span>
+
+                <span
+                  className="
+                  block
+                  w-5
+                  h-[3px]
+                  bg-cyan-300
+                  rounded
+                  "
+                />
+
+                <span
+                  className="
+                  block
+                  w-4
+                  h-[3px]
+                  bg-cyan-300
+                  rounded
+                  "
+                />
+
+                <span
+                  className="
+                  block
+                  w-5
+                  h-[3px]
+                  bg-cyan-300
+                  rounded
+                  "
+                />
+
               </div>
+
             </button>
 
+
+            {/* Notification */}
             <span
               className="
               absolute
               -top-1
               -right-1
+
               w-5
               h-5
+
               rounded-full
+
               bg-red-600
+
               text-white
+
               text-[10px]
+
               font-bold
+
               flex
               items-center
               justify-center
+
               border
               border-white
-            "
+              "
             >
               1
             </span>
 
+
           </div>
 
-          {/* Logo */}
 
+
+          {/* Logo */}
           <div>
 
             <h1 className="leading-none font-black">
 
-              <span className="text-yellow-400 text-3xl md:text-4xl">
+              <span
+                className="
+                text-cyan-400
+                text-2xl
+                "
+              >
                 33RS
               </span>
 
-              <span className="text-white text-lg md:text-xl">
+
+              <span
+                className="
+                text-white
+                text-base
+                "
+              >
                 .com
               </span>
 
+
             </h1>
 
-            <p className="text-[9px] text-yellow-200 tracking-[3px] uppercase">
+
+            <p
+              className="
+              text-[8px]
+
+              text-cyan-200
+
+              tracking-[3px]
+
+              uppercase
+              "
+            >
               Gaming Platform
             </p>
 
+
           </div>
+
 
         </div>
 
-        {/* Right */}
 
-        <div className="flex items-center gap-2">
 
+
+
+        {/* Right Side Buttons */}
+        <div className="flex items-center gap-1.5">
+
+
+
+          {/* Login */}
           <button
             onClick={() => setLoginOpen(true)}
             className="
-            px-4
-            md:px-6
+            px-3
             py-2
+
             rounded-full
+
             bg-gradient-to-r
-            from-[#ffb347]
-            via-[#ff8c00]
-            to-[#b85d00]
+
+            from-cyan-400
+            via-blue-500
+            to-blue-700
+
             border
-            border-yellow-300
+            border-cyan-300
+
             text-white
+
             font-bold
-            text-sm
-            md:text-base
+
+            text-xs
+
+            shadow-[0_0_15px_rgba(0,200,255,.4)]
+
             hover:scale-105
+
             duration-300
-          "
+            "
           >
             Log In
           </button>
 
+
+
+
+
+          {/* Signup */}
           <button
             onClick={() => setSignupOpen(true)}
             className="
-            px-4
-            md:px-6
+            px-3
             py-2
+
             rounded-full
+
             border
-            border-yellow-500
-            bg-[#2d1a0d]
-            text-yellow-300
+            border-cyan-500
+
+            bg-[#020617]
+
+            text-cyan-300
+
             font-bold
-            text-sm
-            md:text-base
-            hover:bg-[#5a3412]
+
+            text-xs
+
+            hover:bg-cyan-700
+
             hover:text-white
+
             duration-300
-          "
+            "
           >
             Sign Up
           </button>
 
+
         </div>
 
+
       </div>
+
+
     </header>
   );
 };

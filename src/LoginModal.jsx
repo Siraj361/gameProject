@@ -2,109 +2,283 @@ const LoginModal = ({ loginOpen, setLoginOpen }) => {
   return (
     <>
       {/* Overlay */}
-
       <div
         onClick={() => setLoginOpen(false)}
-        className={`fixed inset-0 bg-black/70 z-40 transition-all duration-300 ${
+        className={`fixed inset-0 bg-black/80 backdrop-blur-sm z-40 transition-all duration-300 ${
           loginOpen
             ? "opacity-100 visible"
             : "opacity-0 invisible"
         }`}
-      ></div>
+      />
+
 
       {/* Modal */}
-
       <div
-        className={`fixed left-1/2 top-1/2
-        -translate-x-1/2 -translate-y-1/2
-        w-[95%] max-w-xl
-        rounded-3xl
+        className={`fixed
+        left-1/2
+        top-1/2
+
+        -translate-x-1/2
+        -translate-y-1/2
+
+        w-[92%]
+        max-w-[400px]
+
+        rounded-[25px]
+
         bg-gradient-to-b
-        from-[#6a3b10]
-        via-[#2b1709]
-        to-[#4b2208]
-        border border-yellow-600
-        shadow-2xl
+        from-[#061b3a]
+        via-[#071426]
+        to-[#020617]
+
+        border
+        border-cyan-500
+
+        shadow-[0_0_40px_rgba(0,200,255,.35)]
+
         z-50
+
         duration-300
+
         ${
           loginOpen
             ? "scale-100 opacity-100"
-            : "scale-75 opacity-0 pointer-events-none"
+            : "scale-90 opacity-0 pointer-events-none"
         }`}
       >
 
-        {/* Close */}
 
+        {/* Close */}
         <button
           onClick={() => setLoginOpen(false)}
-          className="absolute right-5 top-5 w-10 h-10 rounded-full bg-black/30 text-white text-xl"
+          className="
+          absolute
+          right-3
+          top-3
+
+          w-9
+          h-9
+
+          rounded-full
+
+          bg-black/40
+
+          text-white
+
+          text-lg
+
+          hover:bg-cyan-600
+          duration-300
+          "
         >
           ✕
         </button>
 
-        <div className="flex justify-center gap-16 pt-8">
 
-          <button className="text-white text-3xl border-b-4 border-orange-500 pb-2">
+
+        {/* Tabs */}
+        <div
+          className="
+          flex
+          justify-center
+          gap-10
+          pt-8
+          "
+        >
+
+          <button
+            className="
+            text-white
+            text-2xl
+            font-serif
+
+            border-b-4
+            border-cyan-400
+
+            pb-2
+            "
+          >
             Log In
           </button>
 
-          <button className="text-yellow-500 text-3xl">
+
+          <button
+            className="
+            text-cyan-400
+            text-2xl
+            font-serif
+            "
+          >
             Sign Up
           </button>
 
         </div>
 
-        <div className="p-8 space-y-6">
 
-          <div className="flex items-center bg-[#1d120b] rounded-xl h-16 px-4">
 
-            <span className="mr-3 text-2xl">
+        {/* Form */}
+        <div
+          className="
+          p-5
+          space-y-4
+          "
+        >
+
+
+          {/* Phone */}
+          <div
+            className="
+            flex
+            items-center
+
+            bg-[#020617]
+
+            rounded-xl
+
+            h-14
+
+            px-3
+
+            border
+            border-cyan-700
+            "
+          >
+
+            <span className="mr-2 text-xl">
               🇵🇰
             </span>
 
-            <span className="text-white mr-3">
+
+            <span
+              className="
+              text-white
+              mr-2
+              text-sm
+              "
+            >
               +92
             </span>
+
 
             <input
               type="text"
               placeholder="Phone Number"
-              className="flex-1 bg-transparent outline-none text-white placeholder-gray-400"
+              className="
+              flex-1
+
+              bg-transparent
+
+              outline-none
+
+              text-white
+
+              text-sm
+
+              placeholder:text-gray-400
+              "
             />
 
           </div>
 
-          <div className="flex items-center bg-[#1d120b] rounded-xl h-16 px-4">
 
-            <span className="mr-3 text-xl">
+
+
+          {/* Password */}
+          <div
+            className="
+            flex
+            items-center
+
+            bg-[#020617]
+
+            rounded-xl
+
+            h-14
+
+            px-3
+
+            border
+            border-cyan-700
+            "
+          >
+
+            <span className="mr-3 text-lg">
               🔒
             </span>
+
 
             <input
               type="password"
               placeholder="Password"
-              className="flex-1 bg-transparent outline-none text-white placeholder-gray-400"
+              className="
+              flex-1
+
+              bg-transparent
+
+              outline-none
+
+              text-white
+
+              text-sm
+
+              placeholder:text-gray-400
+              "
             />
 
-            <span>
+
+            <span className="text-lg cursor-pointer">
               👁
             </span>
 
+
           </div>
 
+
+
+
+          {/* Login Button */}
           <button
-            className="w-full h-14 rounded-xl bg-gradient-to-r from-orange-400 to-amber-700 text-white font-bold text-xl"
+            className="
+            w-full
+
+            h-14
+
+            rounded-xl
+
+            bg-gradient-to-r
+
+            from-cyan-400
+
+            via-blue-500
+
+            to-blue-700
+
+            text-white
+
+            font-bold
+
+            text-lg
+
+            shadow-[0_0_20px_rgba(0,200,255,.5)]
+
+            hover:scale-105
+
+            duration-300
+            "
           >
             Log In
           </button>
 
+
         </div>
 
+
       </div>
+
 
     </>
   );
 };
+
 
 export default LoginModal;

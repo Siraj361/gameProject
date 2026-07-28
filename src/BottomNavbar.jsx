@@ -1,134 +1,239 @@
 import React from "react";
 
+
 const BottomNavbar = ({ setLoginOpen }) => {
+
   return (
-    <div className="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-[430px] z-50">
+
+    <div
+      className="
+      absolute
+      bottom-0
+      left-0
+      w-full
+      z-50
+      "
+    >
+
 
       <div
         className="
         bg-gradient-to-t
-        from-[#3b2209]
-        via-[#5b320d]
-        to-[#7d4b14]
+        from-[#020617]
+        via-[#071426]
+        to-[#061b3a]
+
         border-t
-        border-yellow-700
+        border-cyan-700
+
         rounded-t-3xl
-        shadow-[0_-5px_25px_rgba(255,170,0,.4)]
+
+        shadow-[0_-5px_25px_rgba(0,200,255,.4)]
         "
       >
-        <div className="relative flex justify-around items-end h-24">
 
-          {/* Home */}
-          <div className="flex flex-col items-center text-yellow-300 pt-3 cursor-pointer hover:text-white duration-300">
-            <span className="text-3xl">🏠</span>
-            <p className="text-sm font-semibold mt-1">Home</p>
+
+        <div
+          className="
+          flex
+          justify-around
+          items-end
+          h-24
+          "
+        >
+
+
+
+
+          {/* HOME */}
+
+          <div
+            className="
+            flex
+            flex-col
+            items-center
+            text-cyan-300
+            cursor-pointer
+            "
+          >
+
+            <span className="text-3xl">
+              🏠
+            </span>
+
+            <p className="text-sm">
+              Home
+            </p>
+
           </div>
 
-          {/* Deposit */}
-          <div className="flex flex-col items-center text-yellow-700 pt-3 cursor-pointer hover:text-white duration-300">
-            <span className="text-3xl">👛</span>
-            <p className="text-sm mt-1">Deposit</p>
+
+
+
+
+
+
+          {/* DEPOSIT */}
+
+          <div
+            className="
+            flex
+            flex-col
+            items-center
+            text-blue-400
+            cursor-pointer
+            "
+          >
+
+            <span className="text-3xl">
+              👛
+            </span>
+
+            <p className="text-sm">
+              Deposit
+            </p>
+
           </div>
 
-          {/* Agency */}
-          <div className="relative -mt-10 cursor-pointer">
+
+
+
+
+
+
+
+          {/* CENTER BUTTON */}
+
+          <div
+            className="
+            relative
+            -mt-10
+            "
+          >
 
             <div
               className="
-              w-24
-              h-24
+              w-20
+              h-20
+
               rounded-full
+
               bg-gradient-to-b
-              from-yellow-300
-              to-orange-600
+              from-cyan-300
+              via-blue-500
+              to-blue-800
+
               border-4
-              border-yellow-600
-              shadow-[0_0_30px_rgba(255,180,0,.8)]
+              border-cyan-400
+
               flex
               items-center
               justify-center
-              hover:scale-105
-              duration-300
+
+              shadow-[0_0_30px_rgba(0,200,255,.8)]
               "
             >
-              <span className="text-5xl">💸</span>
+
+              <span className="text-4xl">
+                💸
+              </span>
+
+
             </div>
 
-            <span
+
+
+            <p
               className="
-              absolute
-              top-0
-              right-2
-              w-7
-              h-7
-              rounded-full
-              bg-red-600
-              text-white
+              text-center
+              text-cyan-300
               text-sm
-              flex
-              items-center
-              justify-center
-              border-2
-              border-white
               "
             >
-              1
-            </span>
-
-            <p className="text-center text-yellow-300 font-semibold mt-1">
               Agency
             </p>
 
+
           </div>
 
-          {/* Activity */}
-          <div className="relative flex flex-col items-center text-yellow-700 pt-3 cursor-pointer hover:text-white duration-300">
 
-            <span className="text-3xl">🎁</span>
 
-            <span
-              className="
-              absolute
-              top-2
-              right-3
-              w-6
-              h-6
-              rounded-full
-              bg-red-600
-              text-white
-              text-xs
-              flex
-              items-center
-              justify-center
-              border
-              border-white
-              "
-            >
-              1
+
+
+
+
+          {/* ACTIVITY */}
+
+          <div
+            className="
+            flex
+            flex-col
+            items-center
+            text-blue-400
+            cursor-pointer
+            "
+          >
+
+            <span className="text-3xl">
+              🎁
             </span>
 
-            <p className="text-sm mt-1">
+
+            <p className="text-sm">
               Activity
             </p>
 
+
           </div>
 
-          {/* Me */}
+
+
+
+
+
+
+          {/* ME */}
+
           <div
+
             onClick={() => setLoginOpen(true)}
-            className="flex flex-col items-center text-yellow-700 pt-3 cursor-pointer hover:text-white duration-300"
+
+            className="
+            flex
+            flex-col
+            items-center
+            text-blue-400
+            cursor-pointer
+            "
           >
-            <span className="text-3xl">👤</span>
-            <p className="text-sm mt-1">
+
+            <span className="text-3xl">
+              👤
+            </span>
+
+
+            <p className="text-sm">
               Me
             </p>
+
+
           </div>
 
+
+
+
+
         </div>
+
+
       </div>
 
+
     </div>
+
   );
+
 };
+
 
 export default BottomNavbar;

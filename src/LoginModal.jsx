@@ -1,284 +1,797 @@
-const LoginModal = ({ loginOpen, setLoginOpen }) => {
-  return (
-    <>
-      {/* Overlay */}
-      <div
-        onClick={() => setLoginOpen(false)}
-        className={`fixed inset-0 bg-black/80 backdrop-blur-sm z-40 transition-all duration-300 ${
-          loginOpen
-            ? "opacity-100 visible"
-            : "opacity-0 invisible"
-        }`}
-      />
-
-
-      {/* Modal */}
-      <div
-        className={`fixed
-        left-1/2
-        top-1/2
+import { useState } from "react";
+import { X, Eye, EyeOff, Lock } from "lucide-react";
 
-        -translate-x-1/2
-        -translate-y-1/2
 
-        w-[92%]
-        max-w-[400px]
-
-        rounded-[25px]
+export default function LoginModal({
 
-        bg-gradient-to-b
-        from-[#061b3a]
-        via-[#071426]
-        to-[#020617]
+  loginOpen,
+  setLoginOpen,
+  setSignupOpen,
+  navigate,
+  setToast,
 
-        border
-        border-cyan-500
+}) {
 
-        shadow-[0_0_40px_rgba(0,200,255,.35)]
 
-        z-50
 
-        duration-300
+const [phone,setPhone] = useState("");
 
-        ${
-          loginOpen
-            ? "scale-100 opacity-100"
-            : "scale-90 opacity-0 pointer-events-none"
-        }`}
-      >
+const [password,setPassword] = useState("");
 
+const [showPassword,setShowPassword] = useState(false);
 
-        {/* Close */}
-        <button
-          onClick={() => setLoginOpen(false)}
-          className="
-          absolute
-          right-3
-          top-3
 
-          w-9
-          h-9
 
-          rounded-full
 
-          bg-black/40
 
-          text-white
 
-          text-lg
 
-          hover:bg-cyan-600
-          duration-300
-          "
-        >
-          ✕
-        </button>
+const handleLogin = ()=>{
 
 
+const savedUser =
+JSON.parse(
+localStorage.getItem("signupUser")
+);
 
-        {/* Tabs */}
-        <div
-          className="
-          flex
-          justify-center
-          gap-10
-          pt-8
-          "
-        >
 
-          <button
-            className="
-            text-white
-            text-2xl
-            font-serif
 
-            border-b-4
-            border-cyan-400
 
-            pb-2
-            "
-          >
-            Log In
-          </button>
+if(!savedUser){
 
+setToast({
 
-          <button
-            className="
-            text-cyan-400
-            text-2xl
-            font-serif
-            "
-          >
-            Sign Up
-          </button>
+message:"Please signup first",
 
-        </div>
+type:"error"
 
+});
 
 
-        {/* Form */}
-        <div
-          className="
-          p-5
-          space-y-4
-          "
-        >
+return;
 
+}
 
-          {/* Phone */}
-          <div
-            className="
-            flex
-            items-center
 
-            bg-[#020617]
 
-            rounded-xl
 
-            h-14
 
-            px-3
+if(
 
-            border
-            border-cyan-700
-            "
-          >
+savedUser.phone === phone &&
 
-            <span className="mr-2 text-xl">
-              🇵🇰
-            </span>
+savedUser.password === password
 
+){
 
-            <span
-              className="
-              text-white
-              mr-2
-              text-sm
-              "
-            >
-              +92
-            </span>
 
 
-            <input
-              type="text"
-              placeholder="Phone Number"
-              className="
-              flex-1
+localStorage.setItem(
 
-              bg-transparent
+"user",
 
-              outline-none
+JSON.stringify(savedUser)
 
-              text-white
+);
 
-              text-sm
 
-              placeholder:text-gray-400
-              "
-            />
 
-          </div>
 
+if(!localStorage.getItem("balance")){
 
+localStorage.setItem(
+"balance",
+"0"
+);
 
+}
 
-          {/* Password */}
-          <div
-            className="
-            flex
-            items-center
 
-            bg-[#020617]
 
-            rounded-xl
 
-            h-14
 
-            px-3
+setToast({
 
-            border
-            border-cyan-700
-            "
-          >
+message:"Login Successful",
 
-            <span className="mr-3 text-lg">
-              🔒
-            </span>
+type:"success"
 
+});
 
-            <input
-              type="password"
-              placeholder="Password"
-              className="
-              flex-1
 
-              bg-transparent
 
-              outline-none
+setLoginOpen(false);
 
-              text-white
 
-              text-sm
 
-              placeholder:text-gray-400
-              "
-            />
+navigate("/profile");
 
 
-            <span className="text-lg cursor-pointer">
-              👁
-            </span>
 
+}
 
-          </div>
+else{
 
 
+setToast({
 
+message:"Wrong phone or password",
 
-          {/* Login Button */}
-          <button
-            className="
-            w-full
+type:"error"
 
-            h-14
+});
 
-            rounded-xl
 
-            bg-gradient-to-r
+}
 
-            from-cyan-400
 
-            via-blue-500
 
-            to-blue-700
-
-            text-white
-
-            font-bold
-
-            text-lg
-
-            shadow-[0_0_20px_rgba(0,200,255,.5)]
-
-            hover:scale-105
-
-            duration-300
-            "
-          >
-            Log In
-          </button>
-
-
-        </div>
-
-
-      </div>
-
-
-    </>
-  );
 };
 
 
-export default LoginModal;
+
+
+
+
+
+
+
+return (
+
+<div
+
+className={`
+
+fixed
+
+top-0
+
+left-1/2
+
+-translate-x-1/2
+
+
+w-full
+
+max-w-[540px]
+
+
+h-screen
+
+
+z-[10000]
+
+
+${loginOpen
+
+?
+
+"pointer-events-auto"
+
+:
+
+"pointer-events-none"
+
+}
+
+`}
+
+>
+
+
+
+
+
+
+
+{/* OVERLAY */}
+
+<div
+
+
+onClick={()=>setLoginOpen(false)}
+
+
+className={`
+
+absolute
+
+inset-0
+
+
+bg-black/80
+
+
+backdrop-blur-sm
+
+
+transition
+
+
+${loginOpen
+
+?
+
+"opacity-100 visible"
+
+:
+
+"opacity-0 invisible"
+
+}
+
+`}
+
+/>
+
+
+
+
+
+
+
+
+
+{/* LOGIN CARD */}
+
+<div
+
+
+className={`
+
+absolute
+
+left-1/2
+
+top-1/2
+
+
+-translate-x-1/2
+
+-translate-y-1/2
+
+
+
+w-[92%]
+
+max-w-[400px]
+
+
+
+bg-gradient-to-b
+
+from-[#061b3a]
+
+to-[#020617]
+
+
+
+rounded-3xl
+
+
+
+border
+
+border-cyan-400/60
+
+
+
+p-5
+
+
+
+text-white
+
+
+
+transition-all
+
+duration-300
+
+
+
+${loginOpen
+
+?
+
+"scale-100 opacity-100"
+
+:
+
+"scale-90 opacity-0"
+
+}
+
+`}
+
+>
+
+
+
+
+
+
+
+
+{/* CLOSE */}
+
+<button
+
+
+onClick={()=>setLoginOpen(false)}
+
+
+className="
+
+absolute
+
+right-4
+
+top-4
+
+text-white
+
+"
+
+
+>
+
+
+<X size={28}/>
+
+
+</button>
+
+
+
+
+
+
+
+
+
+<h1
+
+
+className="
+
+text-center
+
+text-white
+
+text-3xl
+
+font-bold
+
+mb-6
+
+"
+
+>
+
+
+Login
+
+
+</h1>
+
+
+
+
+
+
+
+
+
+{/* PHONE */}
+
+<input
+
+
+
+placeholder="Phone Number"
+
+
+
+value={phone}
+
+
+
+onChange={(e)=>setPhone(e.target.value)}
+
+
+
+
+className="
+
+
+w-full
+
+
+mb-3
+
+
+p-4
+
+
+
+rounded-xl
+
+
+
+bg-black/70
+
+
+
+border
+
+
+
+border-cyan-600
+
+
+
+text-white
+
+
+
+outline-none
+
+
+"
+
+ />
+
+
+
+
+
+
+
+
+
+{/* PASSWORD */}
+
+<div
+
+
+className="
+
+
+flex
+
+
+items-center
+
+
+
+bg-black/70
+
+
+
+border
+
+
+
+border-cyan-600
+
+
+
+rounded-xl
+
+
+"
+
+
+>
+
+
+<Lock
+
+
+className="
+
+text-cyan-400
+
+ml-3
+
+"
+
+
+/>
+
+
+
+
+
+
+
+<input
+
+
+type={
+showPassword
+?
+"text"
+:
+"password"
+}
+
+
+
+
+placeholder="Password"
+
+
+
+value={password}
+
+
+
+onChange={(e)=>setPassword(e.target.value)}
+
+
+
+
+
+className="
+
+
+flex-1
+
+
+p-4
+
+
+bg-transparent
+
+
+outline-none
+
+
+text-white
+
+
+"
+
+ />
+
+
+
+
+
+
+
+
+
+<button
+
+
+type="button"
+
+
+
+onClick={()=>setShowPassword(!showPassword)}
+
+
+
+className="
+
+mr-3
+
+text-cyan-400
+
+"
+
+
+>
+
+
+{
+
+showPassword
+
+?
+
+<EyeOff size={22}/>
+
+:
+
+<Eye size={22}/>
+
+}
+
+
+</button>
+
+
+
+
+
+
+
+</div>
+
+
+
+
+
+
+
+
+
+{/* LOGIN BUTTON */}
+
+
+<button
+
+
+onClick={handleLogin}
+
+
+
+className="
+
+
+w-full
+
+
+
+mt-6
+
+
+
+py-4
+
+
+
+rounded-xl
+
+
+
+bg-gradient-to-r
+
+
+
+from-cyan-400
+
+
+
+to-blue-700
+
+
+
+
+
+text-white
+
+
+
+font-bold
+
+
+
+text-lg
+
+
+
+"
+
+>
+
+
+Login
+
+
+</button>
+
+
+
+
+
+
+
+
+
+<p
+
+
+className="
+
+
+text-gray-400
+
+
+text-center
+
+
+mt-5
+
+
+"
+
+
+>
+
+
+Don't have an account?
+
+
+</p>
+
+
+
+
+
+
+
+
+<button
+
+
+
+onClick={()=>{
+
+
+setLoginOpen(false);
+
+setSignupOpen(true);
+
+
+}}
+
+
+
+
+className="
+
+
+w-full
+
+
+
+text-cyan-400
+
+
+
+font-bold
+
+
+
+mt-2
+
+
+
+"
+
+
+>
+
+
+Create Account
+
+
+</button>
+
+
+
+
+
+
+
+
+
+</div>
+
+
+
+
+
+
+
+</div>
+
+);
+
+
+}

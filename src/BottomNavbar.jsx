@@ -1,239 +1,107 @@
 import React from "react";
+import {
+  FaHome,
+  FaWallet,
+  FaGift,
+  FaUser,
+  FaCoins,
+} from "react-icons/fa";
+import { useNavigate, useLocation } from "react-router-dom";
 
+export default function BottomNavbar() {
 
-const BottomNavbar = ({ setLoginOpen }) => {
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const active = "text-cyan-300";
+  const normal = "text-gray-400";
+
 
   return (
+<div
+  className="
+  relative
+  grid
+  grid-cols-5
+  h-full
+  items-end
+  px-3
+  pb-2
+"
+>
+  {/* HOME */}
+  <button
+    onClick={() => navigate("/")}
+    className={`flex flex-col items-center justify-center ${
+      location.pathname === "/" ? active : normal
+    }`}
+  >
+    <FaHome className="text-[28px] sm:text-[30px]" />
+    <span className="text-[10px] font-semibold mt-1">Home</span>
+  </button>
 
-    <div
+  {/* DEPOSIT */}
+  <button
+    className={`flex flex-col items-center justify-center ${
+      location.pathname === "/deposit" ? active : normal
+    }`}
+  >
+    <FaWallet className="text-[28px] sm:text-[30px]" />
+    <span className="text-[10px] font-semibold mt-1">Deposit</span>
+  </button>
+
+  {/* Empty space for center button */}
+  <div></div>
+
+  {/* ACTIVITY */}
+  <button
+    className={`flex flex-col items-center justify-center ${
+      location.pathname === "/activity" ? active : normal
+    }`}
+  >
+    <FaGift className="text-[28px] sm:text-[30px]" />
+    <span className="text-[10px] font-semibold mt-1">Activity</span>
+  </button>
+
+  {/* PROFILE */}
+  <button
+    onClick={() => navigate("/profile")}
+    className={`flex flex-col items-center justify-center ${
+      location.pathname === "/profile" ? active : normal
+    }`}
+  >
+    <FaUser className="text-[28px] sm:text-[30px]" />
+    <span className="text-[10px] font-semibold mt-1">Me</span>
+  </button>
+
+  {/* Center Button */}
+  <div className="absolute left-1/2 -top-8 -translate-x-1/2 -mt-5">
+    <button
       className="
-      absolute
-      bottom-0
-      left-0
-      w-full
-      z-50
+    
+      h-[70px]
+      w-[70px]
+      rounded-full
+      flex
+      items-center
+      justify-center
+      border-4
+      border-cyan-300
+      bg-gradient-to-b
+      from-cyan-300
+      via-cyan-500
+      to-blue-700
+      shadow-[0_0_25px_rgba(0,255,255,.8)]
+      
       "
     >
-
-
-      <div
-        className="
-        bg-gradient-to-t
-        from-[#020617]
-        via-[#071426]
-        to-[#061b3a]
-
-        border-t
-        border-cyan-700
-
-        rounded-t-3xl
-
-        shadow-[0_-5px_25px_rgba(0,200,255,.4)]
-        "
-      >
-
-
-        <div
-          className="
-          flex
-          justify-around
-          items-end
-          h-24
-          "
-        >
-
-
-
-
-          {/* HOME */}
-
-          <div
-            className="
-            flex
-            flex-col
-            items-center
-            text-cyan-300
-            cursor-pointer
-            "
-          >
-
-            <span className="text-3xl">
-              🏠
-            </span>
-
-            <p className="text-sm">
-              Home
-            </p>
-
-          </div>
-
-
-
-
-
-
-
-          {/* DEPOSIT */}
-
-          <div
-            className="
-            flex
-            flex-col
-            items-center
-            text-blue-400
-            cursor-pointer
-            "
-          >
-
-            <span className="text-3xl">
-              👛
-            </span>
-
-            <p className="text-sm">
-              Deposit
-            </p>
-
-          </div>
-
-
-
-
-
-
-
-
-          {/* CENTER BUTTON */}
-
-          <div
-            className="
-            relative
-            -mt-10
-            "
-          >
-
-            <div
-              className="
-              w-20
-              h-20
-
-              rounded-full
-
-              bg-gradient-to-b
-              from-cyan-300
-              via-blue-500
-              to-blue-800
-
-              border-4
-              border-cyan-400
-
-              flex
-              items-center
-              justify-center
-
-              shadow-[0_0_30px_rgba(0,200,255,.8)]
-              "
-            >
-
-              <span className="text-4xl">
-                💸
-              </span>
-
-
-            </div>
-
-
-
-            <p
-              className="
-              text-center
-              text-cyan-300
-              text-sm
-              "
-            >
-              Agency
-            </p>
-
-
-          </div>
-
-
-
-
-
-
-
-          {/* ACTIVITY */}
-
-          <div
-            className="
-            flex
-            flex-col
-            items-center
-            text-blue-400
-            cursor-pointer
-            "
-          >
-
-            <span className="text-3xl">
-              🎁
-            </span>
-
-
-            <p className="text-sm">
-              Activity
-            </p>
-
-
-          </div>
-
-
-
-
-
-
-
-          {/* ME */}
-
-          <div
-
-            onClick={() => setLoginOpen(true)}
-
-            className="
-            flex
-            flex-col
-            items-center
-            text-blue-400
-            cursor-pointer
-            "
-          >
-
-            <span className="text-3xl">
-              👤
-            </span>
-
-
-            <p className="text-sm">
-              Me
-            </p>
-
-
-          </div>
-
-
-
-
-
-        </div>
-
-
-      </div>
-
-
-    </div>
-
+      <FaCoins className="text-[34px] text-white" />
+    </button>
+
+    <p className="mt-1 text-center text-[10px] font-semibold text-cyan-300">
+      Agency
+    </p>
+  </div>
+</div>
   );
-
-};
-
-
-export default BottomNavbar;
+}

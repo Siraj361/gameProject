@@ -1,168 +1,148 @@
 import React from "react";
-import { FaCrown, FaGift, FaCoins, FaUserFriends } from "react-icons/fa";
+import {
+  FaCrown,
+  FaGift,
+  FaCoins,
+  FaUserFriends,
+} from "react-icons/fa";
 
 export default function RewardCards() {
   return (
-    <div className="bg-[#020617] p-3">
+    <div className="w-full bg-[#020617] px-3 py-3">
 
-      <div className="grid grid-cols-3 gap-2 max-w-md mx-auto">
+      <div className="mx-auto grid max-w-[540px] grid-cols-3 gap-3">
 
+        {/* LEFT */}
 
-        {/* LEFT SIDE */}
-        <div className="col-span-2 space-y-2">
-
+        <div className="col-span-2 flex flex-col gap-3">
 
           {/* VIP */}
-          <div className="
-          h-20
-          rounded-xl
-          bg-gradient-to-r from-blue-700 to-cyan-500
-          border border-cyan-300
-          flex items-center
-          px-2
-          overflow-hidden
-          ">
 
-            <FaCrown 
-            className="text-yellow-300 text-3xl mr-2"
-            />
+          <div className="flex h-[92px] items-center rounded-2xl bg-gradient-to-r from-[#1456a0] to-[#0c8cd6] px-4">
 
-            <div className="text-white">
+            <div className="mr-4 flex h-14 w-14 items-center justify-center rounded-xl bg-white/15">
+              <FaCrown className="text-3xl text-yellow-300" />
+            </div>
 
-              <h2 className="text-[10px] font-black">
+            <div>
+
+              <p className="text-[11px] font-semibold tracking-wide text-cyan-100">
                 VIP MONTHLY SALARY
-              </h2>
-
-              <p className="text-[9px]">
-                UP TO
               </p>
 
-              <h1 className="text-lg font-black text-yellow-300">
-                5,000,000
-              </h1>
+              <p className="mt-1 text-[10px] text-cyan-200">
+                Up To
+              </p>
+
+              <h2 className="text-[24px] font-black text-white">
+                Rs 5,000,000
+              </h2>
 
             </div>
 
           </div>
-
-
-
 
           {/* LUCKY */}
 
-          <div className="
-          h-20
-          rounded-xl
-          bg-gradient-to-r from-indigo-700 to-blue-500
-        border border-cyan-300
-          
-          flex items-center
-          px-2
-          ">
+          <div className="flex h-[92px] items-center rounded-2xl bg-gradient-to-r from-[#2547b5] to-[#1283d8] px-4">
 
+            <div className="mr-4 flex h-14 w-14 items-center justify-center rounded-xl bg-white/15">
+              <FaCoins className="text-3xl text-yellow-300" />
+            </div>
 
-            <FaCoins
-            className="text-yellow-300 text-3xl mr-2"
-            />
+            <div>
 
-
-            <div className="text-white">
-
-              <h2 className="text-[10px] font-black">
+              <p className="text-[11px] font-semibold tracking-wide text-cyan-100">
                 LUCKY ROULETTE
-              </h2>
-
-              <p className="text-[9px]">
-                GET
               </p>
 
-              <h1 className="text-lg font-black text-yellow-300">
-                1500
-              </h1>
+              <p className="mt-1 text-[10px] text-cyan-200">
+                Win Up To
+              </p>
+
+              <h2 className="text-[24px] font-black text-white">
+                Rs 1,500
+              </h2>
 
             </div>
 
-
           </div>
-
 
         </div>
 
+        {/* RIGHT */}
+{/* INVITE REWARD */}
 
+<div
+  className="
+  relative
+  h-[197px]
+  rounded-2xl
+  bg-gradient-to-b
+  from-[#1d5eb5]
+  via-[#1379ca]
+  to-[#0ba3dd]
+  overflow-hidden
+  flex
+  flex-col
+  items-center
+  justify-between
+  py-5
+  px-3
+  "
+>
 
+  {/* Background Circles */}
 
+  <div className="absolute -top-6 -right-6 h-24 w-24 rounded-full bg-white/10"></div>
 
+  <div className="absolute -bottom-8 -left-8 h-24 w-24 rounded-full bg-white/10"></div>
 
-        {/* RIGHT CARD */}
+  {/* Icon */}
 
-        <div className="
-        col-span-1
-        h-[164px]
-        rounded-xl
-        bg-gradient-to-b from-blue-900 via-blue-600 to-cyan-400
-        border border-cyan-300
-        
-        flex items-center
-        justify-center
-        text-center
-        p-2
-        relative
-        overflow-hidden
-        ">
+  <div className="relative flex h-16 w-16 items-center justify-center rounded-full bg-white/20">
 
+    <FaUserFriends className="text-[30px] text-yellow-300" />
 
-          <FaGift
-          className="
-          absolute
-          text-white/10
-          text-8xl
-          "
-          />
+  </div>
 
+  {/* Text */}
 
-          <div className="relative">
+  <div className="relative text-center">
 
-            <FaUserFriends
-            className="
-            text-yellow-300 
-            text-3xl 
-            mx-auto mb-2
-            "
-            />
+    <p className="text-xs font-semibold tracking-wider text-cyan-100">
+      INVITE
+    </p>
 
+    <h3 className="text-lg font-extrabold text-white">
+      Reward
+    </h3>
 
-            <h1 className="
-            text-white
-            text-xs
-            font-black
-            ">
-              INVITE
-            </h1>
+    <p className="mt-2 text-[24px] font-black text-yellow-300">
+      Rs 3000
+    </p>
 
+  </div>
 
-            <h2 className="
-            text-white
-            text-xs
-            font-bold
-            ">
-              REWARD
-            </h2>
+  {/* Button */}
 
+  <button
+    className="
+    relative
+    w-full
+    rounded-full
+    bg-white
+    py-2
+    text-sm
+    font-bold
+    text-[#1565C0]
+    active:scale-95
+    "
+  >
+    Invite Now
+  </button>
 
-            <h3 className="
-            text-yellow-300
-            text-xl
-            font-black
-            ">
-              RS 3000
-            </h3>
-
-
-          </div>
-
-
-        </div>
-
+</div>
 
       </div>
 

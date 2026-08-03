@@ -4,272 +4,389 @@ const Header = ({
   setOpenMenu,
   setLoginOpen,
   setSignupOpen,
+  user,
+  balance,
 }) => {
-  return (
-    <header
-      className="
-      w-full
-      bg-gradient-to-b
-      from-[#061b3a]
-      via-[#071426]
-      to-[#020617]
-      border-b
-      border-cyan-700/50
-      sticky
-      top-0
-      z-40
-      "
-    >
-
-      <div
-        className="
-        max-w-[430px]
-        mx-auto
-        flex
-        items-center
-        justify-between
-        px-3
-        py-3
-        "
-      >
-
-        {/* Left Side */}
-        <div className="flex items-center gap-2">
-
-
-          {/* Menu Button */}
-          <div className="relative">
-
-            <button
-              onClick={() => setOpenMenu(true)}
-              className="
-              w-10
-              h-10
-              rounded-full
-
-              bg-[#020617]
-
-              border-2
-              border-cyan-500
-
-              flex
-              items-center
-              justify-center
-
-              shadow-[0_0_15px_rgba(0,200,255,.4)]
-
-              hover:scale-105
-              duration-300
-              "
-            >
-
-              <div className="space-y-1">
-
-                <span
-                  className="
-                  block
-                  w-5
-                  h-[3px]
-                  bg-cyan-300
-                  rounded
-                  "
-                />
-
-                <span
-                  className="
-                  block
-                  w-4
-                  h-[3px]
-                  bg-cyan-300
-                  rounded
-                  "
-                />
 
-                <span
-                  className="
-                  block
-                  w-5
-                  h-[3px]
-                  bg-cyan-300
-                  rounded
-                  "
-                />
 
-              </div>
+return (
 
-            </button>
+<header
 
+className="
+w-full
+bg-gradient-to-b
+from-[#061b3a]
+via-[#071426]
+to-[#020617]
+border-b
+border-cyan-700/50
+sticky
+top-0
+z-40
+"
 
-            {/* Notification */}
-            <span
-              className="
-              absolute
-              -top-1
-              -right-1
+>
 
-              w-5
-              h-5
 
-              rounded-full
+<div
 
-              bg-red-600
+className="
+max-w-[540px]
+w-full
+mx-auto
+flex
+items-center
+justify-between
+px-4
+py-3
+"
 
-              text-white
+>
 
-              text-[10px]
 
-              font-bold
 
-              flex
-              items-center
-              justify-center
+{/* LEFT SIDE */}
 
-              border
-              border-white
-              "
-            >
-              1
-            </span>
+<div className="flex items-center gap-3">
 
 
-          </div>
 
+{/* MENU BUTTON */}
 
+<button
 
-          {/* Logo */}
-          <div>
+onClick={()=>setOpenMenu(true)}
 
-            <h1 className="leading-none font-black">
+className="
+w-11
+h-11
+rounded-full
+bg-[#020617]
+border-2
+border-cyan-500
+flex
+items-center
+justify-center
+"
 
-              <span
-                className="
-                text-cyan-400
-                text-2xl
-                "
-              >
-                33RS
-              </span>
+>
 
 
-              <span
-                className="
-                text-white
-                text-base
-                "
-              >
-                .com
-              </span>
+<div className="space-y-1">
 
 
-            </h1>
+<span
+className="
+block
+w-6
+h-[3px]
+bg-cyan-300
+rounded
+"
+/>
 
 
-            <p
-              className="
-              text-[8px]
+<span
+className="
+block
+w-4
+h-[3px]
+bg-cyan-300
+rounded
+"
+/>
 
-              text-cyan-200
 
-              tracking-[3px]
+<span
+className="
+block
+w-6
+h-[3px]
+bg-cyan-300
+rounded
+"
+/>
 
-              uppercase
-              "
-            >
-              Gaming Platform
-            </p>
 
+</div>
 
-          </div>
 
+</button>
 
-        </div>
 
 
 
 
 
-        {/* Right Side Buttons */}
-        <div className="flex items-center gap-1.5">
+{/* LOGO */}
 
+<div>
 
 
-          {/* Login */}
-          <button
-            onClick={() => setLoginOpen(true)}
-            className="
-            px-3
-            py-2
+<h1 className="leading-none font-black">
 
-            rounded-full
 
-            bg-gradient-to-r
+<span
+className="
+text-cyan-400
+text-3xl
+"
+>
 
-            from-cyan-400
-            via-blue-500
-            to-blue-700
+66RS
 
-            border
-            border-cyan-300
+</span>
 
-            text-white
 
-            font-bold
 
-            text-xs
+<span
+className="
+text-white
+text-lg
+"
+>
 
-            shadow-[0_0_15px_rgba(0,200,255,.4)]
+.com
 
-            hover:scale-105
+</span>
 
-            duration-300
-            "
-          >
-            Log In
-          </button>
 
+</h1>
 
 
 
+<p
 
-          {/* Signup */}
-          <button
-            onClick={() => setSignupOpen(true)}
-            className="
-            px-3
-            py-2
+className="
+text-[9px]
+text-cyan-200
+tracking-[3px]
+uppercase
+"
 
-            rounded-full
+>
 
-            border
-            border-cyan-500
+Gaming Platform
 
-            bg-[#020617]
+</p>
 
-            text-cyan-300
 
-            font-bold
 
-            text-xs
+</div>
 
-            hover:bg-cyan-700
 
-            hover:text-white
 
-            duration-300
-            "
-          >
-            Sign Up
-          </button>
+</div>
 
 
-        </div>
 
 
-      </div>
 
 
-    </header>
-  );
+
+
+{/* RIGHT SIDE */}
+
+<div className="flex items-center gap-2">
+
+
+
+{
+
+user ?
+
+
+(
+
+
+
+<div
+
+className="
+flex
+items-center
+rounded-full
+border
+border-cyan-400
+bg-[#07294b]
+px-2
+py-1
+"
+
+>
+
+
+{/* WALLET ICON */}
+
+<div
+
+className="
+flex
+h-10
+w-10
+items-center
+justify-center
+rounded-full
+bg-green-600
+text-xl
+"
+
+>
+
+💰
+
+</div>
+
+
+
+
+
+<span
+
+className="
+mx-2
+text-sm
+font-bold
+text-cyan-300
+"
+
+>
+
+Rs {balance}.00
+
+</span>
+
+
+
+
+
+
+<button
+
+className="
+h-9
+w-9
+rounded-full
+bg-gradient-to-r
+from-cyan-400
+to-blue-600
+text-white
+text-xl
+font-bold
+"
+
+>
+
++
+
+</button>
+
+
+
+</div>
+
+
+
+)
+
+
+
+
+
+:
+
+
+
+
+(
+
+
+
+<>
+
+
+
+<button
+
+onClick={()=>setLoginOpen(true)}
+
+className="
+px-4
+py-2.5
+rounded-full
+bg-gradient-to-r
+from-cyan-400
+via-blue-500
+to-blue-700
+border
+border-cyan-300
+text-white
+font-bold
+text-sm
+"
+
+>
+
+Log In
+
+</button>
+
+
+
+
+
+
+<button
+
+onClick={()=>setSignupOpen(true)}
+
+className="
+px-4
+py-2.5
+rounded-full
+border
+border-cyan-500
+bg-[#020617]
+text-cyan-300
+font-bold
+text-sm
+"
+
+>
+
+Sign Up
+
+</button>
+
+
+
+</>
+
+
+
+)
+
+
+}
+
+
+
+
+
+</div>
+
+
+
+</div>
+
+
+</header>
+
+
+)
+
 };
+
 
 export default Header;

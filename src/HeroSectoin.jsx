@@ -10,6 +10,7 @@ export default function HeroSectoin() {
   const banners = [img1, img2, img3];
 
   const [current, setCurrent] = useState(0);
+  const [menuOpen,setMenuOpen]=useState(false);
 
 
   useEffect(() => {
@@ -33,7 +34,7 @@ export default function HeroSectoin() {
       className="
       w-full
       bg-[#020617]
-      py-3
+      py-6
       "
     >
 

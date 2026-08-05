@@ -81,7 +81,7 @@ export default function SideWidget() {
       "
 
       style={{
-        bottom:"390px"
+        bottom:"350px"
       }}
 
     >

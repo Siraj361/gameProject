@@ -1,10 +1,11 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import {
   Routes,
   Route,
   useLocation,
   useNavigate,
+  Navigate,
 } from "react-router-dom";
 
 
@@ -17,7 +18,7 @@ import LoginModal from "./LoginModal";
 import SignupModal from "./SignupModal";
 
 
-import HeroSectoin from "./HeroSectoin";
+import HeroSection from "./HeroSectoin";
 import PromoCards from "./PromoCards";
 import Announcement from "./Announcement";
 
@@ -27,7 +28,6 @@ import GameGrid from "./HotGames";
 
 
 import AllGames from "./AllGames";
-
 
 import JiliGames from "./JiliGames";
 import PgGames from "./PgGames";
@@ -43,10 +43,76 @@ import SecFooter from "./SecFooter";
 
 import Profile from "./Profile";
 import InviteBonus from "./InviteBonus";
+import VipPage from "./VipPage";
 
 
 import Toast from "./Toast";
 import SideWidget from "./SideWidget";
+
+
+
+
+
+// 🔒 Protected Route Fix
+
+function ProtectedRoute({
+
+  children,
+
+  user,
+
+  setSignupOpen
+
+}) {
+
+
+  useEffect(()=>{
+
+
+    if(!user){
+
+
+      setSignupOpen(true);
+
+
+    }
+
+
+  },[user,setSignupOpen]);
+
+
+
+
+  if(!user){
+
+
+    return (
+
+      <Navigate
+
+        to="/"
+
+        replace
+
+      />
+
+    );
+
+
+  }
+
+
+
+  return children;
+
+
+}
+
+
+
+
+
+
 
 
 
@@ -65,7 +131,9 @@ function Home({
   setAnnouncementOpen,
 
   navigate,
+
   setToast,
+
 
 }) {
 
@@ -76,23 +144,41 @@ function Home({
 
 
   return (
+
     <>
 
 
       <Header
+
+
         setOpenMenu={setOpenMenu}
+
+
         setLoginOpen={setLoginOpen}
+
+
         setSignupOpen={setSignupOpen}
+
+
         user={user}
+
+
         balance={
           localStorage.getItem("balance") || 0
         }
+
+
       />
 
 
 
+
+
+
       <main
+
         id="home-scroll"
+
         className="
           absolute
           top-[70px]
@@ -102,23 +188,45 @@ function Home({
           overflow-y-auto
           hide-scrollbar
         "
+
       >
 
 
-        <HeroSectoin />
+        <HeroSection />
 
 
         <PromoCards />
 
 
-        {/* Category Click */}
         <GameCategory />
 
 
-        {/* Hot Games */}
         <GameGrid
+
           setSignupOpen={setSignupOpen}
+
         />
+
+
+        <JiliGames />
+
+
+        <PgGames />
+
+
+        <TwoJGames />
+
+
+        <SportSection />
+
+
+        <JDBGames />
+
+
+        <PpGames />
+
+
+        <TpGames />
 
 
         <SecFooter />
@@ -129,12 +237,23 @@ function Home({
 
 
 
+
       <Announcement
+
+
         open={announcementOpen}
+
+
         setOpenAnnouncement={
+
           setAnnouncementOpen
+
         }
+
+
       />
+
+
 
 
 
@@ -142,86 +261,204 @@ function Home({
 
 
 
+
+
+
       <LoginModal
+
 
         loginOpen={loginOpen}
 
+
         setLoginOpen={setLoginOpen}
+
 
         setSignupOpen={setSignupOpen}
 
+
         navigate={navigate}
 
+
         setToast={setToast}
+
 
       />
 
 
 
+
+
       <SignupModal
+
 
         signupOpen={signupOpen}
 
+
         setSignupOpen={setSignupOpen}
+
 
         setLoginOpen={setLoginOpen}
 
+
         setToast={setToast}
+
 
       />
 
 
 
     </>
+
   );
 
+
 }
-export default function App() {
+export default function App(){
+
 
 
   const location = useLocation();
+
 
   const navigate = useNavigate();
 
 
 
-  const [openMenu, setOpenMenu] = useState(false);
 
 
-  const [loginOpen, setLoginOpen] = useState(false);
+  const [openMenu,setOpenMenu] =
 
-
-  const [signupOpen, setSignupOpen] = useState(false);
-
-
-  const [announcementOpen, setAnnouncementOpen] =
     useState(false);
 
 
-  const [toast, setToast] = useState(null);
+
+
+
+  const [loginOpen,setLoginOpen] =
+
+    useState(false);
 
 
 
 
 
-  const handleProfile = () => {
+  const [signupOpen,setSignupOpen] =
+
+    useState(false);
 
 
-    const user = localStorage.getItem("user");
 
 
-    if (!user) {
+
+  const [announcementOpen,setAnnouncementOpen] =
+
+    useState(false);
+
+
+
+
+
+  const [toast,setToast] =
+
+    useState(null);
+
+
+
+
+
+  const [user,setUser] =
+
+    useState(
+
+      JSON.parse(
+
+        localStorage.getItem("user")
+
+      ) || null
+
+    );
+
+
+
+
+
+
+  useEffect(()=>{
+
+
+    const updateUser = ()=>{
+
+
+      setUser(
+
+        JSON.parse(
+
+          localStorage.getItem("user")
+
+        ) || null
+
+      );
+
+
+    };
+
+
+
+    window.addEventListener(
+
+      "storage",
+
+      updateUser
+
+    );
+
+
+
+    return ()=>{
+
+
+      window.removeEventListener(
+
+        "storage",
+
+        updateUser
+
+      );
+
+
+    };
+
+
+  },[]);
+
+
+
+
+
+
+
+  const handleProfile = ()=>{
+
+
+    if(!user){
+
 
       setSignupOpen(true);
 
+
       return;
+
 
     }
 
 
+
     navigate("/profile");
 
+
   };
+
+
 
 
 
@@ -233,6 +470,7 @@ export default function App() {
 
 
       <div
+
         className="
           h-screen
           w-full
@@ -241,13 +479,12 @@ export default function App() {
           bg-[#020617]
           overflow-hidden
         "
+
       >
 
 
-
-        {/* 540 Width Wrapper */}
-
         <div
+
           className="
             relative
             w-full
@@ -258,23 +495,39 @@ export default function App() {
             border-x
             border-cyan-900/40
           "
+
         >
 
 
 
-          {/* Toast */}
+
+
 
           {toast && (
 
+
             <Toast
 
-              message={toast.message || toast}
 
-              type={toast.type || "success"}
+              message={
 
-              close={() => setToast(null)}
+                toast.message || toast
+
+              }
+
+
+              type={
+
+                toast.type || "success"
+
+              }
+
+
+              close={()=>setToast(null)}
+
 
             />
+
 
           )}
 
@@ -283,19 +536,31 @@ export default function App() {
 
 
 
-          {/* Sidebar */}
 
           <Sidebar
 
+
             open={openMenu}
+
 
             setOpen={setOpenMenu}
 
+
             setLoginOpen={setLoginOpen}
+
 
             setSignupOpen={setSignupOpen}
 
+
+            user={user}
+
+
+            setUser={setUser}
+
+
           />
+
+
 
 
 
@@ -305,45 +570,80 @@ export default function App() {
           <Routes>
 
 
+
+
+
             {/* HOME */}
+
 
             <Route
 
+
               path="/"
+
 
               element={
 
+
                 <Home
 
+
                   openMenu={openMenu}
+
 
                   setOpenMenu={setOpenMenu}
 
 
+
+
                   loginOpen={loginOpen}
+
 
                   setLoginOpen={setLoginOpen}
 
 
+
+
                   signupOpen={signupOpen}
+
 
                   setSignupOpen={setSignupOpen}
 
 
-                  announcementOpen={announcementOpen}
+
+
+                  announcementOpen={
+
+                    announcementOpen
+
+                  }
+
+
+
 
                   setAnnouncementOpen={
+
                     setAnnouncementOpen
+
                   }
+
+
 
 
                   navigate={navigate}
 
+
+
+
                   setToast={setToast}
+
+
 
                 />
 
+
               }
+
 
             />
 
@@ -352,13 +652,40 @@ export default function App() {
 
 
 
-            {/* ALL GAMES PAGE */}
+
+
+            {/* ALL GAMES */}
+
 
             <Route
+
 
               path="/games"
 
-              element={<AllGames />}
+
+              element={
+
+
+                <ProtectedRoute
+
+
+                  user={user}
+
+
+                  setSignupOpen={setSignupOpen}
+
+
+                >
+
+
+                  <AllGames />
+
+
+                </ProtectedRoute>
+
+
+              }
+
 
             />
 
@@ -368,82 +695,388 @@ export default function App() {
 
 
 
-            {/* GAME PROVIDERS */}
+
+            {/* HOT */}
 
 
             <Route
+
 
               path="/games/hot"
 
-              element={<GameGrid />}
+
+              element={
+
+
+                <ProtectedRoute
+
+
+                  user={user}
+
+
+                  setSignupOpen={setSignupOpen}
+
+
+                >
+
+
+                  <GameGrid />
+
+
+                </ProtectedRoute>
+
+
+              }
+
 
             />
 
 
+
+
+
+
+
+
+            {/* JILI */}
+
+
             <Route
+
 
               path="/games/jili"
 
-              element={<JiliGames />}
+
+              element={
+
+
+                <ProtectedRoute
+
+
+                  user={user}
+
+
+                  setSignupOpen={setSignupOpen}
+
+
+                >
+
+
+                  <JiliGames />
+
+
+                </ProtectedRoute>
+
+
+              }
+
 
             />
 
 
+
+
+
+
+
+
+            {/* PG */}
+
+
             <Route
+
 
               path="/games/pg"
 
-              element={<PgGames />}
+
+              element={
+
+
+                <ProtectedRoute
+
+
+                  user={user}
+
+
+                  setSignupOpen={setSignupOpen}
+
+
+                >
+
+
+                  <PgGames />
+
+
+                </ProtectedRoute>
+
+
+              }
+
 
             />
 
 
 
+
+
+
+
+
+            {/* 2J */}
+
+
             <Route
+
 
               path="/games/2j"
 
-              element={<TwoJGames />}
+
+              element={
+
+
+                <ProtectedRoute
+
+
+                  user={user}
+
+
+                  setSignupOpen={setSignupOpen}
+
+
+                >
+
+
+                  <TwoJGames />
+
+
+                </ProtectedRoute>
+
+
+              }
+
 
             />
 
 
 
+
+
+
+
+
+            {/* SPORT */}
+
+
             <Route
+
 
               path="/games/sport"
 
-              element={<SportSection />}
+
+              element={
+
+
+                <ProtectedRoute
+
+
+                  user={user}
+
+
+                  setSignupOpen={setSignupOpen}
+
+
+                >
+
+
+                  <SportSection />
+
+
+                </ProtectedRoute>
+
+
+              }
+
 
             />
-
+            
+            {/* JDB */}
 
 
             <Route
+
 
               path="/games/jdb"
 
-              element={<JDBGames />}
+
+              element={
+
+
+                <ProtectedRoute
+
+
+                  user={user}
+
+
+                  setSignupOpen={setSignupOpen}
+
+
+                >
+
+
+                  <JDBGames />
+
+
+                </ProtectedRoute>
+
+
+              }
+
 
             />
 
 
 
+
+
+
+
+
+            {/* PP */}
+
+
             <Route
+
 
               path="/games/pp"
 
-              element={<PpGames />}
+
+              element={
+
+
+                <ProtectedRoute
+
+
+                  user={user}
+
+
+                  setSignupOpen={setSignupOpen}
+
+
+                >
+
+
+                  <PpGames />
+
+
+                </ProtectedRoute>
+
+
+              }
+
 
             />
 
 
 
+
+
+
+
+
+                {/* TP */}
+
+
             <Route
+
 
               path="/games/tp"
 
-              element={<TpGames />}
+
+              element={
+
+
+                <ProtectedRoute
+
+
+                  user={user}
+
+
+                  setSignupOpen={setSignupOpen}
+
+
+                >
+
+
+                  <TpGames />
+
+
+                </ProtectedRoute>
+
+
+              }
+
+
+            />
+
+
+
+
+
+
+
+
+            {/* VIP */}
+
+
+            <Route
+
+
+              path="/vip"
+
+
+              element={
+
+
+                <ProtectedRoute
+
+
+                  user={user}
+
+
+                  setSignupOpen={setSignupOpen}
+
+
+                >
+
+
+                  <div
+
+
+                    className="
+                      absolute
+                      top-0
+                      left-0
+                      right-0
+                      bottom-[78px]
+                      overflow-y-auto
+                      hide-scrollbar
+                    "
+
+
+                  >
+
+
+                    <VipPage />
+
+
+                  </div>
+
+
+                </ProtectedRoute>
+
+
+              }
+
 
             />
 
@@ -459,31 +1092,56 @@ export default function App() {
 
             <Route
 
+
               path="/profile"
+
 
               element={
 
-                <div
 
-                  className="
-                    absolute
-                    top-0
-                    left-0
-                    right-0
-                    bottom-[78px]
-                    overflow-y-auto
-                    hide-scrollbar
-                  "
+                <ProtectedRoute
+
+
+                  user={user}
+
+
+                  setSignupOpen={setSignupOpen}
+
 
                 >
 
-                  <Profile />
 
-                </div>
+                  <div
+
+
+                    className="
+                      absolute
+                      top-0
+                      left-0
+                      right-0
+                      bottom-[78px]
+                      overflow-y-auto
+                      hide-scrollbar
+                    "
+
+
+                  >
+
+
+                    <Profile />
+
+
+                  </div>
+
+
+                </ProtectedRoute>
+
 
               }
 
+
             />
+
 
 
 
@@ -496,31 +1154,58 @@ export default function App() {
 
             <Route
 
+
               path="/invite-bonus"
+
 
               element={
 
-                <div
 
-                  className="
-                    absolute
-                    top-0
-                    left-0
-                    right-0
-                    bottom-[78px]
-                    overflow-y-auto
-                    hide-scrollbar
-                  "
+                <ProtectedRoute
+
+
+                  user={user}
+
+
+                  setSignupOpen={setSignupOpen}
+
 
                 >
 
-                  <InviteBonus />
 
-                </div>
+                  <div
+
+
+                    className="
+                      absolute
+                      top-0
+                      left-0
+                      right-0
+                      bottom-[78px]
+                      overflow-y-auto
+                      hide-scrollbar
+                    "
+
+
+                  >
+
+
+                    <InviteBonus />
+
+
+                  </div>
+
+
+                </ProtectedRoute>
+
 
               }
 
+
             />
+
+
+
 
 
 
@@ -531,71 +1216,106 @@ export default function App() {
 
 
 
+
+
+
           {/* Bottom Navbar */}
 
 
-          {(
-
-            location.pathname === "/" ||
-
-            location.pathname === "/profile" ||
-
-            location.pathname === "/invite-bonus"
-
-          )
-
-          &&
-
-          !announcementOpen && (
-
-            <div
-
-              className="
-                absolute
-                bottom-0
-                left-0
-                right-0
-                z-[999]
-              "
-
-            >
+          {
 
 
-              <BottomNavbar
+            (
 
-                handleProfile={handleProfile}
+              location.pathname === "/" ||
+
+              location.pathname === "/profile" ||
+
+              location.pathname === "/invite-bonus" ||
+
+              location.pathname === "/vip"
+
+            )
+
+            &&
+
+            !announcementOpen
+
+            &&
+
+            (
+
+
+              <div
+
+
+                className="
+                  absolute
+                  bottom-0
+                  left-0
+                  right-0
+                  z-[999]
+                "
+
+
+              >
+
+
+                <BottomNavbar
+
+
+                  handleProfile={handleProfile}
+
+
+                />
+
+
+              </div>
+
+
+            )
+
+
+          }
+
+
+
+
+
+
+
+
+
+          {/* Announcement Blur Overlay */}
+
+
+          {
+
+
+            announcementOpen && (
+
+
+              <div
+
+
+                className="
+                  absolute
+                  inset-0
+                  z-[995]
+                  bg-black/20
+                  backdrop-blur-[2px]
+                "
+
 
               />
 
 
-            </div>
+            )
 
 
-          )}
+          }
 
 
-
-
-
-
-
-          {/* Announcement Blur */}
-
-          {announcementOpen && (
-
-            <div
-
-              className="
-                absolute
-                inset-0
-                z-[995]
-                bg-black/20
-                backdrop-blur-[2px]
-              "
-
-            />
-
-          )}
 
 
 
@@ -607,6 +1327,8 @@ export default function App() {
 
     </div>
 
+
   );
+
 
 }

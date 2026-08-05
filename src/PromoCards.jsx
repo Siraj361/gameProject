@@ -1,151 +1,169 @@
-import React from "react";
-import {
-  FaCrown,
-  FaGift,
-  FaCoins,
-  FaUserFriends,
-} from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 
-export default function RewardCards() {
+import Promo1 from "./assets/Promo1.png";
+import Promo2 from "./assets/Promo2.gif";
+import Promo3 from "./assets/Promo3.gif";
+
+
+export default function PromoCards(){
+
+  const navigate = useNavigate();
+
+
   return (
-    <div className="w-full bg-[#020617] px-3 py-3">
 
-      <div className="mx-auto grid max-w-[540px] grid-cols-3 gap-3">
+    <div
+      className="
+        w-full
+        px-3
+        pt-2
+        pb-2
+      "
+    >
 
-        {/* LEFT */}
 
-        <div className="col-span-2 flex flex-col gap-3">
+      <div
+        className="
+          grid
+          grid-cols-2
+          gap-3
+          h-[163px]
+        "
+      >
+
+
+        {/* LEFT SIDE */}
+
+        <div
+          className="
+            flex
+            flex-col
+            gap-3
+          "
+        >
+
 
           {/* VIP */}
 
-          <div className="flex h-[92px] items-center rounded-2xl bg-gradient-to-r from-[#1456a0] to-[#0c8cd6] px-4">
+          <div
 
-            <div className="mr-4 flex h-14 w-14 items-center justify-center rounded-xl bg-white/15">
-              <FaCrown className="text-3xl text-yellow-300" />
-            </div>
+            onClick={()=>navigate("/vip")}
 
-            <div>
+            className="
+              h-[70px]
+              rounded-2xl
+              overflow-hidden
+              border
+              border-cyan-400/50
+              cursor-pointer
+              transition
+              hover:scale-[1.03]
+            "
 
-              <p className="text-[11px] font-semibold tracking-wide text-cyan-100">
-                VIP MONTHLY SALARY
-              </p>
+          >
 
-              <p className="mt-1 text-[10px] text-cyan-200">
-                Up To
-              </p>
+            <img
 
-              <h2 className="text-[24px] font-black text-white">
-                Rs 5,000,000
-              </h2>
+              src={Promo1}
 
-            </div>
+              alt="VIP"
+
+              className="
+                w-full
+                h-full
+                object-fill
+              "
+
+            />
 
           </div>
+
+
+
 
           {/* LUCKY */}
 
-          <div className="flex h-[92px] items-center rounded-2xl bg-gradient-to-r from-[#2547b5] to-[#1283d8] px-4">
+          <div
 
-            <div className="mr-4 flex h-14 w-14 items-center justify-center rounded-xl bg-white/15">
-              <FaCoins className="text-3xl text-yellow-300" />
-            </div>
+            className="
+              h-[70px]
+              rounded-2xl
+              overflow-hidden
+              border
+              border-cyan-400/50
+              cursor-pointer
+              transition
+              hover:scale-[1.03]
+            "
 
-            <div>
+          >
 
-              <p className="text-[11px] font-semibold tracking-wide text-cyan-100">
-                LUCKY ROULETTE
-              </p>
+            <img
 
-              <p className="mt-1 text-[10px] text-cyan-200">
-                Win Up To
-              </p>
+              src={Promo2}
 
-              <h2 className="text-[24px] font-black text-white">
-                Rs 1,500
-              </h2>
+              alt="Lucky"
 
-            </div>
+              className="
+                w-full
+                h-full
+                object-fill
+              "
+
+            />
 
           </div>
 
+
         </div>
 
-        {/* RIGHT */}
-{/* INVITE REWARD */}
 
-<div
-  className="
-  relative
-  h-[197px]
-  rounded-2xl
-  bg-gradient-to-b
-  from-[#1d5eb5]
-  via-[#1379ca]
-  to-[#0ba3dd]
-  overflow-hidden
-  flex
-  flex-col
-  items-center
-  justify-between
-  py-5
-  px-3
-  "
->
 
-  {/* Background Circles */}
 
-  <div className="absolute -top-6 -right-6 h-24 w-24 rounded-full bg-white/10"></div>
 
-  <div className="absolute -bottom-8 -left-8 h-24 w-24 rounded-full bg-white/10"></div>
+        {/* RIGHT BIG INVITE */}
 
-  {/* Icon */}
 
-  <div className="relative flex h-16 w-16 items-center justify-center rounded-full bg-white/20">
+        <div
 
-    <FaUserFriends className="text-[30px] text-yellow-300" />
+          onClick={()=>navigate("/invite-bonus")}
 
-  </div>
+          className="
+            h-[145px]
+            rounded-2xl
+            overflow-hidden
+            border
+            border-cyan-400/50
+            cursor-pointer
+            transition
+            hover:scale-[1.03]
+          "
 
-  {/* Text */}
+        >
 
-  <div className="relative text-center">
+          <img
 
-    <p className="text-xs font-semibold tracking-wider text-cyan-100">
-      INVITE
-    </p>
+            src={Promo3}
 
-    <h3 className="text-lg font-extrabold text-white">
-      Reward
-    </h3>
+            alt="Invite"
 
-    <p className="mt-2 text-[24px] font-black text-yellow-300">
-      Rs 3000
-    </p>
+            className="
+              w-full
+              h-full
+              object-fill
+            "
 
-  </div>
+          />
 
-  {/* Button */}
+        </div>
 
-  <button
-    className="
-    relative
-    w-full
-    rounded-full
-    bg-white
-    py-2
-    text-sm
-    font-bold
-    text-[#1565C0]
-    active:scale-95
-    "
-  >
-    Invite Now
-  </button>
 
-</div>
 
       </div>
 
+
     </div>
+
   );
+
 }

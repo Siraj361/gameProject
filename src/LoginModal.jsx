@@ -13,120 +13,114 @@ export default function LoginModal({
 }) {
 
 
+  const [phone,setPhone] = useState("");
 
-const [phone,setPhone] = useState("");
+  const [password,setPassword] = useState("");
 
-const [password,setPassword] = useState("");
+  const [showPassword,setShowPassword] = useState(false);
 
-const [showPassword,setShowPassword] = useState(false);
 
 
 
 
+  const handleLogin = ()=>{
 
 
+    const savedUser =
+      JSON.parse(
+        localStorage.getItem("signupUser")
+      );
 
-const handleLogin = ()=>{
 
 
-const savedUser =
-JSON.parse(
-localStorage.getItem("signupUser")
-);
 
 
+    if(!savedUser){
 
 
-if(!savedUser){
+      setToast({
 
-setToast({
+        message:"Please signup first",
 
-message:"Please signup first",
+        type:"error"
 
-type:"error"
+      });
 
-});
 
+      return;
 
-return;
 
-}
+    }
 
 
 
 
 
-if(
 
-savedUser.phone === phone &&
 
-savedUser.password === password
+    if(
 
-){
+      savedUser.phone === phone &&
 
+      savedUser.password === password
 
+    ){
 
-localStorage.setItem(
 
-"user",
 
-JSON.stringify(savedUser)
+      localStorage.setItem(
 
-);
+        "user",
 
+        JSON.stringify(savedUser)
 
+      );
 
 
-if(!localStorage.getItem("balance")){
 
-localStorage.setItem(
-"balance",
-"0"
-);
 
-}
 
+      if(!localStorage.getItem("balance")){
 
 
+        localStorage.setItem(
 
+          "balance",
 
-setToast({
+          "0"
 
-message:"Login Successful",
+        );
 
-type:"success"
 
-});
+      }
 
 
 
-setLoginOpen(false);
 
 
 
-navigate("/profile");
 
+      // Update sidebar instantly
 
+      window.dispatchEvent(
 
-}
+        new Event("storage")
 
-else{
+      );
 
 
-setToast({
 
-message:"Wrong phone or password",
 
-type:"error"
 
-});
 
 
-}
+      setToast({
 
+        message:"Login Successful",
 
+        type:"success"
 
-};
+      });
 
 
 
@@ -134,664 +128,555 @@ type:"error"
 
 
 
+      setLoginOpen(false);
 
 
-return (
 
-<div
 
-className={`
 
-fixed
+      navigate("/profile");
 
-top-0
 
-left-1/2
 
--translate-x-1/2
+    }
 
+    else{
 
-w-full
 
-max-w-[540px]
 
+      setToast({
 
-h-screen
+        message:"Wrong phone or password",
 
+        type:"error"
 
-z-[10000]
+      });
 
 
-${loginOpen
 
-?
+    }
 
-"pointer-events-auto"
 
-:
 
-"pointer-events-none"
+  };
 
-}
 
-`}
 
->
 
 
 
 
 
 
+  return (
 
-{/* OVERLAY */}
+    <div
 
-<div
+      className={`
 
+        fixed
 
-onClick={()=>setLoginOpen(false)}
+        top-0
 
+        left-1/2
 
-className={`
+        -translate-x-1/2
 
-absolute
+        w-full
 
-inset-0
+        max-w-[540px]
 
+        h-screen
 
-bg-black/80
+        z-[10000]
 
+        ${loginOpen
 
-backdrop-blur-sm
+          ?
 
+          "pointer-events-auto"
 
-transition
+          :
 
+          "pointer-events-none"
 
-${loginOpen
+        }
 
-?
+      `}
 
-"opacity-100 visible"
+    >
 
-:
 
-"opacity-0 invisible"
 
-}
 
-`}
 
-/>
 
 
+      {/* OVERLAY */}
 
+      <div
 
 
+        onClick={()=>setLoginOpen(false)}
 
 
+        className={`
 
+          absolute
 
-{/* LOGIN CARD */}
+          inset-0
 
-<div
+          bg-black/80
 
+          backdrop-blur-sm
 
-className={`
+          transition
 
-absolute
+          ${loginOpen
 
-left-1/2
+            ?
 
-top-1/2
+            "opacity-100 visible"
 
+            :
 
--translate-x-1/2
+            "opacity-0 invisible"
 
--translate-y-1/2
+          }
 
+        `}
 
+      />
 
-w-[92%]
 
-max-w-[400px]
 
 
 
-bg-gradient-to-b
 
-from-[#061b3a]
 
-to-[#020617]
 
 
+      {/* CARD */}
 
-rounded-3xl
+      <div
 
 
+        className={`
 
-border
+          absolute
 
-border-cyan-400/60
+          left-1/2
 
+          top-1/2
 
+          -translate-x-1/2
 
-p-5
+          -translate-y-1/2
 
+          w-[92%]
 
+          max-w-[400px]
 
-text-white
+          bg-gradient-to-b
 
+          from-[#061b3a]
 
+          to-[#020617]
 
-transition-all
+          rounded-3xl
 
-duration-300
+          border
 
+          border-cyan-400/60
 
+          p-5
 
-${loginOpen
+          text-white
 
-?
+          transition-all
 
-"scale-100 opacity-100"
+          duration-300
 
-:
+          ${loginOpen
 
-"scale-90 opacity-0"
+            ?
 
-}
+            "scale-100 opacity-100"
 
-`}
+            :
 
->
+            "scale-90 opacity-0"
 
+          }
 
+        `}
 
+      >
 
 
 
 
 
-{/* CLOSE */}
 
-<button
+        {/* CLOSE */}
 
+        <button
 
-onClick={()=>setLoginOpen(false)}
 
+          onClick={()=>setLoginOpen(false)}
 
-className="
 
-absolute
+          className="
 
-right-4
+            absolute
 
-top-4
+            right-4
 
-text-white
+            top-4
 
-"
+            text-white
 
+          "
 
->
+        >
 
+          <X size={28}/>
 
-<X size={28}/>
 
+        </button>
 
-</button>
 
 
 
 
 
 
+        <h1
 
+          className="
 
+            text-center
 
-<h1
+            text-3xl
 
+            font-bold
 
-className="
+            mb-6
 
-text-center
+          "
 
-text-white
+        >
 
-text-3xl
+          Login
 
-font-bold
+        </h1>
 
-mb-6
 
-"
 
->
 
 
-Login
 
 
-</h1>
 
 
+        <input
 
 
+          placeholder="Phone Number"
 
 
+          value={phone}
 
 
+          onChange={(e)=>setPhone(e.target.value)}
 
-{/* PHONE */}
 
-<input
 
+          className="
 
+            w-full
 
-placeholder="Phone Number"
+            mb-3
 
+            p-4
 
+            rounded-xl
 
-value={phone}
+            bg-black/70
 
+            border
 
+            border-cyan-600
 
-onChange={(e)=>setPhone(e.target.value)}
+            text-white
 
+            outline-none
 
+          "
 
+        />
 
-className="
 
 
-w-full
 
 
-mb-3
 
 
-p-4
 
 
+        <div
 
-rounded-xl
+          className="
 
+            flex
 
+            items-center
 
-bg-black/70
+            bg-black/70
 
+            border
 
+            border-cyan-600
 
-border
+            rounded-xl
 
+          "
 
+        >
 
-border-cyan-600
 
+          <Lock
 
+            className="
 
-text-white
+              text-cyan-400
 
+              ml-3
 
+            "
 
-outline-none
+          />
 
 
-"
 
- />
 
+          <input
 
 
+            type={
 
+              showPassword
 
+              ?
 
+              "text"
 
+              :
 
+              "password"
 
-{/* PASSWORD */}
+            }
 
-<div
 
 
-className="
+            placeholder="Password"
 
 
-flex
 
+            value={password}
 
-items-center
 
 
+            onChange={(e)=>setPassword(e.target.value)}
 
-bg-black/70
 
 
+            className="
 
-border
+              flex-1
 
+              p-4
 
+              bg-transparent
 
-border-cyan-600
+              outline-none
 
+              text-white
 
+            "
 
-rounded-xl
+          />
 
 
-"
 
 
->
 
 
-<Lock
 
+          <button
 
-className="
 
-text-cyan-400
+            type="button"
 
-ml-3
 
-"
 
+            onClick={()=>setShowPassword(!showPassword)}
 
-/>
 
 
+            className="
 
+              mr-3
 
+              text-cyan-400
 
+            "
 
+          >
 
-<input
 
+            {
 
-type={
-showPassword
-?
-"text"
-:
-"password"
-}
+              showPassword
 
+              ?
 
+              <EyeOff size={22}/>
 
+              :
 
-placeholder="Password"
+              <Eye size={22}/>
 
+            }
 
 
-value={password}
+          </button>
 
 
 
-onChange={(e)=>setPassword(e.target.value)}
+        </div>
 
 
 
 
 
-className="
 
 
-flex-1
 
 
-p-4
+        <button
 
 
-bg-transparent
+          onClick={handleLogin}
 
 
-outline-none
 
+          className="
 
-text-white
+            w-full
 
+            mt-6
 
-"
+            py-4
 
- />
+            rounded-xl
 
+            bg-gradient-to-r
 
+            from-cyan-400
 
+            to-blue-700
 
+            text-white
 
+            font-bold
 
+            text-lg
 
+          "
 
+        >
 
-<button
+          Login
 
+        </button>
 
-type="button"
 
 
 
-onClick={()=>setShowPassword(!showPassword)}
 
 
 
-className="
 
-mr-3
+        <p
 
-text-cyan-400
+          className="
 
-"
+            text-gray-400
 
+            text-center
 
->
+            mt-5
 
+          "
 
-{
+        >
 
-showPassword
+          Don't have an account?
 
-?
+        </p>
 
-<EyeOff size={22}/>
 
-:
 
-<Eye size={22}/>
 
-}
 
 
-</button>
 
 
+        <button
 
 
+          onClick={()=>{
 
 
+            setLoginOpen(false);
 
-</div>
+            setSignupOpen(true);
 
 
+          }}
 
 
+          className="
 
+            w-full
 
+            text-cyan-400
 
+            font-bold
 
+            mt-2
 
-{/* LOGIN BUTTON */}
+          "
 
+        >
 
-<button
+          Create Account
 
+        </button>
 
-onClick={handleLogin}
 
 
 
-className="
 
+      </div>
 
-w-full
 
 
 
-mt-6
 
+    </div>
 
-
-py-4
-
-
-
-rounded-xl
-
-
-
-bg-gradient-to-r
-
-
-
-from-cyan-400
-
-
-
-to-blue-700
-
-
-
-
-
-text-white
-
-
-
-font-bold
-
-
-
-text-lg
-
-
-
-"
-
->
-
-
-Login
-
-
-</button>
-
-
-
-
-
-
-
-
-
-<p
-
-
-className="
-
-
-text-gray-400
-
-
-text-center
-
-
-mt-5
-
-
-"
-
-
->
-
-
-Don't have an account?
-
-
-</p>
-
-
-
-
-
-
-
-
-<button
-
-
-
-onClick={()=>{
-
-
-setLoginOpen(false);
-
-setSignupOpen(true);
-
-
-}}
-
-
-
-
-className="
-
-
-w-full
-
-
-
-text-cyan-400
-
-
-
-font-bold
-
-
-
-mt-2
-
-
-
-"
-
-
->
-
-
-Create Account
-
-
-</button>
-
-
-
-
-
-
-
-
-
-</div>
-
-
-
-
-
-
-
-</div>
-
-);
-
+  );
 
 }

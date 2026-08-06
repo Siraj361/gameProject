@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import {
   FaUserCircle,
   FaWallet,
@@ -10,9 +11,12 @@ import {
   FaGift,
   FaSignOutAlt,
   FaChevronRight,
+  FaChartBar,
 } from "react-icons/fa";
 
+
 export default function Profile() {
+  const navigate = useNavigate();
   const user =
     JSON.parse(localStorage.getItem("user")) || {
       name: "Guest User",
@@ -151,128 +155,121 @@ export default function Profile() {
 
       {/* ========= PART 2 YAHAN SE START HOGA ========= */}
             {/* MENU */}
+{/* MENU */}
 
-      <div className="mt-6 px-4">
+<div className="mt-6 px-4">
 
-        <div className="overflow-hidden rounded-3xl border border-cyan-500/30 bg-[#061426]">
+  <div className="overflow-hidden rounded-3xl border border-cyan-500/30 bg-[#061426]">
 
-          <Menu
-            icon={<FaHeadset />}
-            title="Customer Service"
-          />
+    <Menu
+  icon={<FaHeadset />}
+  title="Customer Service"
+  onClick={() => navigate("/customer-service")}
+/>
 
-          <Menu
-            icon={<FaBell />}
-            title="Notifications"
-            badge="3"
-          />
+<Menu
+  icon={<FaBell />}
+  title="Notifications"
+  badge="3"
+  onClick={() => navigate("/notifications")}
+/>
 
-          <Menu
-            icon={<FaGift />}
-            title="Daily Rewards"
-          />
 
-          <Menu
-            icon={<FaLock />}
-            title="Security Center"
-          />
 
-          {/* Language */}
+<Menu
+  icon={<FaChartBar />}
+  title="Statistics"
+  onClick={() => navigate("/statistics")}
+/>
 
-          <div
-            onClick={() => setShowLanguage(!showLanguage)}
-            className="flex cursor-pointer items-center justify-between border-b border-cyan-900 px-5 py-5 text-white"
-          >
-            <div className="flex items-center gap-4">
+<Menu
+  icon={<FaLock />}
+  title="Edit Password"
+  onClick={() => navigate("/edit-password")}
+/>
+    {/* Language */}
 
-              <FaGlobe className="text-xl text-cyan-400" />
+    <div
+      onClick={() => setShowLanguage(!showLanguage)}
+      className="flex cursor-pointer items-center justify-between border-b border-cyan-900 px-5 py-5 text-white hover:bg-cyan-500/10 transition"
+    >
+      <div className="flex items-center gap-4">
 
-              <span className="font-semibold">
-                Language
-              </span>
+        <FaGlobe className="text-xl text-cyan-400" />
 
-            </div>
-
-            <span className="text-cyan-300">
-              {language}
-            </span>
-
-          </div>
-
-          {showLanguage && (
-
-            <div className="flex gap-3 border-b border-cyan-900 p-4">
-
-              <button
-                onClick={() => {
-                  setLanguage("English");
-                  setShowLanguage(false);
-                }}
-                className="flex-1 rounded-xl bg-cyan-500 py-2 font-semibold text-white"
-              >
-                English
-              </button>
-
-              <button
-                onClick={() => {
-                  setLanguage("Urdu");
-                  setShowLanguage(false);
-                }}
-                className="flex-1 rounded-xl bg-blue-700 py-2 font-semibold text-white"
-              >
-                اردو
-              </button>
-
-            </div>
-
-          )}
-
-          {/* Logout */}
-
-          <div
-            onClick={logout}
-            className="flex cursor-pointer items-center justify-between px-5 py-5 text-red-400 hover:bg-red-500/10"
-          >
-            <div className="flex items-center gap-4">
-
-              <FaSignOutAlt />
-
-              <span className="font-semibold">
-                Logout
-              </span>
-
-            </div>
-
-            <FaChevronRight />
-
-          </div>
-
-        </div>
+        <span className="font-semibold">
+          Language
+        </span>
 
       </div>
 
+      <span className="text-cyan-300">
+        {language}
+      </span>
+
     </div>
+
+    {showLanguage && (
+
+      <div className="flex gap-3 border-b border-cyan-900 p-4">
+
+        <button
+          onClick={() => {
+            setLanguage("English");
+            setShowLanguage(false);
+          }}
+          className="flex-1 rounded-xl bg-cyan-500 py-2 font-semibold text-white"
+        >
+          English
+        </button>
+
+        <button
+          onClick={() => {
+            setLanguage("Urdu");
+            setShowLanguage(false);
+          }}
+          className="flex-1 rounded-xl bg-blue-700 py-2 font-semibold text-white"
+        >
+          اردو
+        </button>
+
+      </div>
+
+    )}
+
+    {/* Logout */}
+
+    <div
+      onClick={logout}
+      className="flex cursor-pointer items-center justify-between px-5 py-5 text-red-400 hover:bg-red-500/10 transition"
+    >
+      <div className="flex items-center gap-4">
+        <FaSignOutAlt />
+        <span className="font-semibold">Logout</span>
+      </div>
+
+      <FaChevronRight />
+    </div>
+
+  </div>
+
+</div>
+</div>
   );
 }
-
-function Menu({ icon, title, badge }) {
+function Menu({ icon, title, badge, onClick }) {
   return (
-    <div className="flex items-center justify-between border-b border-cyan-900 px-5 py-5 text-white hover:bg-cyan-500/10 transition">
-
+    <div
+      onClick={onClick}
+      className="flex cursor-pointer items-center justify-between border-b border-cyan-900 px-5 py-5 text-white transition hover:bg-cyan-500/10 active:scale-[0.98]"
+    >
       <div className="flex items-center gap-4">
+        <span className="text-xl text-cyan-400">{icon}</span>
 
-        <span className="text-xl text-cyan-400">
-          {icon}
-        </span>
-
-        <span className="font-semibold">
-          {title}
-        </span>
-
+        <span className="font-semibold">{title}</span>
       </div>
 
       <div className="flex items-center gap-3">
-
         {badge && (
           <div className="flex h-6 w-6 items-center justify-center rounded-full bg-red-500 text-xs font-bold">
             {badge}
@@ -280,9 +277,8 @@ function Menu({ icon, title, badge }) {
         )}
 
         <FaChevronRight className="text-cyan-400" />
-
       </div>
-
     </div>
+  
   );
 }

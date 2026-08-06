@@ -2,13 +2,15 @@ import React from "react";
 import { Send, Phone, ShieldCheck } from "lucide-react";
 import { FaFacebook } from "react-icons/fa";
 
-const BRAND = "33RS.COM";
+import Markhor from "./assets/Markhor.png"
+
+const BRAND = "66RS.COM";
 
 const ABOUT_TEXT = `
 33RS.COM is one of the most trusted and popular online slot websites in Pakistan,
 and the top choice for slot enthusiasts.
 
-As a leading slot website, 33RS.COM offers an exciting, convenient, and lucrative
+As a leading slot website, 66RS.COM offers an exciting, convenient, and lucrative
 online slot gaming experience.
 
 We provide official and trusted login links to ensure members enjoy a high-quality,
@@ -35,8 +37,8 @@ export default function SecFooter() {
         {/* Logo */}
         <div className="flex justify-center mb-6">
           <img
-            src="https://s3.cdnpk688.com/uploads/30004/f1f3d3b87aa1fe1d2e6ed61c1dd0ef9e.png"
-            alt="33RS Logo"
+            src={Markhor}
+            alt="66RS Logo"
             className="w-32 h-auto object-contain"
           />
         </div>

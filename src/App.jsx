@@ -13,7 +13,6 @@ import Header from "./Header";
 import Sidebar from "./Sidebar";
 import BottomNavbar from "./BottomNavbar";
 
-
 import LoginModal from "./LoginModal";
 import SignupModal from "./SignupModal";
 
@@ -26,8 +25,8 @@ import Announcement from "./Announcement";
 import GameCategory from "./GameCategory";
 import GameGrid from "./HotGames";
 
-
 import AllGames from "./AllGames";
+
 
 import JiliGames from "./JiliGames";
 import PgGames from "./PgGames";
@@ -36,6 +35,8 @@ import SportSection from "./SportSection";
 import JDBGames from "./JDBGames";
 import PpGames from "./PpGames";
 import TpGames from "./TpGames";
+import DBGames from "./DBGames";
+import FishGames from "./FishGames";
 
 
 import SecFooter from "./SecFooter";
@@ -44,6 +45,11 @@ import SecFooter from "./SecFooter";
 import Profile from "./Profile";
 import InviteBonus from "./InviteBonus";
 import VipPage from "./VipPage";
+import CustomerService from "./CustomerService";
+import EditPassword from "./EditPassword";
+
+import Statistics from "./Statistics";
+import DailyStatistics from "./DailyStatistics";
 
 
 import Toast from "./Toast";
@@ -51,65 +57,40 @@ import SideWidget from "./SideWidget";
 
 
 
-
-
-// 🔒 Protected Route Fix
-
 function ProtectedRoute({
-
   children,
-
   user,
-
-  setSignupOpen
-
+  setSignupOpen,
 }) {
 
 
-  useEffect(()=>{
-
+  useEffect(() => {
 
     if(!user){
 
-
       setSignupOpen(true);
 
-
     }
-
 
   },[user,setSignupOpen]);
 
 
 
-
   if(!user){
 
-
     return (
-
       <Navigate
-
         to="/"
-
         replace
-
       />
-
     );
-
 
   }
 
 
-
   return children;
 
-
 }
-
-
-
 
 
 
@@ -134,7 +115,6 @@ function Home({
 
   setToast,
 
-
 }) {
 
 
@@ -150,28 +130,19 @@ function Home({
 
       <Header
 
-
         setOpenMenu={setOpenMenu}
-
 
         setLoginOpen={setLoginOpen}
 
-
         setSignupOpen={setSignupOpen}
 
-
         user={user}
-
 
         balance={
           localStorage.getItem("balance") || 0
         }
 
-
       />
-
-
-
 
 
 
@@ -202,9 +173,7 @@ function Home({
 
 
         <GameGrid
-
           setSignupOpen={setSignupOpen}
-
         />
 
 
@@ -229,6 +198,12 @@ function Home({
         <TpGames />
 
 
+        <DBGames />
+
+
+        <FishGames />
+
+
         <SecFooter />
 
 
@@ -240,20 +215,13 @@ function Home({
 
       <Announcement
 
-
         open={announcementOpen}
 
-
         setOpenAnnouncement={
-
           setAnnouncementOpen
-
         }
 
-
       />
-
-
 
 
 
@@ -263,45 +231,32 @@ function Home({
 
 
 
-
       <LoginModal
-
 
         loginOpen={loginOpen}
 
-
         setLoginOpen={setLoginOpen}
-
 
         setSignupOpen={setSignupOpen}
 
-
         navigate={navigate}
 
-
         setToast={setToast}
-
 
       />
 
 
 
 
-
       <SignupModal
-
 
         signupOpen={signupOpen}
 
-
         setSignupOpen={setSignupOpen}
-
 
         setLoginOpen={setLoginOpen}
 
-
         setToast={setToast}
-
 
       />
 
@@ -311,120 +266,57 @@ function Home({
 
   );
 
-
 }
-export default function App(){
-
-
+export default function App() {
 
   const location = useLocation();
-
 
   const navigate = useNavigate();
 
 
 
+  const [openMenu,setOpenMenu] = useState(false);
 
+  const [loginOpen,setLoginOpen] = useState(false);
 
-  const [openMenu,setOpenMenu] =
+  const [signupOpen,setSignupOpen] = useState(false);
 
-    useState(false);
+  const [announcementOpen,setAnnouncementOpen] = useState(false);
 
-
-
-
-
-  const [loginOpen,setLoginOpen] =
-
-    useState(false);
+  const [toast,setToast] = useState(null);
 
 
 
-
-
-  const [signupOpen,setSignupOpen] =
-
-    useState(false);
-
-
-
-
-
-  const [announcementOpen,setAnnouncementOpen] =
-
-    useState(false);
-
-
-
-
-
-  const [toast,setToast] =
-
-    useState(null);
-
-
-
-
-
-  const [user,setUser] =
-
-    useState(
-
-      JSON.parse(
-
-        localStorage.getItem("user")
-
-      ) || null
-
-    );
-
-
+  const [user,setUser] = useState(
+    JSON.parse(localStorage.getItem("user")) || null
+  );
 
 
 
 
   useEffect(()=>{
 
-
     const updateUser = ()=>{
 
-
       setUser(
-
-        JSON.parse(
-
-          localStorage.getItem("user")
-
-        ) || null
-
+        JSON.parse(localStorage.getItem("user")) || null
       );
-
 
     };
 
 
-
     window.addEventListener(
-
       "storage",
-
       updateUser
-
     );
-
 
 
     return ()=>{
 
-
       window.removeEventListener(
-
         "storage",
-
         updateUser
-
       );
-
 
     };
 
@@ -435,26 +327,18 @@ export default function App(){
 
 
 
-
-
   const handleProfile = ()=>{
-
 
     if(!user){
 
-
       setSignupOpen(true);
 
-
       return;
-
 
     }
 
 
-
     navigate("/profile");
-
 
   };
 
@@ -462,873 +346,711 @@ export default function App(){
 
 
 
+return (
+
+<div className="page-animation">
 
 
-  return (
+<div
+className="
+h-screen
+w-full
+flex
+justify-center
+bg-[#020617]
+overflow-hidden
+"
+>
 
-    <div className="page-animation">
+
+<div
+className="
+relative
+w-full
+max-w-[540px]
+h-full
+bg-[#020617]
+overflow-hidden
+"
+>
 
 
+
+
+{toast && (
+
+<Toast
+
+message={
+toast.message || toast
+}
+
+type={
+toast.type || "success"
+}
+
+close={
+()=>setToast(null)
+}
+
+/>
+
+)}
+
+
+
+
+
+<Sidebar
+
+open={openMenu}
+
+setOpen={setOpenMenu}
+
+setLoginOpen={setLoginOpen}
+
+setSignupOpen={setSignupOpen}
+
+user={user}
+
+setUser={setUser}
+
+/>
+
+
+
+
+
+<Routes>
+
+
+
+
+
+{/* CUSTOMER SERVICE */}
+
+<Route
+
+path="/customer-service"
+
+element={
+
+<ProtectedRoute
+
+user={user}
+
+setSignupOpen={setSignupOpen}
+
+>
+
+
+<div
+
+className="
+absolute
+top-0
+left-0
+right-0
+bottom-0
+overflow-y-auto
+hide-scrollbar
+"
+
+>
+
+<CustomerService />
+
+</div>
+
+
+</ProtectedRoute>
+
+}
+
+/>
+
+
+
+
+
+
+{/* EDIT PASSWORD */}
+
+<Route
+
+path="/edit-password"
+
+element={
+
+<ProtectedRoute
+
+user={user}
+
+setSignupOpen={setSignupOpen}
+
+>
+
+
+<div
+
+className="
+absolute
+top-0
+left-0
+right-0
+bottom-0
+overflow-y-auto
+hide-scrollbar
+"
+
+>
+
+<EditPassword />
+
+</div>
+
+
+</ProtectedRoute>
+
+}
+
+/>
+
+
+
+
+
+
+
+{/* STATISTICS */}
+
+<Route
+
+path="/statistics"
+
+element={
+
+<ProtectedRoute
+
+user={user}
+
+setSignupOpen={setSignupOpen}
+
+>
+
+
+<div
+
+className="
+absolute
+top-0
+left-0
+right-0
+bottom-0
+overflow-y-auto
+hide-scrollbar
+"
+
+>
+
+<Statistics />
+
+</div>
+
+
+</ProtectedRoute>
+
+}
+
+/>
+
+
+
+
+
+
+
+
+{/* DAILY STATISTICS */}
+
+<Route
+
+path="/daily-statistics"
+
+element={
+
+<ProtectedRoute
+
+user={user}
+
+setSignupOpen={setSignupOpen}
+
+>
+
+
+<div
+
+className="
+absolute
+top-0
+left-0
+right-0
+bottom-0
+overflow-y-auto
+hide-scrollbar
+"
+
+>
+
+<DailyStatistics />
+
+</div>
+
+
+</ProtectedRoute>
+
+}
+
+/>
+{/* HOME */}
+
+<Route
+
+path="/"
+
+element={
+
+<Home
+
+openMenu={openMenu}
+
+setOpenMenu={setOpenMenu}
+
+loginOpen={loginOpen}
+
+setLoginOpen={setLoginOpen}
+
+signupOpen={signupOpen}
+
+setSignupOpen={setSignupOpen}
+
+announcementOpen={announcementOpen}
+
+setAnnouncementOpen={setAnnouncementOpen}
+
+navigate={navigate}
+
+setToast={setToast}
+
+/>
+
+}
+
+/>
+
+
+
+
+
+{/* ALL GAMES */}
+
+<Route
+
+path="/games"
+
+element={
+
+<ProtectedRoute
+
+user={user}
+
+setSignupOpen={setSignupOpen}
+
+>
+
+<AllGames />
+
+</ProtectedRoute>
+
+}
+
+/>
+
+
+
+
+
+
+{/* HOT */}
+
+<Route
+
+path="/games/hot"
+
+element={
+
+<ProtectedRoute
+
+user={user}
+
+setSignupOpen={setSignupOpen}
+
+>
+
+<GameGrid />
+
+</ProtectedRoute>
+
+}
+
+/>
+
+
+
+
+
+
+{/* JILI */}
+
+<Route
+
+path="/games/jili"
+
+element={
+
+<ProtectedRoute
+
+user={user}
+
+setSignupOpen={setSignupOpen}
+
+>
+
+<JiliGames />
+
+</ProtectedRoute>
+
+}
+
+/>
+
+
+
+
+
+
+
+{/* PG */}
+
+<Route
+
+path="/games/pg"
+
+element={
+
+<ProtectedRoute
+
+user={user}
+
+setSignupOpen={setSignupOpen}
+
+>
+
+<PgGames />
+
+</ProtectedRoute>
+
+}
+
+/>
+
+
+
+
+
+
+
+{/* 2J */}
+
+<Route
+
+path="/games/2j"
+
+element={
+
+<ProtectedRoute
+
+user={user}
+
+setSignupOpen={setSignupOpen}
+
+>
+
+<TwoJGames />
+
+</ProtectedRoute>
+
+}
+
+/>
+
+
+
+
+
+
+{/* SPORT */}
+
+<Route
+
+path="/games/sport"
+
+element={
+
+<ProtectedRoute
+
+user={user}
+
+setSignupOpen={setSignupOpen}
+
+>
+
+<SportSection />
+
+</ProtectedRoute>
+
+}
+
+/>
+
+
+
+
+
+
+
+{/* JDB */}
+
+<Route
+
+path="/games/jdb"
+
+element={
+
+<ProtectedRoute
+
+user={user}
+
+setSignupOpen={setSignupOpen}
+
+>
+
+<JDBGames />
+
+</ProtectedRoute>
+
+}
+
+/>
+
+
+
+
+
+
+{/* PP */}
+
+<Route
+
+path="/games/pp"
+
+element={
+
+<ProtectedRoute
+
+user={user}
+
+setSignupOpen={setSignupOpen}
+
+>
+
+<PpGames />
+
+</ProtectedRoute>
+
+}
+
+/>
+
+
+
+
+
+
+
+{/* TP */}
+
+<Route
+
+path="/games/tp"
+
+element={
+
+<ProtectedRoute
+
+user={user}
+
+setSignupOpen={setSignupOpen}
+
+>
+
+<TpGames />
+
+</ProtectedRoute>
+
+}
+
+/>
+{/* VIP */}
+
+<Route
+  path="/vip"
+  element={
+    <ProtectedRoute
+      user={user}
+      setSignupOpen={setSignupOpen}
+    >
       <div
-
         className="
-          h-screen
-          w-full
-          flex
-          justify-center
-          bg-[#020617]
-          overflow-hidden
+          absolute
+          top-0
+          left-0
+          right-0
+          bottom-[78px]
+          overflow-y-auto
+          hide-scrollbar
         "
-
       >
-
-
-        <div
-
-          className="
-            relative
-            w-full
-            max-w-[540px]
-            h-full
-            bg-[#020617]
-            overflow-hidden
-            border-x
-            border-cyan-900/40
-          "
-
-        >
-
-
-
-
-
-
-          {toast && (
-
-
-            <Toast
-
-
-              message={
-
-                toast.message || toast
-
-              }
-
-
-              type={
-
-                toast.type || "success"
-
-              }
-
-
-              close={()=>setToast(null)}
-
-
-            />
-
-
-          )}
-
-
-
-
-
-
-
-          <Sidebar
-
-
-            open={openMenu}
-
-
-            setOpen={setOpenMenu}
-
-
-            setLoginOpen={setLoginOpen}
-
-
-            setSignupOpen={setSignupOpen}
-
-
-            user={user}
-
-
-            setUser={setUser}
-
-
-          />
-
-
-
-
-
-
-
-
-          <Routes>
-
-
-
-
-
-            {/* HOME */}
-
-
-            <Route
-
-
-              path="/"
-
-
-              element={
-
-
-                <Home
-
-
-                  openMenu={openMenu}
-
-
-                  setOpenMenu={setOpenMenu}
-
-
-
-
-                  loginOpen={loginOpen}
-
-
-                  setLoginOpen={setLoginOpen}
-
-
-
-
-                  signupOpen={signupOpen}
-
-
-                  setSignupOpen={setSignupOpen}
-
-
-
-
-                  announcementOpen={
-
-                    announcementOpen
-
-                  }
-
-
-
-
-                  setAnnouncementOpen={
-
-                    setAnnouncementOpen
-
-                  }
-
-
-
-
-                  navigate={navigate}
-
-
-
-
-                  setToast={setToast}
-
-
-
-                />
-
-
-              }
-
-
-            />
-
-
-
-
-
-
-
-
-            {/* ALL GAMES */}
-
-
-            <Route
-
-
-              path="/games"
-
-
-              element={
-
-
-                <ProtectedRoute
-
-
-                  user={user}
-
-
-                  setSignupOpen={setSignupOpen}
-
-
-                >
-
-
-                  <AllGames />
-
-
-                </ProtectedRoute>
-
-
-              }
-
-
-            />
-
-
-
-
-
-
-
-
-            {/* HOT */}
-
-
-            <Route
-
-
-              path="/games/hot"
-
-
-              element={
-
-
-                <ProtectedRoute
-
-
-                  user={user}
-
-
-                  setSignupOpen={setSignupOpen}
-
-
-                >
-
-
-                  <GameGrid />
-
-
-                </ProtectedRoute>
-
-
-              }
-
-
-            />
-
-
-
-
-
-
-
-
-            {/* JILI */}
-
-
-            <Route
-
-
-              path="/games/jili"
-
-
-              element={
-
-
-                <ProtectedRoute
-
-
-                  user={user}
-
-
-                  setSignupOpen={setSignupOpen}
-
-
-                >
-
-
-                  <JiliGames />
-
-
-                </ProtectedRoute>
-
-
-              }
-
-
-            />
-
-
-
-
-
-
-
-
-            {/* PG */}
-
-
-            <Route
-
-
-              path="/games/pg"
-
-
-              element={
-
-
-                <ProtectedRoute
-
-
-                  user={user}
-
-
-                  setSignupOpen={setSignupOpen}
-
-
-                >
-
-
-                  <PgGames />
-
-
-                </ProtectedRoute>
-
-
-              }
-
-
-            />
-
-
-
-
-
-
-
-
-            {/* 2J */}
-
-
-            <Route
-
-
-              path="/games/2j"
-
-
-              element={
-
-
-                <ProtectedRoute
-
-
-                  user={user}
-
-
-                  setSignupOpen={setSignupOpen}
-
-
-                >
-
-
-                  <TwoJGames />
-
-
-                </ProtectedRoute>
-
-
-              }
-
-
-            />
-
-
-
-
-
-
-
-
-            {/* SPORT */}
-
-
-            <Route
-
-
-              path="/games/sport"
-
-
-              element={
-
-
-                <ProtectedRoute
-
-
-                  user={user}
-
-
-                  setSignupOpen={setSignupOpen}
-
-
-                >
-
-
-                  <SportSection />
-
-
-                </ProtectedRoute>
-
-
-              }
-
-
-            />
-            
-            {/* JDB */}
-
-
-            <Route
-
-
-              path="/games/jdb"
-
-
-              element={
-
-
-                <ProtectedRoute
-
-
-                  user={user}
-
-
-                  setSignupOpen={setSignupOpen}
-
-
-                >
-
-
-                  <JDBGames />
-
-
-                </ProtectedRoute>
-
-
-              }
-
-
-            />
-
-
-
-
-
-
-
-
-            {/* PP */}
-
-
-            <Route
-
-
-              path="/games/pp"
-
-
-              element={
-
-
-                <ProtectedRoute
-
-
-                  user={user}
-
-
-                  setSignupOpen={setSignupOpen}
-
-
-                >
-
-
-                  <PpGames />
-
-
-                </ProtectedRoute>
-
-
-              }
-
-
-            />
-
-
-
-
-
-
-
-
-                {/* TP */}
-
-
-            <Route
-
-
-              path="/games/tp"
-
-
-              element={
-
-
-                <ProtectedRoute
-
-
-                  user={user}
-
-
-                  setSignupOpen={setSignupOpen}
-
-
-                >
-
-
-                  <TpGames />
-
-
-                </ProtectedRoute>
-
-
-              }
-
-
-            />
-
-
-
-
-
-
-
-
-            {/* VIP */}
-
-
-            <Route
-
-
-              path="/vip"
-
-
-              element={
-
-
-                <ProtectedRoute
-
-
-                  user={user}
-
-
-                  setSignupOpen={setSignupOpen}
-
-
-                >
-
-
-                  <div
-
-
-                    className="
-                      absolute
-                      top-0
-                      left-0
-                      right-0
-                      bottom-[78px]
-                      overflow-y-auto
-                      hide-scrollbar
-                    "
-
-
-                  >
-
-
-                    <VipPage />
-
-
-                  </div>
-
-
-                </ProtectedRoute>
-
-
-              }
-
-
-            />
-
-
-
-
-
-
-
-
-            {/* PROFILE */}
-
-
-            <Route
-
-
-              path="/profile"
-
-
-              element={
-
-
-                <ProtectedRoute
-
-
-                  user={user}
-
-
-                  setSignupOpen={setSignupOpen}
-
-
-                >
-
-
-                  <div
-
-
-                    className="
-                      absolute
-                      top-0
-                      left-0
-                      right-0
-                      bottom-[78px]
-                      overflow-y-auto
-                      hide-scrollbar
-                    "
-
-
-                  >
-
-
-                    <Profile />
-
-
-                  </div>
-
-
-                </ProtectedRoute>
-
-
-              }
-
-
-            />
-
-
-
-
-
-
-
-
-            {/* INVITE BONUS */}
-
-
-            <Route
-
-
-              path="/invite-bonus"
-
-
-              element={
-
-
-                <ProtectedRoute
-
-
-                  user={user}
-
-
-                  setSignupOpen={setSignupOpen}
-
-
-                >
-
-
-                  <div
-
-
-                    className="
-                      absolute
-                      top-0
-                      left-0
-                      right-0
-                      bottom-[78px]
-                      overflow-y-auto
-                      hide-scrollbar
-                    "
-
-
-                  >
-
-
-                    <InviteBonus />
-
-
-                  </div>
-
-
-                </ProtectedRoute>
-
-
-              }
-
-
-            />
-
-
-
-
-
-
-          </Routes>
-
-
-
-
-
-
-
-
-
-          {/* Bottom Navbar */}
-
-
-          {
-
-
-            (
-
-              location.pathname === "/" ||
-
-              location.pathname === "/profile" ||
-
-              location.pathname === "/invite-bonus" ||
-
-              location.pathname === "/vip"
-
-            )
-
-            &&
-
-            !announcementOpen
-
-            &&
-
-            (
-
-
-              <div
-
-
-                className="
-                  absolute
-                  bottom-0
-                  left-0
-                  right-0
-                  z-[999]
-                "
-
-
-              >
-
-
-                <BottomNavbar
-
-
-                  handleProfile={handleProfile}
-
-
-                />
-
-
-              </div>
-
-
-            )
-
-
-          }
-
-
-
-
-
-
-
-
-
-          {/* Announcement Blur Overlay */}
-
-
-          {
-
-
-            announcementOpen && (
-
-
-              <div
-
-
-                className="
-                  absolute
-                  inset-0
-                  z-[995]
-                  bg-black/20
-                  backdrop-blur-[2px]
-                "
-
-
-              />
-
-
-            )
-
-
-          }
-
-
-
-
-
-        </div>
-
-
+        <VipPage />
       </div>
+    </ProtectedRoute>
+  }
+/>
 
 
-    </div>
+{/* PROFILE */}
+
+<Route
+  path="/profile"
+  element={
+    <ProtectedRoute
+      user={user}
+      setSignupOpen={setSignupOpen}
+    >
+      <div
+        className="
+          absolute
+          top-0
+          left-0
+          right-0
+          bottom-[78px]
+          overflow-y-auto
+          hide-scrollbar
+        "
+      >
+        <Profile />
+      </div>
+    </ProtectedRoute>
+  }
+/>
 
 
-  );
 
+{/* INVITE BONUS */}
+
+<Route
+  path="/invite-bonus"
+  element={
+    <ProtectedRoute
+      user={user}
+      setSignupOpen={setSignupOpen}
+    >
+      <div
+        className="
+          absolute
+          top-0
+          left-0
+          right-0
+          bottom-[78px]
+          overflow-y-auto
+          hide-scrollbar
+        "
+      >
+        <InviteBonus />
+      </div>
+    </ProtectedRoute>
+  }
+/>
+
+
+</Routes>
+
+
+
+{/* Bottom Navbar */}
+
+{!announcementOpen &&
+[
+  "/",
+  "/profile",
+  "/invite-bonus",
+  "/vip",
+].includes(location.pathname) && (
+
+<div
+className="
+absolute
+bottom-0
+left-0
+right-0
+z-[999]
+"
+>
+
+<BottomNavbar
+handleProfile={handleProfile}
+/>
+
+</div>
+
+)}
+
+
+
+{/* Announcement Blur Overlay */}
+
+{announcementOpen && (
+
+<div
+className="
+absolute
+inset-0
+z-[995]
+bg-black/20
+backdrop-blur-[2px]
+"
+/>
+
+)}
+
+
+
+</div>
+
+</div>
+
+</div>
+
+);
 
 }

@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 
-import Promo1 from "./assets/Promo1.png";
+import Promo1 from "./assets/PROMO11.png";
 import Promo2 from "./assets/Promo2.gif";
 import Promo3 from "./assets/Promo3.gif";
 

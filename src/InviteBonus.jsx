@@ -12,14 +12,14 @@ import {
 
 import { FaXTwitter } from "react-icons/fa6";
 
-import banner from "./assets/invitebanner.png";
+import banner from "./assets/INVITEBANNER1.png";
 import qr from "./assets/qrcode.png";
 import chest from "./assets/chest.png";
 
 export default function Invite() {
   const navigate = useNavigate();
 
-  const inviteLink = "https://33rs2fs.com/s/x";
+  const inviteLink = "https://66rs2fs.com/s/x";
 
   const copyLink = async () => {
     try {

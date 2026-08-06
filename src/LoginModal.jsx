@@ -1,682 +1,314 @@
 import { useState } from "react";
-import { X, Eye, EyeOff, Lock } from "lucide-react";
-
+import { X, Eye, EyeOff, Lock, Phone } from "lucide-react";
 
 export default function LoginModal({
-
   loginOpen,
   setLoginOpen,
   setSignupOpen,
   navigate,
   setToast,
-
 }) {
+  const [phone, setPhone] = useState("");
+  const [password, setPassword] = useState("");
 
+  const [showPassword, setShowPassword] = useState(false);
+  const [loading, setLoading] = useState(false);
 
-  const [phone,setPhone] = useState("");
+  const handleLogin = () => {
+    if (loading) return;
 
-  const [password,setPassword] = useState("");
-
-  const [showPassword,setShowPassword] = useState(false);
-
-
-
-
-
-  const handleLogin = ()=>{
-
-
-    const savedUser =
-      JSON.parse(
-        localStorage.getItem("signupUser")
-      );
-
-
-
-
-
-    if(!savedUser){
-
-
+    if (!phone.trim()) {
       setToast({
-
-        message:"Please signup first",
-
-        type:"error"
-
+        message: "Enter phone number",
+        type: "error",
       });
-
-
       return;
-
-
     }
 
+    if (!password.trim()) {
+      setToast({
+        message: "Enter password",
+        type: "error",
+      });
+      return;
+    }
 
+    const savedUser = JSON.parse(
+      localStorage.getItem("signupUser")
+    );
 
+    if (!savedUser) {
+      setToast({
+        message: "Please create an account first",
+        type: "error",
+      });
+      return;
+    }
 
+    if (
+      savedUser.phone !== phone ||
+      savedUser.password !== password
+    ) {
+      setToast({
+        message: "Wrong phone or password",
+        type: "error",
+      });
+      return;
+    }
 
+    setLoading(true);
 
+    localStorage.setItem(
+      "user",
+      JSON.stringify(savedUser)
+    );
 
-    if(
+    if (!localStorage.getItem("balance")) {
+      localStorage.setItem("balance", "0");
+    }
 
-      savedUser.phone === phone &&
+    window.dispatchEvent(new Event("storage"));
 
-      savedUser.password === password
-
-    ){
-
-
-
-      localStorage.setItem(
-
-        "user",
-
-        JSON.stringify(savedUser)
-
-      );
-
-
-
-
-
-      if(!localStorage.getItem("balance")){
-
-
-        localStorage.setItem(
-
-          "balance",
-
-          "0"
-
-        );
-
-
-      }
-
-
-
-
-
-
-
-      // Update sidebar instantly
-
-      window.dispatchEvent(
-
-        new Event("storage")
-
-      );
-
-
-
-
-
-
+    setTimeout(() => {
+      setLoading(false);
 
       setToast({
-
-        message:"Login Successful",
-
-        type:"success"
-
+        message: "Login Successful",
+        type: "success",
       });
-
-
-
-
-
-
 
       setLoginOpen(false);
 
-
-
-
+      setPhone("");
+      setPassword("");
 
       navigate("/profile");
-
-
-
-    }
-
-    else{
-
-
-
-      setToast({
-
-        message:"Wrong phone or password",
-
-        type:"error"
-
-      });
-
-
-
-    }
-
-
-
+    }, 500);
   };
-
-
-
-
-
-
-
-
-
-  return (
-
+    return (
     <div
-
       className={`
-
         fixed
-
         top-0
-
         left-1/2
-
         -translate-x-1/2
-
         w-full
-
         max-w-[540px]
-
         h-screen
-
         z-[10000]
-
-        ${loginOpen
-
-          ?
-
-          "pointer-events-auto"
-
-          :
-
-          "pointer-events-none"
-
+        ${
+          loginOpen
+            ? "pointer-events-auto"
+            : "pointer-events-none"
         }
-
       `}
-
     >
-
-
-
-
-
-
-
-      {/* OVERLAY */}
-
+      {/* Overlay */}
       <div
-
-
-        onClick={()=>setLoginOpen(false)}
-
-
+        onClick={() => setLoginOpen(false)}
         className={`
-
           absolute
-
           inset-0
-
           bg-black/80
-
           backdrop-blur-sm
-
-          transition
-
-          ${loginOpen
-
-            ?
-
-            "opacity-100 visible"
-
-            :
-
-            "opacity-0 invisible"
-
+          transition-all
+          duration-300
+          ${
+            loginOpen
+              ? "opacity-100 visible"
+              : "opacity-0 invisible"
           }
-
         `}
-
       />
 
-
-
-
-
-
-
-
-
-      {/* CARD */}
-
+      {/* Login Card */}
       <div
-
-
         className={`
-
           absolute
-
           left-1/2
-
           top-1/2
-
           -translate-x-1/2
-
           -translate-y-1/2
-
           w-[92%]
-
-          max-w-[400px]
-
-          bg-gradient-to-b
-
-          from-[#061b3a]
-
-          to-[#020617]
-
-          rounded-3xl
-
+          max-w-[410px]
+          rounded-[30px]
           border
-
-          border-cyan-400/60
-
-          p-5
-
-          text-white
-
+          border-cyan-400/50
+          bg-gradient-to-b
+          from-[#08254a]
+          via-[#061a36]
+          to-[#020617]
+          p-6
+          shadow-[0_0_35px_rgba(0,180,255,.25)]
           transition-all
-
           duration-300
-
-          ${loginOpen
-
-            ?
-
-            "scale-100 opacity-100"
-
-            :
-
-            "scale-90 opacity-0"
-
+          ${
+            loginOpen
+              ? "scale-100 opacity-100"
+              : "scale-90 opacity-0"
           }
-
         `}
-
       >
-
-
-
-
-
-
-        {/* CLOSE */}
-
+        {/* Close */}
         <button
-
-
-          onClick={()=>setLoginOpen(false)}
-
-
+          onClick={() => setLoginOpen(false)}
           className="
-
             absolute
-
             right-4
-
             top-4
-
-            text-white
-
+            text-cyan-300
+            hover:text-white
           "
-
         >
-
-          <X size={28}/>
-
-
+          <X size={26} />
         </button>
 
-
-
-
-
-
-
-        <h1
-
-          className="
-
-            text-center
-
-            text-3xl
-
-            font-bold
-
-            mb-6
-
-          "
-
-        >
-
+        {/* Title */}
+        <h1 className="mb-8 text-center text-3xl font-bold text-white">
           Login
-
         </h1>
 
-
-
-
-
-
-
-
-
-        <input
-
-
-          placeholder="Phone Number"
-
-
-          value={phone}
-
-
-          onChange={(e)=>setPhone(e.target.value)}
-
-
-
-          className="
-
-            w-full
-
-            mb-3
-
-            p-4
-
-            rounded-xl
-
-            bg-black/70
-
-            border
-
-            border-cyan-600
-
-            text-white
-
-            outline-none
-
-          "
-
-        />
-
-
-
-
-
-
-
-
-
+        {/* Phone */}
         <div
-
           className="
-
+            mb-4
             flex
-
             items-center
-
-            bg-black/70
-
+            rounded-2xl
             border
-
-            border-cyan-600
-
-            rounded-xl
-
+            border-cyan-500/40
+            bg-[#081525]
+            px-3
           "
-
         >
-
-
-          <Lock
-
-            className="
-
-              text-cyan-400
-
-              ml-3
-
-            "
-
-          />
-
-
-
+          <Phone className="text-cyan-400" size={20} />
 
           <input
-
-
-            type={
-
-              showPassword
-
-              ?
-
-              "text"
-
-              :
-
-              "password"
-
-            }
-
-
-
-            placeholder="Password"
-
-
-
-            value={password}
-
-
-
-            onChange={(e)=>setPassword(e.target.value)}
-
-
-
+            type="text"
+            placeholder="Phone Number"
+            value={phone}
+            onChange={(e) => setPhone(e.target.value)}
             className="
-
+              h-14
               flex-1
-
-              p-4
-
               bg-transparent
-
-              outline-none
-
+              px-3
               text-white
-
+              outline-none
+              placeholder:text-gray-400
             "
-
           />
-
-
-
-
-
-
-
-          <button
-
-
-            type="button"
-
-
-
-            onClick={()=>setShowPassword(!showPassword)}
-
-
-
-            className="
-
-              mr-3
-
-              text-cyan-400
-
-            "
-
-          >
-
-
-            {
-
-              showPassword
-
-              ?
-
-              <EyeOff size={22}/>
-
-              :
-
-              <Eye size={22}/>
-
-            }
-
-
-          </button>
-
-
-
         </div>
 
-
-
-
-
-
-
-
-
-        <button
-
-
-          onClick={handleLogin}
-
-
-
+        {/* Password */}
+        <div
           className="
-
-            w-full
-
-            mt-6
-
-            py-4
-
-            rounded-xl
-
-            bg-gradient-to-r
-
-            from-cyan-400
-
-            to-blue-700
-
-            text-white
-
-            font-bold
-
-            text-lg
-
+            flex
+            items-center
+            rounded-2xl
+            border
+            border-cyan-500/40
+            bg-[#081525]
+            px-3
           "
-
         >
+          <Lock className="text-cyan-400" size={20} />
 
-          Login
+          <input
+            type={showPassword ? "text" : "password"}
+            placeholder="Password"
+            value={password}
+            onChange={(e) =>
+              setPassword(e.target.value)
+            }
+            className="
+              h-14
+              flex-1
+              bg-transparent
+              px-3
+              text-white
+              outline-none
+              placeholder:text-gray-400
+            "
+          />
 
+          <button
+            type="button"
+            onClick={() =>
+              setShowPassword(!showPassword)
+            }
+            className="text-cyan-400"
+          >
+            {showPassword ? (
+              <EyeOff size={22} />
+            ) : (
+              <Eye size={22} />
+            )}
+          </button>
+        </div>
+                {/* Login Button */}
+        <button
+          onClick={handleLogin}
+          disabled={loading}
+          className={`
+            mt-6
+            w-full
+            rounded-2xl
+            py-4
+            text-lg
+            font-bold
+            text-white
+            transition-all
+            duration-300
+            ${
+              loading
+                ? "cursor-not-allowed bg-gray-600"
+                : "bg-gradient-to-r from-cyan-400 via-sky-500 to-blue-700 hover:scale-[1.02]"
+            }
+          `}
+        >
+          {loading ? "Logging in..." : "Login"}
         </button>
 
+        {/* Divider */}
+        <div className="my-6 flex items-center">
+          <div className="h-px flex-1 bg-cyan-700/40" />
 
+          <span className="px-3 text-sm text-cyan-300">
+            OR
+          </span>
 
+          <div className="h-px flex-1 bg-cyan-700/40" />
+        </div>
 
-
-
-
-
-        <p
-
-          className="
-
-            text-gray-400
-
-            text-center
-
-            mt-5
-
-          "
-
-        >
-
+        {/* Signup Text */}
+        <p className="text-center text-sm text-gray-300">
           Don't have an account?
-
         </p>
 
-
-
-
-
-
-
-
+        {/* Create Account */}
         <button
-
-
-          onClick={()=>{
-
-
+          onClick={() => {
             setLoginOpen(false);
-
             setSignupOpen(true);
-
-
           }}
-
-
           className="
-
+            mt-3
             w-full
-
-            text-cyan-400
-
+            rounded-2xl
+            border
+            border-cyan-400/40
+            bg-cyan-500/10
+            py-3
             font-bold
-
-            mt-2
-
+            text-cyan-300
+            transition-all
+            hover:bg-cyan-500/20
           "
-
         >
-
           Create Account
-
         </button>
-
-
-
-
-
-      </div>
-
-
-
-
-
+              </div>
     </div>
-
   );
-
 }

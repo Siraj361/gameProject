@@ -13,6 +13,7 @@ import {
   FaChevronRight,
   FaChartBar,
 } from "react-icons/fa";
+import Messages from "./Messages";
 
 
 export default function Profile() {
@@ -119,9 +120,24 @@ export default function Profile() {
 
           {/* MAIL */}
 
-          <button className="flex h-16 w-16 items-center justify-center rounded-2xl border border-cyan-300 bg-[#0c3765] text-3xl shadow-[0_0_15px_rgba(0,255,255,.25)]">
-            ✉️
-          </button>
+       <button
+  onClick={() => navigate("/messages")}
+  className="
+    flex
+    h-16
+    w-16
+    items-center
+    justify-center
+    rounded-2xl
+    border
+    border-cyan-300
+    bg-[#0c3765]
+    text-3xl
+    shadow-[0_0_15px_rgba(0,255,255,.25)]
+  "
+>
+  ✉️
+</button>
 
         </div>
 
@@ -160,26 +176,22 @@ export default function Profile() {
 <div className="mt-6 px-4">
 
   <div className="overflow-hidden rounded-3xl border border-cyan-500/30 bg-[#061426]">
-
-    <Menu
+<Menu
   icon={<FaHeadset />}
   title="Customer Service"
   onClick={() => navigate("/customer-service")}
 />
-
 <Menu
   icon={<FaBell />}
   title="Notifications"
   badge="3"
-  onClick={() => navigate("/notifications")}
+  onClick={() => navigate("/messages")}
 />
-
-
 
 <Menu
   icon={<FaChartBar />}
-  title="Statistics"
-  onClick={() => navigate("/statistics")}
+  title="Daily Statistics"
+  onClick={() => navigate("/daily-statistics")}
 />
 
 <Menu

@@ -47,6 +47,7 @@ import InviteBonus from "./InviteBonus";
 import VipPage from "./VipPage";
 import CustomerService from "./CustomerService";
 import EditPassword from "./EditPassword";
+import Messages from "./Messages";
 
 import Statistics from "./Statistics";
 import DailyStatistics from "./DailyStatistics";
@@ -467,12 +468,26 @@ hide-scrollbar
 
 }
 
+/><Route
+  path="/messages"
+  element={
+    <ProtectedRoute
+      user={user}
+      setSignupOpen={setSignupOpen}
+    >
+      <div
+        className="
+          absolute
+          inset-0
+          overflow-y-auto
+          hide-scrollbar
+        "
+      >
+        <Messages />
+      </div>
+    </ProtectedRoute>
+  }
 />
-
-
-
-
-
 
 {/* EDIT PASSWORD */}
 

@@ -1,8 +1,8 @@
 import { useNavigate } from "react-router-dom";
 
 import Promo1 from "./assets/PROMO11.png";
-import Promo2 from "./assets/Promo2.gif";
-import Promo3 from "./assets/Promo3.gif";
+import Promo2 from "./assets/PROMO12.png";
+import Promo3 from "./assets/PROMO13.png";
 
 
 export default function PromoCards(){

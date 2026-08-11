@@ -52,35 +52,36 @@ export default function BottomNavbar() {
         </button>
 
         {/* Deposit */}
-        <button
-          className={`flex flex-col items-center justify-center ${
-            location.pathname === "/deposit"
-              ? active
-              : normal
-          }`}
-        >
-          <FaWallet className="text-[31px]" />
-          <span className="mt-1 text-[12px] font-semibold">
-            Deposit
-          </span>
-        </button>
+      <button
+  onClick={() => navigate("/deposit")}
+  className={`flex flex-col items-center justify-center ${
+    location.pathname === "/deposit"
+      ? active
+      : normal
+  }`}
+>
+  <FaWallet className="text-[31px]" />
+
+  <span className="mt-1 text-[12px] font-semibold">
+    Deposit
+  </span>
+</button>
 
         {/* Center Space */}
         <div />
 
-        {/* Activity */}
-        <button
-          className={`flex flex-col items-center justify-center ${
-            location.pathname === "/activity"
-              ? active
-              : normal
-          }`}
-        >
-          <FaGift className="text-[31px]" />
-          <span className="mt-1 text-[12px] font-semibold">
-            Activity
-          </span>
-        </button>
+     {/* Activity */}
+<button
+  onClick={() => navigate("/limited-time-activities")}
+  className={`flex flex-col items-center justify-center ${
+    location.pathname === "/limited-time-activities"
+      ? active
+      : normal
+  }`}
+>
+  <FaGift className="text-[31px]" />
+  <span className="mt-1 text-[12px] font-semibold">Activity</span>
+</button>
 
         {/* Profile */}
         <button
@@ -98,36 +99,38 @@ export default function BottomNavbar() {
         </button>
       </div>
 
-      {/* Center Agency Button */}
-      <div className="absolute left-1/2 -top-9 -translate-x-1/2">
+     {/* Center Agency Button */}
+<div className="absolute left-1/2 -top-9 -translate-x-1/2">
 
-        <button
-          className="
-            flex
-            h-[82px]
-            w-[82px]
-            items-center
-            justify-center
-            rounded-full
-            border-[5px]
-            border-[#123b6a]
-            bg-gradient-to-b
-            from-cyan-300
-            via-sky-500
-            to-blue-700
-            shadow-lg
-            hover:scale-105
-            transition-transform
-          "
-        >
-          <FaCoins className="text-[40px] text-white" />
-        </button>
+  <button
+    onClick={() => navigate("/agency")}
+    className="
+      flex
+      h-[82px]
+      w-[82px]
+      items-center
+      justify-center
+      rounded-full
+      border-[5px]
+      border-[#123b6a]
+      bg-gradient-to-b
+      from-cyan-300
+      via-sky-500
+      to-blue-700
+      shadow-lg
+      transition-transform
+      hover:scale-105
+      active:scale-95
+    "
+  >
+    <FaCoins className="text-[40px] text-white" />
+  </button>
 
-        <p className="mt-1 text-center text-[12px] font-bold text-cyan-300">
-          Agency
-        </p>
+  <p className="mt-1 text-center text-[12px] font-bold text-cyan-300">
+    Agency
+  </p>
 
-      </div>
+</div>
     </div>
   );
 }

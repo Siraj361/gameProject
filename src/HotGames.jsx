@@ -18,6 +18,7 @@ import ShowDown from "./assets/ShowDown.png";
 import Avator from "./assets/cc3986a9795745af9be51099db7fe0ff.png";
 import Anubis from "./assets/16f4b7f67f4ed4708a54cc643ba33d34.png";
 import Money from "./assets/48d6cf22dbbce1cf83a63812e6ab3286.jpg";
+import PG  from "./assets/pg2.png";
 
 import { useFavorites } from "./useFavorites";
 
@@ -94,6 +95,11 @@ export default function HotGames() {
       id: "hot-11",
       name: "Money",
       image: Money,
+    },
+     {
+      id: "hot-12",
+      name: "PG",
+      image: PG,
     },
   ];
 

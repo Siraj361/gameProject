@@ -16,7 +16,7 @@ import banner from "./assets/INVITEBANNER1.png";
 import qr from "./assets/qrcode.png";
 import chest from "./assets/chest.png";
 
-export default function Invite() {
+export default function Invite({ hideHeader = false }) {
   const navigate = useNavigate();
 
   const inviteLink = "https://66rs2fs.com/s/x";
@@ -52,87 +52,103 @@ export default function Invite() {
   return (
     <div
       className="
-        h-full
         w-full
-        overflow-y-auto
-        hide-scrollbar
         bg-gradient-to-b
         from-[#021b3a]
         via-[#064b87]
         to-[#020617]
         text-white
-        pb-[120px]
       "
     >
-      {/* Header */}
+      {/* =====================================================
+          HEADER
+          Agency ke andar hide rahega
+      ====================================================== */}
 
-      <div
-        className="
-          sticky
-          top-0
-          z-20
-          h-[70px]
-          flex
-          items-center
-          px-5
-          bg-[#042446]/95
-          backdrop-blur-xl
-          border-b
-          border-cyan-400/20
-        "
-      >
-        <button
-          onClick={() => navigate(-1)}
+      {!hideHeader && (
+        <div
           className="
-            w-10
-            h-10
-            rounded-full
+            sticky
+            top-0
+            z-50
             flex
+            h-[70px]
+            w-full
             items-center
-            justify-center
-            hover:bg-cyan-500/20
-            transition
+            border-b
+            border-cyan-400/20
+            bg-[#042446]/95
+            px-5
+            backdrop-blur-xl
           "
         >
-          <FaArrowLeft className="text-2xl" />
-        </button>
+          {/* Back Button */}
 
-        <h1 className="flex-1 text-center text-xl font-bold">
-          Invitation Bonus
-        </h1>
+          <button
+            onClick={() => navigate(-1)}
+            className="
+              flex
+              h-10
+              w-10
+              items-center
+              justify-center
+              rounded-full
+              transition
+              hover:bg-cyan-500/20
+              active:scale-90
+            "
+          >
+            <FaArrowLeft className="text-2xl" />
+          </button>
 
-        <div className="w-10" />
-      </div>
+          {/* Title */}
 
-      {/* Banner */}
+          <h1 className="flex-1 text-center text-xl font-bold">
+            Invitation Bonus
+          </h1>
+
+          {/* Right Empty Space */}
+
+          <div className="w-10" />
+        </div>
+      )}
+
+      {/* =====================================================
+          BANNER
+      ====================================================== */}
 
       <img
         src={banner}
         alt="Invite Banner"
         className="
-          w-full
+          block
           h-auto
-          object-cover
+          w-full
           rounded-b-3xl
+          object-cover
         "
       />
 
-      {/* Share Card */}
+      {/* =====================================================
+          SHARE CARD
+      ====================================================== */}
 
       <div
         className="
           mx-4
           mt-5
           rounded-3xl
-          bg-[#03182f]
           border
           border-cyan-400/20
+          bg-[#03182f]
           p-5
         "
       >
         <h2 className="text-xl font-bold">
           Share Link
         </h2>
+
+        {/* Invite Link */}
 
         <div
           className="
@@ -141,72 +157,102 @@ export default function Invite() {
             items-center
             gap-3
             rounded-2xl
-            bg-[#020b18]
             border
             border-cyan-400/20
+            bg-[#020b18]
             px-4
             py-4
           "
         >
-          <p className="flex-1 truncate text-sm text-gray-300">
+          <p className="min-w-0 flex-1 truncate text-sm text-gray-300">
             {inviteLink}
           </p>
 
           <button
             onClick={copyLink}
             className="
+              flex
               h-11
               w-11
-              rounded-xl
-              bg-cyan-500
-              flex
+              shrink-0
               items-center
               justify-center
-              active:scale-95
+              rounded-xl
+              bg-gradient-to-b
+              from-cyan-400
+              to-blue-700
               transition
+              active:scale-95
             "
           >
             <FaCopy />
           </button>
         </div>
 
+        {/* Social Media */}
+
         <h3 className="mt-8 text-center text-lg font-bold">
           Share to Social Media
         </h3>
 
-        <div className="grid grid-cols-5 gap-4 mt-6">
-          <Social icon={<FaFacebookF />} name="Facebook" />
-          <Social icon={<FaWhatsapp />} name="Whatsapp" />
-          <Social icon={<FaTelegramPlane />} name="Telegram" />
-          <Social icon={<FaInstagram />} name="Instagram" />
-          <Social icon={<FaXTwitter />} name="Twitter" />
+        <div className="mt-6 grid grid-cols-5 gap-3">
+          <Social
+            icon={<FaFacebookF />}
+            name="Facebook"
+          />
+
+          <Social
+            icon={<FaWhatsapp />}
+            name="Whatsapp"
+          />
+
+          <Social
+            icon={<FaTelegramPlane />}
+            name="Telegram"
+          />
+
+          <Social
+            icon={<FaInstagram />}
+            name="Instagram"
+          />
+
+          <Social
+            icon={<FaXTwitter />}
+            name="Twitter"
+          />
         </div>
+
+        {/* QR */}
 
         <img
           src={qr}
           alt="QR Code"
           className="
-            w-[120px]
-            h-[120px]
             mx-auto
             mt-8
+            h-[120px]
+            w-[120px]
             rounded-xl
             border
             border-cyan-300/20
+            bg-white
+            p-1
           "
         />
+
+        {/* Direct Subordinates */}
 
         <div
           className="
             mt-6
+            flex
             h-[65px]
+            items-center
+            justify-between
             rounded-2xl
             bg-gradient-to-r
             from-blue-500
             to-blue-900
-            flex
-            items-center
-            justify-between
             px-5
           "
         >
@@ -219,43 +265,49 @@ export default function Invite() {
           </span>
         </div>
       </div>
-            {/* Treasure Chest */}
 
-      <div className="px-4 mt-8">
-        <div className="flex items-center gap-3 mb-6">
-          <div className="flex-1 h-[2px] rounded-full bg-cyan-400/30" />
+      {/* =====================================================
+          TREASURE CHEST
+      ====================================================== */}
 
-          <h2 className="text-xl font-bold whitespace-nowrap">
+      <div className="mt-8 px-4">
+        <div className="mb-6 flex items-center gap-3">
+          <div className="h-[2px] flex-1 rounded-full bg-cyan-400/30" />
+
+          <h2 className="whitespace-nowrap text-xl font-bold">
             Treasure Chest
           </h2>
 
-          <div className="flex-1 h-[2px] rounded-full bg-cyan-400/30" />
+          <div className="h-[2px] flex-1 rounded-full bg-cyan-400/30" />
         </div>
 
-        <div className="grid grid-cols-4 gap-4">
+        {/* Reward Grid */}
+
+        <div className="grid grid-cols-4 gap-3">
           {rewards.map((item, index) => (
             <div
               key={index}
               className="
                 rounded-2xl
-                bg-[#03182f]
                 border
                 border-cyan-400/10
+                bg-[#03182f]
                 p-3
                 text-center
                 transition-all
                 duration-300
                 hover:scale-105
                 hover:border-cyan-400/40
+                active:scale-95
               "
             >
               <img
                 src={chest}
                 alt="Chest"
                 className="
-                  w-[62px]
-                  h-[62px]
                   mx-auto
+                  h-[62px]
+                  w-[62px]
                   object-contain
                 "
               />
@@ -272,25 +324,27 @@ export default function Invite() {
         </div>
       </div>
 
-      {/* Activity Description */}
+      {/* =====================================================
+          ACTIVITY DESCRIPTION
+      ====================================================== */}
 
-      <div className="px-4 mt-10">
-        <div className="flex items-center gap-3 mb-5">
-          <div className="flex-1 h-[2px] rounded-full bg-cyan-400/30" />
+      <div className="mt-10 px-4">
+        <div className="mb-5 flex items-center gap-3">
+          <div className="h-[2px] flex-1 rounded-full bg-cyan-400/30" />
 
-          <h2 className="text-xl font-bold whitespace-nowrap">
+          <h2 className="whitespace-nowrap text-xl font-bold">
             Activity Description
           </h2>
 
-          <div className="flex-1 h-[2px] rounded-full bg-cyan-400/30" />
+          <div className="h-[2px] flex-1 rounded-full bg-cyan-400/30" />
         </div>
 
         <div
           className="
             rounded-3xl
-            bg-[#03182f]
             border
             border-cyan-400/20
+            bg-[#03182f]
             p-5
             text-[14px]
             leading-8
@@ -298,63 +352,98 @@ export default function Invite() {
           "
         >
           <p>
-            <span className="font-bold text-cyan-300">1.</span>{" "}
+            <span className="font-bold text-cyan-300">
+              1.
+            </span>{" "}
             Invite friends to register and complete the
             required recharge to unlock treasure chest
             rewards.
           </p>
 
           <p className="mt-4">
-            <span className="font-bold text-cyan-300">2.</span>{" "}
-            Invited users must recharge at least
-            <span className="text-yellow-300">
-              {" "}Rs 700
+            <span className="font-bold text-cyan-300">
+              2.
             </span>{" "}
-            and complete betting of
+            Invited users must recharge at least{" "}
             <span className="text-yellow-300">
-              {" "}Rs 5000
-            </span>.
+              Rs 700
+            </span>{" "}
+            and complete betting of{" "}
+            <span className="text-yellow-300">
+              Rs 5000
+            </span>
+            .
           </p>
 
           <p className="mt-4">
-            <span className="font-bold text-cyan-300">3.</span>{" "}
+            <span className="font-bold text-cyan-300">
+              3.
+            </span>{" "}
             Rewards require a 1× turnover before
             withdrawal.
           </p>
 
           <p className="mt-4">
-            <span className="font-bold text-cyan-300">4.</span>{" "}
+            <span className="font-bold text-cyan-300">
+              4.
+            </span>{" "}
             Multiple accounts, bots, scripts and unfair
             activity are strictly prohibited.
           </p>
 
           <p className="mt-4">
-            <span className="font-bold text-cyan-300">5.</span>{" "}
+            <span className="font-bold text-cyan-300">
+              5.
+            </span>{" "}
             The platform reserves the final right of
             interpretation for this promotion.
           </p>
         </div>
       </div>
-            <div className="h-[120px]" />
+
+      {/* Bottom Space */}
+
+      <div className="h-[120px]" />
+
+      {/* =====================================================
+          HIDE SCROLLBAR
+      ====================================================== */}
+
+      <style>{`
+        * {
+          scrollbar-width: none;
+          -ms-overflow-style: none;
+        }
+
+        *::-webkit-scrollbar {
+          display: none;
+          width: 0;
+          height: 0;
+        }
+      `}</style>
     </div>
   );
 }
 
+/* =========================================================
+   SOCIAL BUTTON
+========================================================= */
+
 function Social({ icon, name }) {
   return (
-    <div className="text-center">
+    <div className="min-w-0 text-center">
       <button
         className="
-          w-12
-          h-12
           mx-auto
+          flex
+          h-12
+          w-12
+          items-center
+          justify-center
           rounded-full
           bg-gradient-to-b
           from-cyan-400
           to-blue-700
-          flex
-          items-center
-          justify-center
           text-lg
           shadow-lg
           transition-all
@@ -369,10 +458,10 @@ function Social({ icon, name }) {
       <p
         className="
           mt-2
-          text-[11px]
-          text-gray-300
-          font-medium
           truncate
+          text-[11px]
+          font-medium
+          text-gray-300
         "
       >
         {name}

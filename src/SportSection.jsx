@@ -2,7 +2,7 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { FaHeart, FaRegHeart, FaFutbol } from "react-icons/fa";
 
-import Sport1 from "./assets/sportOne.png";
+import Sport1 from "./assets/SportOne.png";
 import Sport2 from "./assets/sportTwo.png";
 
 export default function SportSection() {

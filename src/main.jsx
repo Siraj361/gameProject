@@ -3,19 +3,19 @@ import { createRoot } from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
 
 import App from "./App.jsx";
-import "./index.css";   // ✅ Tailwind CSS
+import "./index.css";
 
+// PWA Service Worker
+import { registerSW } from "virtual:pwa-register";
+
+registerSW({
+  immediate: true,
+});
 
 createRoot(document.getElementById("root")).render(
-
   <StrictMode>
-
     <BrowserRouter>
-
       <App />
-
     </BrowserRouter>
-
   </StrictMode>
-
 );

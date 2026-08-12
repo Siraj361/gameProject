@@ -72,11 +72,35 @@ function ProtectedRoute({ children, user, onNeedLogin }) {
 }
 
 /* =========================================================
+   SCROLL PAGE WRAPPER
+========================================================= */
+
+function PageScroll({ children, className = "" }) {
+  return (
+    <div
+      className={`
+        absolute
+        top-0
+        left-0
+        right-0
+        bottom-0
+        overflow-y-auto
+        overflow-x-hidden
+        hide-scrollbar
+        overscroll-contain
+        ${className}
+      `}
+    >
+      {children}
+    </div>
+  );
+}
+
+/* =========================================================
    HOME
 ========================================================= */
 
 function Home({
-  openMenu,
   setOpenMenu,
 
   loginOpen,
@@ -98,29 +122,49 @@ function Home({
     Number(localStorage.getItem("balance")) || 0;
 
   return (
-    <>
-      {/* HEADER */}
+    <div className="absolute inset-0 overflow-hidden">
+      {/* =====================================================
+          FIXED HEADER
+      ===================================================== */}
 
-      <Header
-        setOpenMenu={setOpenMenu}
-        setLoginOpen={setLoginOpen}
-        setSignupOpen={setSignupOpen}
-        user={user}
-        balance={balance}
-      />
+      <div
+        className="
+          fixed
+          top-0
+          left-1/2
+          -translate-x-1/2
+          w-full
+          max-w-[540px]
+          h-[70px]
+          z-[1000]
+        "
+      >
+        <Header
+          setOpenMenu={setOpenMenu}
+          setLoginOpen={setLoginOpen}
+          setSignupOpen={setSignupOpen}
+          user={user}
+          balance={balance}
+        />
+      </div>
 
-      {/* HOME CONTENT */}
+      {/* =====================================================
+          HOME SCROLL AREA
+      ===================================================== */}
 
       <main
         id="home-scroll"
         className="
           absolute
           top-[70px]
-          bottom-[78px]
           left-0
           right-0
+          bottom-0
           overflow-y-auto
+          overflow-x-hidden
           hide-scrollbar
+          overscroll-contain
+          pb-[90px]
         "
       >
         <HeroSection />
@@ -152,20 +196,28 @@ function Home({
         <FishGames />
 
         <SecFooter />
+
+        <div className="h-[20px]" />
       </main>
 
-      {/* ANNOUNCEMENT */}
+      {/* =====================================================
+          ANNOUNCEMENT
+      ===================================================== */}
 
       <Announcement
         open={announcementOpen}
         setOpenAnnouncement={setAnnouncementOpen}
       />
 
-      {/* SIDE WIDGET */}
+      {/* =====================================================
+          SIDE WIDGET
+      ===================================================== */}
 
       <SideWidget />
 
-      {/* LOGIN */}
+      {/* =====================================================
+          LOGIN
+      ===================================================== */}
 
       <LoginModal
         loginOpen={loginOpen}
@@ -175,7 +227,9 @@ function Home({
         setToast={setToast}
       />
 
-      {/* SIGNUP */}
+      {/* =====================================================
+          SIGNUP
+      ===================================================== */}
 
       <SignupModal
         signupOpen={signupOpen}
@@ -183,7 +237,7 @@ function Home({
         setLoginOpen={setLoginOpen}
         setToast={setToast}
       />
-    </>
+    </div>
   );
 }
 
@@ -266,8 +320,6 @@ export default function App() {
       updateUser();
       updateBalance();
 
-      /* Close login/signup automatically */
-
       setLoginOpen(false);
       setSignupOpen(false);
     };
@@ -323,12 +375,18 @@ export default function App() {
   }, []);
 
   /* =======================================================
-     CHECK USER ON EVERY ROUTE CHANGE
+     CHECK USER ON ROUTE CHANGE
   ======================================================= */
 
   useEffect(() => {
     updateUser();
     updateBalance();
+
+    /*
+      Close sidebar whenever route changes.
+    */
+
+    setOpenMenu(false);
   }, [location.pathname]);
 
   /* =======================================================
@@ -365,714 +423,561 @@ export default function App() {
   };
 
   /* =======================================================
+     BOTTOM NAVBAR PATHS
+  ======================================================= */
+
+  const showBottomNavbar = [
+    "/",
+    "/profile",
+    "/invite-bonus",
+    "/vip",
+    "/limited-time-activities",
+    "/agency",
+  ].includes(location.pathname);
+
+  /* =======================================================
      RETURN
   ======================================================= */
 
   return (
-    <div className="page-animation">
+    <div
+      className="
+        fixed
+        inset-0
+        w-full
+        h-[100dvh]
+        min-h-[100dvh]
+        bg-[#020617]
+        overflow-hidden
+      "
+    >
+      {/* =====================================================
+          540PX MOBILE APP CONTAINER
+      ===================================================== */}
+
       <div
         className="
-          h-screen
+          relative
+          mx-auto
           w-full
-          flex
-          justify-center
+          max-w-[540px]
+          h-[100dvh]
+          min-h-[100dvh]
           bg-[#020617]
           overflow-hidden
         "
       >
-        <div
-          className="
-            relative
-            w-full
-            max-w-[540px]
-            h-full
-            bg-[#020617]
-            overflow-hidden
-          "
-        >
+        {/* ===================================================
+            TOAST
+        =================================================== */}
+
+        {toast && (
+          <Toast
+            message={
+              toast.message || toast
+            }
+            type={
+              toast.type || "success"
+            }
+            close={() => setToast(null)}
+          />
+        )}
+
+        {/* ===================================================
+            SIDEBAR
+        =================================================== */}
+
+        <Sidebar
+          open={openMenu}
+          setOpen={setOpenMenu}
+          setLoginOpen={setLoginOpen}
+          setSignupOpen={setSignupOpen}
+          user={user}
+          setUser={setUser}
+        />
+
+        {/* ===================================================
+            ROUTES
+        =================================================== */}
+
+        <Routes>
+
           {/* =================================================
-              TOAST
-          ================================================== */}
+              BALANCE
+          ================================================= */}
 
-          {toast && (
-            <Toast
-              message={
-                toast.message || toast
-              }
-              type={
-                toast.type || "success"
-              }
-              close={() => setToast(null)}
-            />
-          )}
-
-          {/* =================================================
-              SIDEBAR
-          ================================================== */}
-
-          <Sidebar
-            open={openMenu}
-            setOpen={setOpenMenu}
-            setLoginOpen={setLoginOpen}
-            setSignupOpen={setSignupOpen}
-            user={user}
-            setUser={setUser}
+          <Route
+            path="/balance"
+            element={
+              <ProtectedRoute
+                user={user}
+                onNeedLogin={requireLogin}
+              >
+                <PageScroll>
+                  <Balance />
+                </PageScroll>
+              </ProtectedRoute>
+            }
           />
 
           {/* =================================================
-              ROUTES
-          ================================================== */}
+              CUSTOMER SERVICE
+          ================================================= */}
 
-          <Routes>
-
-            {/* =================================================
-                BALANCE
-            ================================================== */}
-
-            <Route
-              path="/balance"
-              element={
-                <ProtectedRoute
-                  user={user}
-                  onNeedLogin={requireLogin}
-                >
-                  <div
-                    className="
-                      absolute
-                      inset-0
-                      overflow-y-auto
-                      hide-scrollbar
-                    "
-                  >
-                    <Balance />
-                  </div>
-                </ProtectedRoute>
-              }
-            />
-
-            {/* =================================================
-                CUSTOMER SERVICE
-            ================================================== */}
-
-            <Route
-              path="/customer-service"
-              element={
-                <ProtectedRoute
-                  user={user}
-                  onNeedLogin={requireLogin}
-                >
-                  <div
-                    className="
-                      absolute
-                      top-0
-                      left-0
-                      right-0
-                      bottom-0
-                      overflow-y-auto
-                      hide-scrollbar
-                    "
-                  >
-                    <CustomerService />
-                  </div>
-                </ProtectedRoute>
-              }
-            />
-
-            {/* =================================================
-                MESSAGES
-            ================================================== */}
-
-            <Route
-              path="/messages"
-              element={
-                <ProtectedRoute
-                  user={user}
-                  onNeedLogin={requireLogin}
-                >
-                  <div
-                    className="
-                      absolute
-                      inset-0
-                      overflow-y-auto
-                      hide-scrollbar
-                    "
-                  >
-                    <Messages />
-                  </div>
-                </ProtectedRoute>
-              }
-            />
-
-            {/* =================================================
-                EDIT PASSWORD
-            ================================================== */}
-
-            <Route
-              path="/edit-password"
-              element={
-                <ProtectedRoute
-                  user={user}
-                  onNeedLogin={requireLogin}
-                >
-                  <div
-                    className="
-                      absolute
-                      top-0
-                      left-0
-                      right-0
-                      bottom-0
-                      overflow-y-auto
-                      hide-scrollbar
-                    "
-                  >
-                    <EditPassword />
-                  </div>
-                </ProtectedRoute>
-              }
-            />
-
-            {/* =================================================
-                AGENCY
-            ================================================== */}
-
-            <Route
-              path="/agency"
-              element={
-                <ProtectedRoute
-                  user={user}
-                  onNeedLogin={requireLogin}
-                >
-                  <div
-                    className="
-                      absolute
-                      inset-0
-                      overflow-y-auto
-                      hide-scrollbar
-                    "
-                  >
-                    <Agency />
-                  </div>
-                </ProtectedRoute>
-              }
-            />
-
-            {/* =================================================
-                STATISTICS
-            ================================================== */}
-
-            <Route
-              path="/statistics"
-              element={
-                <ProtectedRoute
-                  user={user}
-                  onNeedLogin={requireLogin}
-                >
-                  <div
-                    className="
-                      absolute
-                      top-0
-                      left-0
-                      right-0
-                      bottom-0
-                      overflow-y-auto
-                      hide-scrollbar
-                    "
-                  >
-                    <Statistics />
-                  </div>
-                </ProtectedRoute>
-              }
-            />
-
-            {/* =================================================
-                DAILY STATISTICS
-            ================================================== */}
-
-            <Route
-              path="/daily-statistics"
-              element={
-                <ProtectedRoute
-                  user={user}
-                  onNeedLogin={requireLogin}
-                >
-                  <div
-                    className="
-                      absolute
-                      top-0
-                      left-0
-                      right-0
-                      bottom-0
-                      overflow-y-auto
-                      hide-scrollbar
-                    "
-                  >
-                    <DailyStatistics />
-                  </div>
-                </ProtectedRoute>
-              }
-            />
-
-            {/* =================================================
-                HOME
-            ================================================== */}
-
-            <Route
-              path="/"
-              element={
-                <Home
-                  openMenu={openMenu}
-                  setOpenMenu={setOpenMenu}
-
-                  loginOpen={loginOpen}
-                  setLoginOpen={setLoginOpen}
-
-                  signupOpen={signupOpen}
-                  setSignupOpen={setSignupOpen}
-
-                  announcementOpen={
-                    announcementOpen
-                  }
-                  setAnnouncementOpen={
-                    setAnnouncementOpen
-                  }
-
-                  navigate={navigate}
-
-                  setToast={setToast}
-                />
-              }
-            />
-
-            {/* =================================================
-                ALL GAMES
-            ================================================== */}
-
-            <Route
-              path="/games"
-              element={
-                <ProtectedRoute
-                  user={user}
-                  onNeedLogin={requireLogin}
-                >
-                  <div
-                    className="
-                      absolute
-                      inset-0
-                      overflow-y-auto
-                      hide-scrollbar
-                    "
-                  >
-                    <AllGames />
-                  </div>
-                </ProtectedRoute>
-              }
-            />
-
-            {/* =================================================
-                HOT
-            ================================================== */}
-
-            <Route
-              path="/games/hot"
-              element={
-                <ProtectedRoute
-                  user={user}
-                  onNeedLogin={requireLogin}
-                >
-                  <div
-                    className="
-                      absolute
-                      inset-0
-                      overflow-y-auto
-                      hide-scrollbar
-                    "
-                  >
-                    <GameGrid />
-                  </div>
-                </ProtectedRoute>
-              }
-            />
-
-            {/* =================================================
-                LIMITED TIME
-            ================================================== */}
-
-            <Route
-              path="/limited-time-activities"
-              element={
-                <ProtectedRoute
-                  user={user}
-                  onNeedLogin={requireLogin}
-                >
-                  <div
-                    className="
-                      absolute
-                      inset-0
-                      overflow-y-auto
-                      hide-scrollbar
-                    "
-                  >
-                    <LimitedTimeActivities />
-                  </div>
-                </ProtectedRoute>
-              }
-            />
-
-            {/* =================================================
-                JILI
-            ================================================== */}
-
-            <Route
-              path="/games/jili"
-              element={
-                <ProtectedRoute
-                  user={user}
-                  onNeedLogin={requireLogin}
-                >
-                  <div
-                    className="
-                      absolute
-                      inset-0
-                      overflow-y-auto
-                      hide-scrollbar
-                    "
-                  >
-                    <JiliGames />
-                  </div>
-                </ProtectedRoute>
-              }
-            />
-
-            {/* =================================================
-                PG
-            ================================================== */}
-
-            <Route
-              path="/games/pg"
-              element={
-                <ProtectedRoute
-                  user={user}
-                  onNeedLogin={requireLogin}
-                >
-                  <div
-                    className="
-                      absolute
-                      inset-0
-                      overflow-y-auto
-                      hide-scrollbar
-                    "
-                  >
-                    <PgGames />
-                  </div>
-                </ProtectedRoute>
-              }
-            />
-
-            {/* =================================================
-                2J
-            ================================================== */}
-
-            <Route
-              path="/games/2j"
-              element={
-                <ProtectedRoute
-                  user={user}
-                  onNeedLogin={requireLogin}
-                >
-                  <div
-                    className="
-                      absolute
-                      inset-0
-                      overflow-y-auto
-                      hide-scrollbar
-                    "
-                  >
-                    <TwoJGames />
-                  </div>
-                </ProtectedRoute>
-              }
-            />
-
-            {/* =================================================
-                SPORT
-            ================================================== */}
-
-            <Route
-              path="/games/sport"
-              element={
-                <ProtectedRoute
-                  user={user}
-                  onNeedLogin={requireLogin}
-                >
-                  <div
-                    className="
-                      absolute
-                      inset-0
-                      overflow-y-auto
-                      hide-scrollbar
-                    "
-                  >
-                    <SportSection />
-                  </div>
-                </ProtectedRoute>
-              }
-            />
-
-            {/* =================================================
-                JDB
-            ================================================== */}
-
-            <Route
-              path="/games/jdb"
-              element={
-                <ProtectedRoute
-                  user={user}
-                  onNeedLogin={requireLogin}
-                >
-                  <div
-                    className="
-                      absolute
-                      inset-0
-                      overflow-y-auto
-                      hide-scrollbar
-                    "
-                  >
-                    <JDBGames />
-                  </div>
-                </ProtectedRoute>
-              }
-            />
-
-            {/* =================================================
-                PP
-            ================================================== */}
-
-            <Route
-              path="/games/pp"
-              element={
-                <ProtectedRoute
-                  user={user}
-                  onNeedLogin={requireLogin}
-                >
-                  <div
-                    className="
-                      absolute
-                      inset-0
-                      overflow-y-auto
-                      hide-scrollbar
-                    "
-                  >
-                    <PpGames />
-                  </div>
-                </ProtectedRoute>
-              }
-            />
-
-            {/* =================================================
-                TP
-            ================================================== */}
-
-            <Route
-              path="/games/tp"
-              element={
-                <ProtectedRoute
-                  user={user}
-                  onNeedLogin={requireLogin}
-                >
-                  <div
-                    className="
-                      absolute
-                      inset-0
-                      overflow-y-auto
-                      hide-scrollbar
-                    "
-                  >
-                    <TpGames />
-                  </div>
-                </ProtectedRoute>
-              }
-            />
-
-            {/* =================================================
-                VIP
-            ================================================== */}
-
-            <Route
-              path="/vip"
-              element={
-                <ProtectedRoute
-                  user={user}
-                  onNeedLogin={requireLogin}
-                >
-                  <div
-                    className="
-                      absolute
-                      top-0
-                      left-0
-                      right-0
-                      bottom-[78px]
-                      overflow-y-auto
-                      hide-scrollbar
-                    "
-                  >
-                    <VipPage />
-                  </div>
-                </ProtectedRoute>
-              }
-            />
-
-            {/* =================================================
-                DEPOSIT
-            ================================================== */}
-
-            <Route
-              path="/deposit"
-              element={
-                <ProtectedRoute
-                  user={user}
-                  onNeedLogin={requireLogin}
-                >
-                  <div
-                    className="
-                      absolute
-                      inset-0
-                      overflow-y-auto
-                      hide-scrollbar
-                    "
-                  >
-                    <Deposit />
-                  </div>
-                </ProtectedRoute>
-              }
-            />
-
-            {/* =================================================
-                PROFILE
-            ================================================== */}
-
-            <Route
-              path="/profile"
-              element={
-                <ProtectedRoute
-                  user={user}
-                  onNeedLogin={requireLogin}
-                >
-                  <div
-                    className="
-                      absolute
-                      top-0
-                      left-0
-                      right-0
-                      bottom-[78px]
-                      overflow-y-auto
-                      hide-scrollbar
-                    "
-                  >
-                    <Profile />
-                  </div>
-                </ProtectedRoute>
-              }
-            />
-
-            {/* =================================================
-                INVITE BONUS
-            ================================================== */}
-
-            <Route
-              path="/invite-bonus"
-              element={
-                <ProtectedRoute
-                  user={user}
-                  onNeedLogin={requireLogin}
-                >
-                  <div
-                    className="
-                      absolute
-                      top-0
-                      left-0
-                      right-0
-                      bottom-[78px]
-                      overflow-y-auto
-                      hide-scrollbar
-                    "
-                  >
-                    <InviteBonus />
-                  </div>
-                </ProtectedRoute>
-              }
-            />
-
-          </Routes>
-
-          {/* =================================================
-              BOTTOM NAVBAR
-          ================================================== */}
-
-          {!announcementOpen &&
-            [
-              "/",
-              "/profile",
-              "/invite-bonus",
-              "/vip",
-              "/limited-time-activities",
-              "/agency",
-            ].includes(location.pathname) && (
-              <div
-                className="
-                  absolute
-                  bottom-0
-                  left-0
-                  right-0
-                  z-[999]
-                "
+          <Route
+            path="/customer-service"
+            element={
+              <ProtectedRoute
+                user={user}
+                onNeedLogin={requireLogin}
               >
-                <BottomNavbar
-                  handleProfile={handleProfile}
-                />
-              </div>
-            )}
+                <PageScroll>
+                  <CustomerService />
+                </PageScroll>
+              </ProtectedRoute>
+            }
+          />
 
           {/* =================================================
-              ANNOUNCEMENT BLUR
-          ================================================== */}
+              MESSAGES
+          ================================================= */}
 
-          {announcementOpen && (
+          <Route
+            path="/messages"
+            element={
+              <ProtectedRoute
+                user={user}
+                onNeedLogin={requireLogin}
+              >
+                <PageScroll>
+                  <Messages />
+                </PageScroll>
+              </ProtectedRoute>
+            }
+          />
+
+          {/* =================================================
+              EDIT PASSWORD
+          ================================================= */}
+
+          <Route
+            path="/edit-password"
+            element={
+              <ProtectedRoute
+                user={user}
+                onNeedLogin={requireLogin}
+              >
+                <PageScroll>
+                  <EditPassword />
+                </PageScroll>
+              </ProtectedRoute>
+            }
+          />
+
+          {/* =================================================
+              AGENCY
+          ================================================= */}
+
+          <Route
+            path="/agency"
+            element={
+              <ProtectedRoute
+                user={user}
+                onNeedLogin={requireLogin}
+              >
+                <PageScroll>
+                  <Agency />
+                </PageScroll>
+              </ProtectedRoute>
+            }
+          />
+
+          {/* =================================================
+              STATISTICS
+          ================================================= */}
+
+          <Route
+            path="/statistics"
+            element={
+              <ProtectedRoute
+                user={user}
+                onNeedLogin={requireLogin}
+              >
+                <PageScroll>
+                  <Statistics />
+                </PageScroll>
+              </ProtectedRoute>
+            }
+          />
+
+          {/* =================================================
+              DAILY STATISTICS
+          ================================================= */}
+
+          <Route
+            path="/daily-statistics"
+            element={
+              <ProtectedRoute
+                user={user}
+                onNeedLogin={requireLogin}
+              >
+                <PageScroll>
+                  <DailyStatistics />
+                </PageScroll>
+              </ProtectedRoute>
+            }
+          />
+
+          {/* =================================================
+              HOME
+          ================================================= */}
+
+          <Route
+            path="/"
+            element={
+              <Home
+                setOpenMenu={setOpenMenu}
+
+                loginOpen={loginOpen}
+                setLoginOpen={setLoginOpen}
+
+                signupOpen={signupOpen}
+                setSignupOpen={setSignupOpen}
+
+                announcementOpen={
+                  announcementOpen
+                }
+
+                setAnnouncementOpen={
+                  setAnnouncementOpen
+                }
+
+                navigate={navigate}
+
+                setToast={setToast}
+              />
+            }
+          />
+
+          {/* =================================================
+              ALL GAMES
+          ================================================= */}
+
+          <Route
+            path="/games"
+            element={
+              <ProtectedRoute
+                user={user}
+                onNeedLogin={requireLogin}
+              >
+                <PageScroll>
+                  <AllGames />
+                </PageScroll>
+              </ProtectedRoute>
+            }
+          />
+
+          {/* =================================================
+              HOT
+          ================================================= */}
+
+          <Route
+            path="/games/hot"
+            element={
+              <ProtectedRoute
+                user={user}
+                onNeedLogin={requireLogin}
+              >
+                <PageScroll>
+                  <GameGrid />
+                </PageScroll>
+              </ProtectedRoute>
+            }
+          />
+
+          {/* =================================================
+              LIMITED TIME
+          ================================================= */}
+
+          <Route
+            path="/limited-time-activities"
+            element={
+              <ProtectedRoute
+                user={user}
+                onNeedLogin={requireLogin}
+              >
+                <PageScroll>
+                  <LimitedTimeActivities />
+                </PageScroll>
+              </ProtectedRoute>
+            }
+          />
+
+          {/* =================================================
+              JILI
+          ================================================= */}
+
+          <Route
+            path="/games/jili"
+            element={
+              <ProtectedRoute
+                user={user}
+                onNeedLogin={requireLogin}
+              >
+                <PageScroll>
+                  <JiliGames />
+                </PageScroll>
+              </ProtectedRoute>
+            }
+          />
+
+          {/* =================================================
+              PG
+          ================================================= */}
+
+          <Route
+            path="/games/pg"
+            element={
+              <ProtectedRoute
+                user={user}
+                onNeedLogin={requireLogin}
+              >
+                <PageScroll>
+                  <PgGames />
+                </PageScroll>
+              </ProtectedRoute>
+            }
+          />
+
+          {/* =================================================
+              2J
+          ================================================= */}
+
+          <Route
+            path="/games/2j"
+            element={
+              <ProtectedRoute
+                user={user}
+                onNeedLogin={requireLogin}
+              >
+                <PageScroll>
+                  <TwoJGames />
+                </PageScroll>
+              </ProtectedRoute>
+            }
+          />
+
+          {/* =================================================
+              SPORT
+          ================================================= */}
+
+          <Route
+            path="/games/sport"
+            element={
+              <ProtectedRoute
+                user={user}
+                onNeedLogin={requireLogin}
+              >
+                <PageScroll>
+                  <SportSection />
+                </PageScroll>
+              </ProtectedRoute>
+            }
+          />
+
+          {/* =================================================
+              JDB
+          ================================================= */}
+
+          <Route
+            path="/games/jdb"
+            element={
+              <ProtectedRoute
+                user={user}
+                onNeedLogin={requireLogin}
+              >
+                <PageScroll>
+                  <JDBGames />
+                </PageScroll>
+              </ProtectedRoute>
+            }
+          />
+
+          {/* =================================================
+              PP
+          ================================================= */}
+
+          <Route
+            path="/games/pp"
+            element={
+              <ProtectedRoute
+                user={user}
+                onNeedLogin={requireLogin}
+              >
+                <PageScroll>
+                  <PpGames />
+                </PageScroll>
+              </ProtectedRoute>
+            }
+          />
+
+          {/* =================================================
+              TP
+          ================================================= */}
+
+          <Route
+            path="/games/tp"
+            element={
+              <ProtectedRoute
+                user={user}
+                onNeedLogin={requireLogin}
+              >
+                <PageScroll>
+                  <TpGames />
+                </PageScroll>
+              </ProtectedRoute>
+            }
+          />
+
+          {/* =================================================
+              VIP
+          ================================================= */}
+
+          <Route
+            path="/vip"
+            element={
+              <ProtectedRoute
+                user={user}
+                onNeedLogin={requireLogin}
+              >
+                <PageScroll className="pb-[90px]">
+                  <VipPage />
+                </PageScroll>
+              </ProtectedRoute>
+            }
+          />
+
+          {/* =================================================
+              DEPOSIT
+          ================================================= */}
+
+          <Route
+            path="/deposit"
+            element={
+              <ProtectedRoute
+                user={user}
+                onNeedLogin={requireLogin}
+              >
+                <PageScroll>
+                  <Deposit />
+                </PageScroll>
+              </ProtectedRoute>
+            }
+          />
+
+          {/* =================================================
+              PROFILE
+          ================================================= */}
+
+          <Route
+            path="/profile"
+            element={
+              <ProtectedRoute
+                user={user}
+                onNeedLogin={requireLogin}
+              >
+                <PageScroll className="pb-[90px]">
+                  <Profile />
+                </PageScroll>
+              </ProtectedRoute>
+            }
+          />
+
+          {/* =================================================
+              INVITE BONUS
+          ================================================= */}
+
+          <Route
+            path="/invite-bonus"
+            element={
+              <ProtectedRoute
+                user={user}
+                onNeedLogin={requireLogin}
+              >
+                <PageScroll className="pb-[90px]">
+                  <InviteBonus />
+                </PageScroll>
+              </ProtectedRoute>
+            }
+          />
+
+        </Routes>
+
+        {/* =====================================================
+            FIXED BOTTOM NAVBAR
+        ===================================================== */}
+
+        {!announcementOpen &&
+          showBottomNavbar && (
             <div
               className="
-                absolute
-                inset-0
-                z-[995]
-                bg-black/20
-                backdrop-blur-[2px]
+                fixed
+                left-1/2
+                -translate-x-1/2
+                bottom-0
+                w-full
+                max-w-[540px]
+                h-[78px]
+                z-[1000]
               "
-            />
+            >
+              <BottomNavbar
+                handleProfile={handleProfile}
+              />
+            </div>
           )}
 
-          {/* =================================================
-              GLOBAL LOGIN MODAL
-          ================================================= */}
+        {/* =====================================================
+            ANNOUNCEMENT BLUR
+        ===================================================== */}
 
-          <LoginModal
-            loginOpen={loginOpen}
-            setLoginOpen={setLoginOpen}
-            setSignupOpen={setSignupOpen}
-            navigate={navigate}
-            setToast={setToast}
-            onLoginSuccess={handleLoginSuccess}
+        {announcementOpen && (
+          <div
+            className="
+              fixed
+              inset-0
+              z-[995]
+              bg-black/20
+              backdrop-blur-[2px]
+              pointer-events-none
+            "
           />
+        )}
 
-          {/* =================================================
-              GLOBAL SIGNUP MODAL
-          ================================================= */}
+        {/* =====================================================
+            GLOBAL LOGIN MODAL
+        ===================================================== */}
 
-          <SignupModal
-            signupOpen={signupOpen}
-            setSignupOpen={setSignupOpen}
-            setLoginOpen={setLoginOpen}
-            setToast={setToast}
-            onSignupSuccess={handleLoginSuccess}
-          />
-        </div>
+        <LoginModal
+          loginOpen={loginOpen}
+          setLoginOpen={setLoginOpen}
+          setSignupOpen={setSignupOpen}
+          navigate={navigate}
+          setToast={setToast}
+          onLoginSuccess={handleLoginSuccess}
+        />
+
+        {/* =====================================================
+            GLOBAL SIGNUP MODAL
+        ===================================================== */}
+
+        <SignupModal
+          signupOpen={signupOpen}
+          setSignupOpen={setSignupOpen}
+          setLoginOpen={setLoginOpen}
+          setToast={setToast}
+          onSignupSuccess={handleLoginSuccess}
+        />
       </div>
     </div>
   );

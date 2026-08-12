@@ -1,3 +1,4 @@
+
 import { useEffect } from "react";
 import { motion } from "framer-motion";
 
@@ -18,17 +19,14 @@ import ShowDown from "./assets/ShowDown.png";
 import Avator from "./assets/cc3986a9795745af9be51099db7fe0ff.png";
 import Anubis from "./assets/16f4b7f67f4ed4708a54cc643ba33d34.png";
 import Money from "./assets/48d6cf22dbbce1cf83a63812e6ab3286.jpg";
-import PG  from "./assets/pg2.png";
+import PG from "./assets/pg2.png";
 
 import { useFavorites } from "./useFavorites";
 
 export default function HotGames() {
-
-  /*
-  ============================================================
-  GAMES
-  ============================================================
-  */
+  /* ==================================================
+     GAMES
+  ================================================== */
 
   const games = [
     {
@@ -96,18 +94,17 @@ export default function HotGames() {
       name: "Money",
       image: Money,
     },
-     {
+
+    {
       id: "hot-12",
       name: "PG",
       image: PG,
     },
   ];
 
-  /*
-  ============================================================
-  FAVORITES
-  ============================================================
-  */
+  /* ==================================================
+     FAVORITES
+  ================================================== */
 
   const {
     favorites,
@@ -115,27 +112,19 @@ export default function HotGames() {
     isFavorite,
   } = useFavorites();
 
-
-  /*
-  ============================================================
-  UPDATE ALLGAMES WHEN FAVORITE CHANGES
-  ============================================================
-  */
+  /* ==================================================
+     UPDATE ALLGAMES WHEN FAVORITE CHANGES
+  ================================================== */
 
   useEffect(() => {
-
     window.dispatchEvent(
       new Event("favoritesUpdated")
     );
-
   }, [favorites]);
 
-
-  /*
-  ============================================================
-  FADE ANIMATION
-  ============================================================
-  */
+  /* ==================================================
+     FADE ANIMATION
+  ================================================== */
 
   const fadeIn = {
     hidden: {
@@ -156,17 +145,20 @@ export default function HotGames() {
     },
   };
 
-
-  /*
-  ============================================================
-  RETURN
-  ============================================================
-  */
+  /* ==================================================
+     RETURN
+  ================================================== */
 
   return (
-
-    <div className="p-3">
-
+    <div
+      className="
+        w-full
+        max-w-[540px]
+        mx-auto
+        p-2
+        sm:p-3
+      "
+    >
       {/* ==================================================
           HEADER
       ================================================== */}
@@ -177,19 +169,20 @@ export default function HotGames() {
           border
           border-cyan-500
           bg-[#08152e]
+          overflow-hidden
         "
       >
-
         <div
           className="
             flex
             items-center
             justify-between
-            px-4
-            py-3
+            px-3
+            py-2.5
+            sm:px-4
+            sm:py-3
           "
         >
-
           {/* TITLE */}
 
           <div
@@ -197,49 +190,51 @@ export default function HotGames() {
               flex
               items-center
               gap-2
+              min-w-0
             "
           >
-
             <FaFire
               className="
                 text-orange-500
-                text-3xl
+                text-2xl
+                sm:text-3xl
+                shrink-0
               "
             />
 
             <h2
               className="
                 text-cyan-300
-                text-2xl
+                text-xl
+                sm:text-2xl
                 font-bold
+                whitespace-nowrap
               "
             >
               Hots
             </h2>
-
           </div>
-
 
           {/* COUNT */}
 
           <div
             className="
-              px-3
+              px-2.5
+              sm:px-3
               py-1
               rounded-lg
               border
               border-cyan-500
               text-cyan-300
-              text-sm
+              text-xs
+              sm:text-sm
+              whitespace-nowrap
             "
           >
             All {games.length}
           </div>
-
         </div>
-
       </div>
-
 
       {/* ==================================================
           GAMES
@@ -248,18 +243,19 @@ export default function HotGames() {
       <div
         className="
           grid
-          grid-cols-4
-          gap-3
-          mt-4
+          grid-cols-2
+          min-[390px]:grid-cols-3
+          sm:grid-cols-4
+          gap-2
+          sm:gap-3
+          mt-3
+          sm:mt-4
         "
       >
-
         {games.map((game) => {
-
           const favorite = isFavorite(game.id);
 
           return (
-
             <motion.div
               key={game.id}
               initial="hidden"
@@ -269,89 +265,99 @@ export default function HotGames() {
               }}
               variants={fadeIn}
               className="
+                relative
+                w-full
+                aspect-[3/4]
                 rounded-xl
                 overflow-hidden
                 border
                 border-cyan-500
                 bg-[#08152e]
-                h-[180px]
               "
             >
+              {/* GAME IMAGE */}
 
-              <div className="relative h-full">
-
-                {/* GAME IMAGE */}
-
+              <div
+                className="
+                  absolute
+                  inset-0
+                  flex
+                  items-center
+                  justify-center
+                  bg-[#08152e]
+                "
+              >
                 <img
                   src={game.image}
                   alt={game.name}
+                  loading="lazy"
                   className="
                     w-full
                     h-full
-                    object-cover
+                    object-contain
+                    block
                   "
                 />
-
-
-                {/* ==================================================
-                    FAVORITE BUTTON
-                ================================================== */}
-
-                <button
-                  type="button"
-                  onClick={() =>
-                    toggleFavorite(game.id)
-                  }
-                  className="
-                    absolute
-                    top-2
-                    right-2
-                    w-7
-                    h-7
-                    rounded-full
-                    bg-[#071426]/85
-                    border
-                    border-cyan-500
-                    flex
-                    items-center
-                    justify-center
-                    active:scale-90
-                    transition-all
-                  "
-                >
-
-                  {favorite ? (
-
-                    <FaHeart
-                      className="
-                        text-pink-400
-                        text-sm
-                      "
-                    />
-
-                  ) : (
-
-                    <FaRegHeart
-                      className="
-                        text-white/70
-                        text-sm
-                      "
-                    />
-
-                  )}
-
-                </button>
-
               </div>
 
+              {/* ==================================================
+                  FAVORITE BUTTON
+              ================================================== */}
+
+              <button
+                type="button"
+                onClick={() =>
+                  toggleFavorite(game.id)
+                }
+                aria-label={
+                  favorite
+                    ? `Remove ${game.name} from favorites`
+                    : `Add ${game.name} to favorites`
+                }
+                className="
+                  absolute
+                  top-1.5
+                  right-1.5
+                  sm:top-2
+                  sm:right-2
+                  w-7
+                  h-7
+                  sm:w-8
+                  sm:h-8
+                  rounded-full
+                  bg-[#071426]/90
+                  border
+                  border-cyan-500
+                  flex
+                  items-center
+                  justify-center
+                  active:scale-90
+                  transition-all
+                  z-10
+                "
+              >
+                {favorite ? (
+                  <FaHeart
+                    className="
+                      text-pink-400
+                      text-xs
+                      sm:text-sm
+                    "
+                  />
+                ) : (
+                  <FaRegHeart
+                    className="
+                      text-white/70
+                      text-xs
+                      sm:text-sm
+                    "
+                  />
+                )}
+              </button>
             </motion.div>
-
           );
-
         })}
-
       </div>
-
     </div>
   );
 }

@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">66RS</string>
+    <string name="title_activity_main">66RS</string>
+    <string name="package_name">com.rs66.app</string>
+    <string name="custom_url_scheme">com.rs66.app</string>
+</resources>

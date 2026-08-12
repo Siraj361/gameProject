@@ -85,7 +85,7 @@ export default function AllGames() {
       name: "JILI",
       keywords: ["jili", "jili games"],
       icon: (
-        <span className="text-[17px] font-black">
+        <span className="text-[15px] sm:text-[17px] font-black">
           JILI
         </span>
       ),
@@ -97,7 +97,7 @@ export default function AllGames() {
       name: "PG",
       keywords: ["pg", "pg games"],
       icon: (
-        <span className="text-[20px] font-black">
+        <span className="text-[18px] sm:text-[20px] font-black">
           PG
         </span>
       ),
@@ -107,11 +107,7 @@ export default function AllGames() {
     {
       id: "2j",
       name: "2J",
-      keywords: [
-        "2j",
-        "twoj",
-        "2j games",
-      ],
+      keywords: ["2j", "twoj", "2j games"],
       icon: <FaGem />,
       color: "text-cyan-300",
     },
@@ -132,12 +128,9 @@ export default function AllGames() {
     {
       id: "jdb",
       name: "JDB",
-      keywords: [
-        "jdb",
-        "jdb games",
-      ],
+      keywords: ["jdb", "jdb games"],
       icon: (
-        <span className="text-[17px] font-black">
+        <span className="text-[15px] sm:text-[17px] font-black">
           JDB
         </span>
       ),
@@ -153,7 +146,7 @@ export default function AllGames() {
         "pragmatic play",
       ],
       icon: (
-        <span className="text-[17px] font-black">
+        <span className="text-[15px] sm:text-[17px] font-black">
           PP
         </span>
       ),
@@ -163,12 +156,9 @@ export default function AllGames() {
     {
       id: "tp",
       name: "TP",
-      keywords: [
-        "tp",
-        "tp games",
-      ],
+      keywords: ["tp", "tp games"],
       icon: (
-        <span className="text-[17px] font-black">
+        <span className="text-[15px] sm:text-[17px] font-black">
           TP
         </span>
       ),
@@ -208,9 +198,7 @@ export default function AllGames() {
   ============================================================
   */
 
-  const handleSearchResultClick = (
-    categoryId
-  ) => {
+  const handleSearchResultClick = (categoryId) => {
     setActive(categoryId);
     setSearch("");
   };
@@ -221,9 +209,7 @@ export default function AllGames() {
   ============================================================
   */
 
-  const handleCategoryClick = (
-    categoryId
-  ) => {
+  const handleCategoryClick = (categoryId) => {
     setActive(categoryId);
     setSearch("");
   };
@@ -240,14 +226,13 @@ export default function AllGames() {
 
   /*
   ============================================================
-  FAVOURITE SECTION
+  FAVORITE SECTION
   ============================================================
   */
 
   const renderFavorites = () => {
     return (
-      <div className="p-3">
-
+      <div className="w-full p-2 sm:p-3">
         {/* HEADER */}
 
         <div
@@ -256,7 +241,9 @@ export default function AllGames() {
             border
             border-cyan-500
             bg-[#08152e]
-            mb-4
+            mb-3
+            sm:mb-4
+            overflow-hidden
           "
         >
           <div
@@ -264,61 +251,54 @@ export default function AllGames() {
               flex
               items-center
               justify-between
-              px-4
-              py-3
+              px-3
+              py-2.5
+              sm:px-4
+              sm:py-3
             "
           >
-
-            <div
-              className="
-                flex
-                items-center
-                gap-2
-              "
-            >
-
+            <div className="flex items-center gap-2">
               <FaHeart
                 className="
                   text-pink-400
-                  text-2xl
+                  text-xl
+                  sm:text-2xl
                 "
               />
 
               <h2
                 className="
                   text-cyan-300
-                  text-xl
+                  text-lg
+                  sm:text-xl
                   font-bold
                 "
               >
                 Favourite
               </h2>
-
             </div>
-
 
             <div
               className="
-                px-3
+                px-2.5
+                sm:px-3
                 py-1
                 rounded-lg
                 border
                 border-cyan-500
                 text-cyan-300
-                text-sm
+                text-xs
+                sm:text-sm
               "
             >
               All {favoriteGames.length}
             </div>
-
           </div>
         </div>
-
 
         {/* NO FAVOURITES */}
 
         {favoriteGames.length === 0 ? (
-
           <div
             className="
               rounded-xl
@@ -330,7 +310,6 @@ export default function AllGames() {
               text-center
             "
           >
-
             <div
               className="
                 w-16
@@ -346,42 +325,18 @@ export default function AllGames() {
                 mb-3
               "
             >
-
-              <FaHeart
-                className="
-                  text-3xl
-                  text-pink-400/50
-                "
-              />
-
+              <FaHeart className="text-3xl text-pink-400/50" />
             </div>
 
-
-            <p
-              className="
-                text-white
-                font-bold
-                text-sm
-              "
-            >
+            <p className="text-white font-bold text-sm">
               No Favourite Games
             </p>
 
-
-            <p
-              className="
-                text-gray-500
-                text-xs
-                mt-1
-              "
-            >
+            <p className="text-gray-500 text-xs mt-1">
               Tap ❤️ on any game to add it here
             </p>
-
           </div>
-
         ) : (
-
           /* ==================================================
              FAV GAME GRID
           ================================================== */
@@ -389,101 +344,101 @@ export default function AllGames() {
           <div
             className="
               grid
-              grid-cols-4
-              gap-3
+              grid-cols-3
+              gap-2
+              sm:gap-3
             "
           >
-
             {favoriteGames.map((game) => (
-
               <div
                 key={game.id}
                 className="
+                  relative
+                  w-full
+                  aspect-[3/4]
                   rounded-xl
                   overflow-hidden
                   border
                   border-cyan-500
                   bg-[#08152e]
-                  h-[180px]
                 "
               >
+                {/* IMAGE */}
 
                 <div
                   className="
-                    relative
-                    h-full
+                    absolute
+                    inset-0
+                    flex
+                    items-center
+                    justify-center
+                    bg-[#08152e]
                   "
                 >
-
-                  {/* GAME IMAGE */}
-
                   <img
                     src={game.image}
                     alt={game.name || "Game"}
+                    loading="lazy"
                     className="
                       w-full
                       h-full
-                      object-cover
+                      object-contain
+                      block
                     "
                   />
-
-
-                  {/* FAV BUTTON */}
-
-                  <button
-                    onClick={() =>
-                      toggleFavorite(game.id)
-                    }
-                    className="
-                      absolute
-                      top-2
-                      right-2
-                      w-7
-                      h-7
-                      rounded-full
-                      bg-[#071426]/85
-                      border
-                      border-cyan-500
-                      flex
-                      items-center
-                      justify-center
-                      active:scale-90
-                      transition
-                    "
-                  >
-
-                    {isFavorite(game.id) ? (
-
-                      <FaHeart
-                        className="
-                          text-pink-400
-                          text-sm
-                        "
-                      />
-
-                    ) : (
-
-                      <FaRegHeart
-                        className="
-                          text-white/70
-                          text-sm
-                        "
-                      />
-
-                    )}
-
-                  </button>
-
                 </div>
 
+                {/* FAV BUTTON */}
+
+                <button
+                  type="button"
+                  onClick={() =>
+                    toggleFavorite(game.id)
+                  }
+                  className="
+                    absolute
+                    top-1.5
+                    right-1.5
+                    sm:top-2
+                    sm:right-2
+                    w-7
+                    h-7
+                    sm:w-8
+                    sm:h-8
+                    rounded-full
+                    bg-[#071426]/90
+                    border
+                    border-cyan-500
+                    flex
+                    items-center
+                    justify-center
+                    active:scale-90
+                    transition
+                    z-10
+                  "
+                >
+                  {isFavorite(game.id) ? (
+                    <FaHeart
+                      className="
+                        text-pink-400
+                        text-xs
+                        sm:text-sm
+                      "
+                    />
+                  ) : (
+                    <FaRegHeart
+                      className="
+                        text-white/70
+                        text-xs
+                        sm:text-sm
+                      "
+                    />
+                  )}
+                </button>
               </div>
-
             ))}
-
           </div>
-
         )}
-
       </div>
     );
   };
@@ -495,7 +450,6 @@ export default function AllGames() {
   */
 
   const renderGames = () => {
-
     if (active === "hot") {
       return <HotGames />;
     }
@@ -542,18 +496,16 @@ export default function AllGames() {
   */
 
   return (
-
     <div
       className="
-        min-h-screen
         w-full
+        h-[100dvh]
         bg-[#020617]
         flex
         justify-center
         overflow-hidden
       "
     >
-
       {/* ====================================================
           540PX CONTAINER
       ==================================================== */}
@@ -562,7 +514,7 @@ export default function AllGames() {
         className="
           w-full
           max-w-[540px]
-          h-screen
+          h-full
           overflow-hidden
           flex
           flex-col
@@ -574,30 +526,32 @@ export default function AllGames() {
           border-cyan-500/20
         "
       >
-
         {/* ==================================================
             HEADER
         ================================================== */}
 
         <div
           className="
-            h-[70px]
+            h-[64px]
+            sm:h-[70px]
             shrink-0
             flex
             items-center
-            gap-4
-            px-4
+            gap-3
+            sm:gap-4
+            px-3
+            sm:px-4
             border-b
             border-cyan-500/30
             bg-[#041729]
           "
         >
-
           <button
             onClick={() => navigate(-1)}
             className="
               w-10
               h-10
+              shrink-0
               rounded-xl
               border
               border-cyan-500/60
@@ -606,7 +560,8 @@ export default function AllGames() {
               items-center
               justify-center
               text-cyan-300
-              text-xl
+              text-lg
+              sm:text-xl
               active:scale-95
               transition
             "
@@ -614,13 +569,12 @@ export default function AllGames() {
             <FaArrowLeft />
           </button>
 
-
-          <div>
-
+          <div className="min-w-0">
             <h1
               className="
                 text-white
-                text-xl
+                text-lg
+                sm:text-xl
                 font-bold
               "
             >
@@ -630,16 +584,14 @@ export default function AllGames() {
             <p
               className="
                 text-cyan-400/60
-                text-[10px]
+                text-[9px]
+                sm:text-[10px]
               "
             >
               Find your favourite game
             </p>
-
           </div>
-
         </div>
-
 
         {/* ==================================================
             SEARCH
@@ -649,37 +601,34 @@ export default function AllGames() {
           className="
             relative
             shrink-0
-            px-3
-            py-3
+            px-2.5
+            sm:px-3
+            py-2.5
+            sm:py-3
             border-b
             border-cyan-500/20
             bg-[#041729]
           "
         >
-
           <div
             className="
-              h-12
+              h-11
+              sm:h-12
               rounded-xl
               border
               border-cyan-500/50
               bg-[#071426]
               flex
               items-center
-              px-4
-              gap-3
+              px-3
+              sm:px-4
+              gap-2.5
+              sm:gap-3
               focus-within:border-cyan-300
               transition
             "
           >
-
-            <FaSearch
-              className="
-                text-cyan-300
-                shrink-0
-              "
-            />
-
+            <FaSearch className="text-cyan-300 shrink-0" />
 
             <input
               type="text"
@@ -694,19 +643,19 @@ export default function AllGames() {
                 bg-transparent
                 outline-none
                 text-white
-                text-sm
+                text-xs
+                sm:text-sm
                 placeholder:text-gray-500
               "
             />
 
-
             {search && (
-
               <button
                 onClick={clearSearch}
                 className="
                   w-7
                   h-7
+                  shrink-0
                   rounded-full
                   bg-cyan-500/10
                   flex
@@ -716,28 +665,23 @@ export default function AllGames() {
                   active:scale-90
                 "
               >
-                <FaTimes
-                  className="text-xs"
-                />
+                <FaTimes className="text-xs" />
               </button>
-
             )}
-
           </div>
 
-
-          {/* =================================================
-              SEARCH RESULT DROPDOWN
-          ================================================= */}
+          {/* SEARCH RESULT */}
 
           {search.trim() && (
-
             <div
               className="
                 absolute
-                left-3
-                right-3
-                top-[68px]
+                left-2.5
+                right-2.5
+                sm:left-3
+                sm:right-3
+                top-[62px]
+                sm:top-[68px]
                 z-50
                 rounded-xl
                 border
@@ -747,20 +691,17 @@ export default function AllGames() {
                 overflow-hidden
               "
             >
-
               {searchResults.length > 0 ? (
-
                 <div>
-
                   <div
                     className="
-                      px-4
+                      px-3
+                      sm:px-4
                       py-2.5
                       border-b
                       border-cyan-500/15
                     "
                   >
-
                     <p
                       className="
                         text-gray-400
@@ -771,125 +712,75 @@ export default function AllGames() {
                     >
                       Categories
                     </p>
-
                   </div>
 
-
-                  {searchResults.map(
-                    (category) => (
-
-                      <button
-                        key={category.id}
-                        onClick={() =>
-                          handleSearchResultClick(
-                            category.id
-                          )
-                        }
+                  {searchResults.map((category) => (
+                    <button
+                      key={category.id}
+                      onClick={() =>
+                        handleSearchResultClick(
+                          category.id
+                        )
+                      }
+                      className="
+                        w-full
+                        flex
+                        items-center
+                        gap-3
+                        px-3
+                        sm:px-4
+                        py-3
+                        border-b
+                        border-cyan-500/10
+                        hover:bg-cyan-500/10
+                        active:bg-cyan-500/20
+                        transition
+                      "
+                    >
+                      <div
                         className="
-                          w-full
+                          w-10
+                          h-10
+                          shrink-0
+                          rounded-lg
+                          border
+                          border-cyan-400/30
+                          bg-gradient-to-b
+                          from-[#0d4ea3]
+                          to-[#031a3b]
                           flex
                           items-center
-                          gap-3
-                          px-4
-                          py-3
-                          border-b
-                          border-cyan-500/10
-                          hover:bg-cyan-500/10
-                          active:bg-cyan-500/20
-                          transition
+                          justify-center
                         "
                       >
-
-                        {/* ICON */}
-
-                        <div
-                          className="
-                            w-10
-                            h-10
-                            shrink-0
-                            rounded-lg
-                            border
-                            border-cyan-400/30
-                            bg-gradient-to-b
-                            from-[#0d4ea3]
-                            to-[#031a3b]
-                            flex
-                            items-center
-                            justify-center
-                          "
-                        >
-
-                          <span
-                            className={`
-                              text-xl
-                              ${category.color}
-                            `}
-                          >
-                            {category.icon}
-                          </span>
-
-                        </div>
-
-
-                        {/* TEXT */}
-
-                        <div
-                          className="
-                            flex-1
-                            text-left
-                          "
-                        >
-
-                          <p
-                            className="
-                              text-white
-                              text-sm
-                              font-bold
-                            "
-                          >
-                            {category.name}
-                          </p>
-
-
-                          <p
-                            className="
-                              text-gray-500
-                              text-[10px]
-                              mt-0.5
-                            "
-                          >
-                            Open {category.name} Games
-                          </p>
-
-                        </div>
-
-
                         <span
-                          className="
-                            text-cyan-400
-                            text-sm
-                          "
+                          className={`
+                            text-xl
+                            ${category.color}
+                          `}
                         >
-                          →
+                          {category.icon}
                         </span>
+                      </div>
 
-                      </button>
+                      <div className="flex-1 text-left min-w-0">
+                        <p className="text-white text-sm font-bold">
+                          {category.name}
+                        </p>
 
-                    )
-                  )}
+                        <p className="text-gray-500 text-[10px] mt-0.5">
+                          Open {category.name} Games
+                        </p>
+                      </div>
 
+                      <span className="text-cyan-400 text-sm">
+                        →
+                      </span>
+                    </button>
+                  ))}
                 </div>
-
               ) : (
-
-                <div
-                  className="
-                    px-5
-                    py-6
-                    text-center
-                  "
-                >
-
+                <div className="px-5 py-6 text-center">
                   <FaSearch
                     className="
                       mx-auto
@@ -899,37 +790,18 @@ export default function AllGames() {
                     "
                   />
 
-                  <p
-                    className="
-                      text-white
-                      text-xs
-                      font-bold
-                    "
-                  >
+                  <p className="text-white text-xs font-bold">
                     No Category Found
                   </p>
 
-                  <p
-                    className="
-                      text-gray-500
-                      text-[10px]
-                      mt-1
-                    "
-                  >
-                    Try JILI, PG, JDB, PP, TP,
-                    2J or SPORT
+                  <p className="text-gray-500 text-[10px] mt-1">
+                    Try JILI, PG, JDB, PP, TP, 2J or SPORT
                   </p>
-
                 </div>
-
               )}
-
             </div>
-
           )}
-
         </div>
-
 
         {/* ==================================================
             CONTENT
@@ -943,37 +815,33 @@ export default function AllGames() {
             overflow-hidden
           "
         >
-
           {/* =================================================
               LEFT CATEGORY
           ================================================= */}
 
           <div
             className="
-              w-[100px]
+              w-[78px]
+              min-[390px]:w-[88px]
+              sm:w-[100px]
               shrink-0
               border-r
               border-cyan-500/20
               bg-[#06172d]
               overflow-y-auto
               hide-scrollbar
-              py-2
+              py-1.5
+              sm:py-2
             "
           >
-
             {categories.map((item) => {
-
-              const isActive =
-                active === item.id;
+              const isActive = active === item.id;
 
               return (
-
                 <button
                   key={item.id}
                   onClick={() =>
-                    handleCategoryClick(
-                      item.id
-                    )
+                    handleCategoryClick(item.id)
                   }
                   className={`
                     relative
@@ -982,8 +850,10 @@ export default function AllGames() {
                     flex-col
                     items-center
                     justify-center
-                    gap-1.5
-                    py-3
+                    gap-1
+                    sm:gap-1.5
+                    py-2.5
+                    sm:py-3
                     transition-all
                     ${
                       isActive
@@ -992,11 +862,9 @@ export default function AllGames() {
                     }
                   `}
                 >
-
                   {/* ACTIVE LINE */}
 
                   {isActive && (
-
                     <div
                       className="
                         absolute
@@ -1008,16 +876,16 @@ export default function AllGames() {
                         bg-cyan-300
                       "
                     />
-
                   )}
-
 
                   {/* ICON */}
 
                   <div
                     className={`
-                      w-12
-                      h-12
+                      w-10
+                      h-10
+                      sm:w-12
+                      sm:h-12
                       rounded-xl
                       border
                       flex
@@ -1030,24 +898,23 @@ export default function AllGames() {
                       }
                     `}
                   >
-
                     <span
                       className={`
-                        text-2xl
+                        text-xl
+                        sm:text-2xl
                         ${item.color}
                       `}
                     >
                       {item.icon}
                     </span>
-
                   </div>
-
 
                   {/* NAME */}
 
                   <span
                     className={`
-                      text-[10px]
+                      text-[9px]
+                      sm:text-[10px]
                       font-bold
                       ${
                         isActive
@@ -1058,14 +925,10 @@ export default function AllGames() {
                   >
                     {item.name}
                   </span>
-
                 </button>
-
               );
             })}
-
           </div>
-
 
           {/* =================================================
               RIGHT GAMES
@@ -1075,21 +938,18 @@ export default function AllGames() {
             className="
               flex-1
               min-w-0
+              min-h-0
               overflow-y-auto
               overflow-x-hidden
               hide-scrollbar
               bg-[#020617]
             "
           >
-
             {renderGames()}
-
           </div>
-
         </div>
-
       </div>
-
     </div>
   );
 }
+

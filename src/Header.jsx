@@ -39,21 +39,26 @@ const Header = ({
           flex
           items-center
           justify-between
-          px-4
-          py-3
+          gap-2
+          px-3
+          py-2.5
+          sm:px-4
+          sm:py-3
         "
       >
         {/* ================= LEFT SIDE ================= */}
 
-        <div className="flex items-center gap-3">
-
+        <div className="flex items-center gap-2 min-w-0">
           {/* MENU BUTTON */}
 
           <button
             onClick={() => setOpenMenu(true)}
             className="
-              w-11
-              h-11
+              w-10
+              h-10
+              sm:w-11
+              sm:h-11
+              shrink-0
               rounded-full
               bg-[#020617]
               border-2
@@ -69,7 +74,8 @@ const Header = ({
               <span
                 className="
                   block
-                  w-6
+                  w-5
+                  sm:w-6
                   h-[3px]
                   bg-cyan-300
                   rounded
@@ -79,7 +85,8 @@ const Header = ({
               <span
                 className="
                   block
-                  w-4
+                  w-3.5
+                  sm:w-4
                   h-[3px]
                   bg-cyan-300
                   rounded
@@ -89,7 +96,8 @@ const Header = ({
               <span
                 className="
                   block
-                  w-6
+                  w-5
+                  sm:w-6
                   h-[3px]
                   bg-cyan-300
                   rounded
@@ -100,12 +108,13 @@ const Header = ({
 
           {/* LOGO */}
 
-          <div>
-            <h1 className="leading-none font-black">
+          <div className="min-w-0">
+            <h1 className="leading-none font-black whitespace-nowrap">
               <span
                 className="
                   text-cyan-400
-                  text-3xl
+                  text-2xl
+                  sm:text-3xl
                 "
               >
                 66RS
@@ -114,7 +123,8 @@ const Header = ({
               <span
                 className="
                   text-white
-                  text-lg
+                  text-base
+                  sm:text-lg
                 "
               >
                 .com
@@ -123,10 +133,13 @@ const Header = ({
 
             <p
               className="
-                text-[9px]
+                text-[7px]
+                sm:text-[9px]
                 text-cyan-200
-                tracking-[3px]
+                tracking-[2px]
+                sm:tracking-[3px]
                 uppercase
+                whitespace-nowrap
               "
             >
               Gaming Platform
@@ -136,8 +149,7 @@ const Header = ({
 
         {/* ================= RIGHT SIDE ================= */}
 
-        <div className="flex items-center gap-2">
-
+        <div className="flex items-center gap-1.5 sm:gap-2 shrink-0">
           {user ? (
             /* ================= LOGGED USER ================= */
 
@@ -150,7 +162,8 @@ const Header = ({
                 border
                 border-cyan-400
                 bg-[#07294b]
-                px-2
+                px-1.5
+                sm:px-2
                 py-1
                 cursor-pointer
                 transition
@@ -159,19 +172,21 @@ const Header = ({
                 active:scale-[.97]
               "
             >
-
               {/* WALLET ICON */}
 
               <div
                 className="
                   flex
-                  h-10
-                  w-10
+                  h-8
+                  w-8
+                  sm:h-10
+                  sm:w-10
                   items-center
                   justify-center
                   rounded-full
                   bg-green-600
-                  text-xl
+                  text-base
+                  sm:text-xl
                   shrink-0
                 "
               >
@@ -182,8 +197,10 @@ const Header = ({
 
               <span
                 className="
-                  mx-2
-                  text-sm
+                  mx-1.5
+                  sm:mx-2
+                  text-xs
+                  sm:text-sm
                   font-bold
                   text-cyan-300
                   whitespace-nowrap
@@ -200,19 +217,25 @@ const Header = ({
                   openDeposit();
                 }}
                 className="
-                  h-9
-                  w-9
+                  h-8
+                  w-8
+                  sm:h-9
+                  sm:w-9
                   shrink-0
                   rounded-full
                   bg-gradient-to-r
                   from-cyan-400
                   to-blue-600
                   text-white
-                  text-xl
+                  text-lg
+                  sm:text-xl
                   font-bold
                   transition
                   hover:brightness-110
                   active:scale-90
+                  flex
+                  items-center
+                  justify-center
                 "
               >
                 +
@@ -227,8 +250,10 @@ const Header = ({
               <button
                 onClick={() => setLoginOpen(true)}
                 className="
-                  px-4
-                  py-2.5
+                  px-3
+                  sm:px-4
+                  py-2
+                  sm:py-2.5
                   rounded-full
                   bg-gradient-to-r
                   from-cyan-400
@@ -238,7 +263,9 @@ const Header = ({
                   border-cyan-300
                   text-white
                   font-bold
-                  text-sm
+                  text-xs
+                  sm:text-sm
+                  whitespace-nowrap
                   transition
                   hover:brightness-110
                   active:scale-95
@@ -252,15 +279,19 @@ const Header = ({
               <button
                 onClick={() => setSignupOpen(true)}
                 className="
-                  px-4
-                  py-2.5
+                  px-3
+                  sm:px-4
+                  py-2
+                  sm:py-2.5
                   rounded-full
                   border
                   border-cyan-500
                   bg-[#020617]
                   text-cyan-300
                   font-bold
-                  text-sm
+                  text-xs
+                  sm:text-sm
+                  whitespace-nowrap
                   transition
                   hover:bg-cyan-500/10
                   active:scale-95

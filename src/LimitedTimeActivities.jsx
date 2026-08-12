@@ -1,6 +1,17 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
+import {
+  FaGift,
+  FaCrown,
+  FaCoins,
+  FaCalendarCheck,
+  FaHandHoldingUsd,
+  FaUsers,
+  FaTicketAlt,
+  FaCircleNotch,
+} from "react-icons/fa";
+
 import Activity1 from "./assets/Activity1.png";
 import Activity2 from "./assets/Activity2.png";
 import Activity3 from "./assets/Activity3.png";
@@ -12,53 +23,53 @@ export default function LimitedTimeActivities() {
     {
       title: "Invitation bonus",
       image: Activity1,
-      icon: Activity1,
+      icon: <FaGift />,
     },
     {
       title: "Invitation bonus",
       image: Activity2,
-      icon: Activity2,
+      icon: <FaGift />,
     },
     {
       title: "Invitation bonus",
       image: Activity3,
-      icon: Activity3,
+      icon: <FaGift />,
     },
     {
       title: "Lucky Wheel",
       image: Activity1,
-      icon: Activity1,
+      icon: <FaCircleNotch />,
       badge: "4",
     },
     {
       title: "VIP bonus",
       image: Activity2,
-      icon: Activity2,
+      icon: <FaCrown />,
     },
     {
       title: "Site-wide rebate",
       image: Activity3,
-      icon: Activity3,
+      icon: <FaCoins />,
     },
     {
       title: "Sign-in bonus",
       image: Activity1,
-      icon: Activity1,
+      icon: <FaCalendarCheck />,
     },
     {
       title: "Daily relief fund",
       image: Activity2,
-      icon: Activity2,
+      icon: <FaHandHoldingUsd />,
     },
     {
       title: "Agent commission",
       image: Activity3,
-      icon: Activity3,
+      icon: <FaUsers />,
     },
     {
       title: "Redemption code",
       image: Activity1,
-      icon: Activity1,
+      icon: <FaTicketAlt />,
     },
   ];
 
@@ -285,27 +296,18 @@ function ActivityCard({ item }) {
               shadow-[inset_0_0_12px_rgba(0,200,255,0.12)]
             "
           >
-            {item.icon ? (
-              <img
-                src={item.icon}
-                alt=""
-                className="
-                  h-full
-                  w-full
-                  object-cover
-                "
-              />
-            ) : (
-              <span
-                className="
-                  text-[27px]
-                  text-cyan-200
-                  drop-shadow-[0_0_7px_rgba(0,220,255,0.35)]
-                "
-              >
-                ✦
-              </span>
-            )}
+            <span
+              className="
+                flex
+                items-center
+                justify-center
+                text-[29px]
+                text-cyan-100
+                drop-shadow-[0_0_8px_rgba(0,220,255,0.40)]
+              "
+            >
+              {item.icon}
+            </span>
           </div>
 
           {/* =================================================

@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-
 import {
   Routes,
   Route,
@@ -53,6 +52,8 @@ import Agency from "./Agency";
 import Deposit from "./Deposit";
 import Balance from "./Balance";
 
+import SplashScreen from "./SplashScreen";
+
 /* =========================================================
    PROTECTED ROUTE
 ========================================================= */
@@ -72,7 +73,7 @@ function ProtectedRoute({ children, user, onNeedLogin }) {
 }
 
 /* =========================================================
-   SCROLL PAGE WRAPPER
+   PAGE SCROLL
 ========================================================= */
 
 function PageScroll({ children, className = "" }) {
@@ -80,10 +81,7 @@ function PageScroll({ children, className = "" }) {
     <div
       className={`
         absolute
-        top-0
-        left-0
-        right-0
-        bottom-0
+        inset-0
         overflow-y-auto
         overflow-x-hidden
         hide-scrollbar
@@ -102,30 +100,21 @@ function PageScroll({ children, className = "" }) {
 
 function Home({
   setOpenMenu,
-
   loginOpen,
   setLoginOpen,
-
   signupOpen,
   setSignupOpen,
-
   announcementOpen,
   setAnnouncementOpen,
-
   navigate,
   setToast,
 }) {
-  const user =
-    JSON.parse(localStorage.getItem("user")) || null;
-
-  const balance =
-    Number(localStorage.getItem("balance")) || 0;
+  const user = JSON.parse(localStorage.getItem("user")) || null;
+  const balance = Number(localStorage.getItem("balance")) || 0;
 
   return (
     <div className="absolute inset-0 overflow-hidden">
-      {/* =====================================================
-          FIXED HEADER
-      ===================================================== */}
+      {/* HEADER */}
 
       <div
         className="
@@ -133,10 +122,10 @@ function Home({
           top-0
           left-1/2
           -translate-x-1/2
+          z-[1000]
+          h-[70px]
           w-full
           max-w-[540px]
-          h-[70px]
-          z-[1000]
         "
       >
         <Header
@@ -148,23 +137,20 @@ function Home({
         />
       </div>
 
-      {/* =====================================================
-          HOME SCROLL AREA
-      ===================================================== */}
+      {/* HOME CONTENT */}
 
       <main
         id="home-scroll"
         className="
           absolute
           top-[70px]
+          bottom-0
           left-0
           right-0
-          bottom-0
           overflow-y-auto
           overflow-x-hidden
           hide-scrollbar
           overscroll-contain
-          pb-[90px]
         "
       >
         <HeroSection />
@@ -173,9 +159,7 @@ function Home({
 
         <GameCategory />
 
-        <GameGrid
-          setSignupOpen={setSignupOpen}
-        />
+        <GameGrid setSignupOpen={setSignupOpen} />
 
         <JiliGames />
 
@@ -196,28 +180,20 @@ function Home({
         <FishGames />
 
         <SecFooter />
-
-        <div className="h-[20px]" />
       </main>
 
-      {/* =====================================================
-          ANNOUNCEMENT
-      ===================================================== */}
+      {/* ANNOUNCEMENT */}
 
       <Announcement
         open={announcementOpen}
         setOpenAnnouncement={setAnnouncementOpen}
       />
 
-      {/* =====================================================
-          SIDE WIDGET
-      ===================================================== */}
+      {/* SIDE WIDGET */}
 
       <SideWidget />
 
-      {/* =====================================================
-          LOGIN
-      ===================================================== */}
+      {/* LOGIN */}
 
       <LoginModal
         loginOpen={loginOpen}
@@ -227,9 +203,7 @@ function Home({
         setToast={setToast}
       />
 
-      {/* =====================================================
-          SIGNUP
-      ===================================================== */}
+      {/* SIGNUP */}
 
       <SignupModal
         signupOpen={signupOpen}
@@ -246,6 +220,12 @@ function Home({
 ========================================================= */
 
 export default function App() {
+  /* =======================================================
+     SPLASH
+  ======================================================= */
+
+  const [showSplash, setShowSplash] = useState(true);
+
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -254,15 +234,14 @@ export default function App() {
   ======================================================= */
 
   const [openMenu, setOpenMenu] = useState(false);
-
   const [loginOpen, setLoginOpen] = useState(false);
-
   const [signupOpen, setSignupOpen] = useState(false);
-
-  const [announcementOpen, setAnnouncementOpen] =
-    useState(false);
-
+  const [announcementOpen, setAnnouncementOpen] = useState(false);
   const [toast, setToast] = useState(null);
+
+  /* =======================================================
+     USER
+  ======================================================= */
 
   const [user, setUser] = useState(() => {
     try {
@@ -307,7 +286,7 @@ export default function App() {
   };
 
   /* =======================================================
-     LISTEN FOR LOGIN / LOGOUT
+     LOGIN / LOGOUT EVENTS
   ======================================================= */
 
   useEffect(() => {
@@ -329,32 +308,16 @@ export default function App() {
       setBalance(0);
     };
 
-    window.addEventListener(
-      "storage",
-      handleStorage
-    );
-
-    window.addEventListener(
-      "userLogin",
-      handleUserLogin
-    );
-
-    window.addEventListener(
-      "userLogout",
-      handleUserLogout
-    );
+    window.addEventListener("storage", handleStorage);
+    window.addEventListener("userLogin", handleUserLogin);
+    window.addEventListener("userLogout", handleUserLogout);
 
     return () => {
-      window.removeEventListener(
-        "storage",
-        handleStorage
-      );
-
+      window.removeEventListener("storage", handleStorage);
       window.removeEventListener(
         "userLogin",
         handleUserLogin
       );
-
       window.removeEventListener(
         "userLogout",
         handleUserLogout
@@ -375,17 +338,12 @@ export default function App() {
   }, []);
 
   /* =======================================================
-     CHECK USER ON ROUTE CHANGE
+     ROUTE CHANGE
   ======================================================= */
 
   useEffect(() => {
     updateUser();
     updateBalance();
-
-    /*
-      Close sidebar whenever route changes.
-    */
-
     setOpenMenu(false);
   }, [location.pathname]);
 
@@ -411,7 +369,7 @@ export default function App() {
   };
 
   /* =======================================================
-     AFTER LOGIN
+     LOGIN SUCCESS
   ======================================================= */
 
   const handleLoginSuccess = () => {
@@ -436,7 +394,7 @@ export default function App() {
   ].includes(location.pathname);
 
   /* =======================================================
-     RETURN
+     MAIN
   ======================================================= */
 
   return (
@@ -444,48 +402,50 @@ export default function App() {
       className="
         fixed
         inset-0
-        w-full
         h-[100dvh]
-        min-h-[100dvh]
-        bg-[#020617]
+        w-full
         overflow-hidden
+        bg-[#020617]
       "
     >
-      {/* =====================================================
-          540PX MOBILE APP CONTAINER
-      ===================================================== */}
+      {/* 540PX APP CONTAINER */}
 
       <div
         className="
           relative
           mx-auto
+          h-[100dvh]
           w-full
           max-w-[540px]
-          h-[100dvh]
-          min-h-[100dvh]
-          bg-[#020617]
           overflow-hidden
+          bg-[#020617]
         "
       >
-        {/* ===================================================
+        {/* =================================================
+            SPLASH
+        ================================================= */}
+
+        {showSplash && (
+          <SplashScreen
+            onFinish={() => setShowSplash(false)}
+          />
+        )}
+
+        {/* =================================================
             TOAST
-        =================================================== */}
+        ================================================= */}
 
         {toast && (
           <Toast
-            message={
-              toast.message || toast
-            }
-            type={
-              toast.type || "success"
-            }
+            message={toast.message || toast}
+            type={toast.type || "success"}
             close={() => setToast(null)}
           />
         )}
 
-        {/* ===================================================
+        {/* =================================================
             SIDEBAR
-        =================================================== */}
+        ================================================= */}
 
         <Sidebar
           open={openMenu}
@@ -496,15 +456,12 @@ export default function App() {
           setUser={setUser}
         />
 
-        {/* ===================================================
+        {/* =================================================
             ROUTES
-        =================================================== */}
+        ================================================= */}
 
         <Routes>
-
-          {/* =================================================
-              BALANCE
-          ================================================= */}
+          {/* BALANCE */}
 
           <Route
             path="/balance"
@@ -520,9 +477,7 @@ export default function App() {
             }
           />
 
-          {/* =================================================
-              CUSTOMER SERVICE
-          ================================================= */}
+          {/* CUSTOMER SERVICE */}
 
           <Route
             path="/customer-service"
@@ -538,9 +493,7 @@ export default function App() {
             }
           />
 
-          {/* =================================================
-              MESSAGES
-          ================================================= */}
+          {/* MESSAGES */}
 
           <Route
             path="/messages"
@@ -556,9 +509,7 @@ export default function App() {
             }
           />
 
-          {/* =================================================
-              EDIT PASSWORD
-          ================================================= */}
+          {/* EDIT PASSWORD */}
 
           <Route
             path="/edit-password"
@@ -574,9 +525,7 @@ export default function App() {
             }
           />
 
-          {/* =================================================
-              AGENCY
-          ================================================= */}
+          {/* AGENCY */}
 
           <Route
             path="/agency"
@@ -592,9 +541,7 @@ export default function App() {
             }
           />
 
-          {/* =================================================
-              STATISTICS
-          ================================================= */}
+          {/* STATISTICS */}
 
           <Route
             path="/statistics"
@@ -610,9 +557,7 @@ export default function App() {
             }
           />
 
-          {/* =================================================
-              DAILY STATISTICS
-          ================================================= */}
+          {/* DAILY STATISTICS */}
 
           <Route
             path="/daily-statistics"
@@ -628,40 +573,26 @@ export default function App() {
             }
           />
 
-          {/* =================================================
-              HOME
-          ================================================= */}
+          {/* HOME */}
 
           <Route
             path="/"
             element={
               <Home
                 setOpenMenu={setOpenMenu}
-
                 loginOpen={loginOpen}
                 setLoginOpen={setLoginOpen}
-
                 signupOpen={signupOpen}
                 setSignupOpen={setSignupOpen}
-
-                announcementOpen={
-                  announcementOpen
-                }
-
-                setAnnouncementOpen={
-                  setAnnouncementOpen
-                }
-
+                announcementOpen={announcementOpen}
+                setAnnouncementOpen={setAnnouncementOpen}
                 navigate={navigate}
-
                 setToast={setToast}
               />
             }
           />
 
-          {/* =================================================
-              ALL GAMES
-          ================================================= */}
+          {/* ALL GAMES */}
 
           <Route
             path="/games"
@@ -677,9 +608,7 @@ export default function App() {
             }
           />
 
-          {/* =================================================
-              HOT
-          ================================================= */}
+          {/* HOT GAMES */}
 
           <Route
             path="/games/hot"
@@ -695,9 +624,7 @@ export default function App() {
             }
           />
 
-          {/* =================================================
-              LIMITED TIME
-          ================================================= */}
+          {/* LIMITED TIME ACTIVITIES */}
 
           <Route
             path="/limited-time-activities"
@@ -713,9 +640,7 @@ export default function App() {
             }
           />
 
-          {/* =================================================
-              JILI
-          ================================================= */}
+          {/* JILI */}
 
           <Route
             path="/games/jili"
@@ -731,9 +656,7 @@ export default function App() {
             }
           />
 
-          {/* =================================================
-              PG
-          ================================================= */}
+          {/* PG */}
 
           <Route
             path="/games/pg"
@@ -749,9 +672,7 @@ export default function App() {
             }
           />
 
-          {/* =================================================
-              2J
-          ================================================= */}
+          {/* 2J */}
 
           <Route
             path="/games/2j"
@@ -767,9 +688,7 @@ export default function App() {
             }
           />
 
-          {/* =================================================
-              SPORT
-          ================================================= */}
+          {/* SPORT */}
 
           <Route
             path="/games/sport"
@@ -785,9 +704,7 @@ export default function App() {
             }
           />
 
-          {/* =================================================
-              JDB
-          ================================================= */}
+          {/* JDB */}
 
           <Route
             path="/games/jdb"
@@ -803,9 +720,7 @@ export default function App() {
             }
           />
 
-          {/* =================================================
-              PP
-          ================================================= */}
+          {/* PP */}
 
           <Route
             path="/games/pp"
@@ -821,9 +736,7 @@ export default function App() {
             }
           />
 
-          {/* =================================================
-              TP
-          ================================================= */}
+          {/* TP */}
 
           <Route
             path="/games/tp"
@@ -839,9 +752,7 @@ export default function App() {
             }
           />
 
-          {/* =================================================
-              VIP
-          ================================================= */}
+          {/* VIP */}
 
           <Route
             path="/vip"
@@ -850,16 +761,14 @@ export default function App() {
                 user={user}
                 onNeedLogin={requireLogin}
               >
-                <PageScroll className="pb-[90px]">
+                <PageScroll>
                   <VipPage />
                 </PageScroll>
               </ProtectedRoute>
             }
           />
 
-          {/* =================================================
-              DEPOSIT
-          ================================================= */}
+          {/* DEPOSIT */}
 
           <Route
             path="/deposit"
@@ -875,9 +784,7 @@ export default function App() {
             }
           />
 
-          {/* =================================================
-              PROFILE
-          ================================================= */}
+          {/* PROFILE */}
 
           <Route
             path="/profile"
@@ -886,16 +793,14 @@ export default function App() {
                 user={user}
                 onNeedLogin={requireLogin}
               >
-                <PageScroll className="pb-[90px]">
+                <PageScroll>
                   <Profile />
                 </PageScroll>
               </ProtectedRoute>
             }
           />
 
-          {/* =================================================
-              INVITE BONUS
-          ================================================= */}
+          {/* INVITE BONUS */}
 
           <Route
             path="/invite-bonus"
@@ -904,59 +809,57 @@ export default function App() {
                 user={user}
                 onNeedLogin={requireLogin}
               >
-                <PageScroll className="pb-[90px]">
+                <PageScroll>
                   <InviteBonus />
                 </PageScroll>
               </ProtectedRoute>
             }
           />
-
         </Routes>
 
-        {/* =====================================================
-            FIXED BOTTOM NAVBAR
-        ===================================================== */}
+        {/* =================================================
+            BOTTOM NAVBAR
+        ================================================= */}
 
-        {!announcementOpen &&
-          showBottomNavbar && (
-            <div
-              className="
-                fixed
-                left-1/2
-                -translate-x-1/2
-                bottom-0
-                w-full
-                max-w-[540px]
-                h-[78px]
-                z-[1000]
-              "
-            >
-              <BottomNavbar
-                handleProfile={handleProfile}
-              />
-            </div>
-          )}
+        {!announcementOpen && showBottomNavbar && (
+          <div
+            className="
+              fixed
+              bottom-0
+              left-1/2
+              z-[1000]
+              h-[78px]
+              w-full
+              max-w-[540px]
+              -translate-x-1/2
+            "
+          >
+            <BottomNavbar
+              handleProfile={handleProfile}
+            />
+          </div>
+        )}
 
-        {/* =====================================================
+        {/* =================================================
             ANNOUNCEMENT BLUR
-        ===================================================== */}
+        ================================================= */}
 
         {announcementOpen && (
           <div
             className="
+              pointer-events-none
               fixed
               inset-0
               z-[995]
               bg-black/20
               backdrop-blur-[2px]
-              pointer-events-none
             "
           />
         )}
 
-        {/* =====================================================
-            GLOBAL LOGIN MODAL
-        ===================================================== */}
+        {/* =================================================
+            GLOBAL LOGIN
+        ================================================= */}
 
         <LoginModal
           loginOpen={loginOpen}
@@ -967,9 +870,9 @@ export default function App() {
           onLoginSuccess={handleLoginSuccess}
         />
 
-        {/* =====================================================
-            GLOBAL SIGNUP MODAL
-        ===================================================== */}
+        {/* =================================================
+            GLOBAL SIGNUP
+        ================================================= */}
 
         <SignupModal
           signupOpen={signupOpen}

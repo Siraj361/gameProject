@@ -14,7 +14,7 @@ registerSW({
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <BrowserRouter>
+    <BrowserRouter basename="/gameProject">
       <App />
     </BrowserRouter>
   </StrictMode>

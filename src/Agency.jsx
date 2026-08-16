@@ -8,7 +8,6 @@ import Invite from "./Invite";
 
 export default function Agency() {
   const navigate = useNavigate();
-
   const [activeTab, setActiveTab] = useState("invitation");
 
   const tabs = [
@@ -44,19 +43,7 @@ export default function Agency() {
   ];
 
   return (
-    <div
-      className="
-        h-screen
-        w-full
-        overflow-hidden
-        bg-[#020B18]
-        text-white
-      "
-    >
-      {/* =====================================================
-          540px AGENCY CONTAINER
-      ====================================================== */}
-
+    <div className="h-screen w-full overflow-hidden bg-[#020B18] text-white">
       <div
         className="
           mx-auto
@@ -72,10 +59,7 @@ export default function Agency() {
           to-[#020817]
         "
       >
-
-        {/* =====================================================
-            TOP HEADER
-        ====================================================== */}
+        {/* TOP HEADER */}
 
         <header
           className="
@@ -93,9 +77,6 @@ export default function Agency() {
             bg-[#031426]
           "
         >
-
-          {/* BACK BUTTON */}
-
           <button
             onClick={() => navigate(-1)}
             className="
@@ -122,9 +103,6 @@ export default function Agency() {
             ‹
           </button>
 
-
-          {/* TITLE */}
-
           <h1
             className="
               text-[24px]
@@ -136,14 +114,9 @@ export default function Agency() {
           >
             Agency
           </h1>
-
         </header>
 
-
-        {/* =====================================================
-            TABS
-            ONE LINE + HORIZONTAL SCROLL
-        ====================================================== */}
+        {/* TABS */}
 
         <div
           className="
@@ -163,17 +136,7 @@ export default function Agency() {
             msOverflowStyle: "none",
           }}
         >
-
-          <div
-            className="
-              flex
-              h-full
-              w-max
-              min-w-full
-              items-stretch
-            "
-          >
-
+          <div className="flex h-full w-max min-w-full items-stretch">
             {tabs.map((tab) => {
               const active = activeTab === tab.id;
 
@@ -194,7 +157,6 @@ export default function Agency() {
                     font-bold
                     transition-all
                     duration-200
-
                     ${
                       active
                         ? `
@@ -215,11 +177,7 @@ export default function Agency() {
                     }
                   `}
                 >
-
                   {tab.name}
-
-
-                  {/* BADGE */}
 
                   {tab.badge && (
                     <span
@@ -247,9 +205,6 @@ export default function Agency() {
                     </span>
                   )}
 
-
-                  {/* ACTIVE LINE */}
-
                   {active && (
                     <span
                       className="
@@ -263,19 +218,13 @@ export default function Agency() {
                       "
                     />
                   )}
-
                 </button>
               );
             })}
-
           </div>
         </div>
 
-
-        {/* =====================================================
-            SCROLLABLE CONTENT
-            ONLY THIS AREA SCROLLS
-        ====================================================== */}
+        {/* SCROLLABLE CONTENT */}
 
         <main
           className="
@@ -285,7 +234,6 @@ export default function Agency() {
             overflow-x-hidden
             overflow-y-auto
             overscroll-contain
-            pb-[135px]
           "
           style={{
             scrollbarWidth: "none",
@@ -293,83 +241,27 @@ export default function Agency() {
             WebkitOverflowScrolling: "touch",
           }}
         >
-
-          {/* =================================================
-              INVITATION BONUS
-          ================================================= */}
-
-        {activeTab === "invitation" && (
-  <div className="w-full">
-    <InviteBonus hideHeader={true} />
-  </div>
-)}
-
-
-          {/* =================================================
-              SPINNING WHEEL
-          ================================================= */}
-
-          {activeTab === "wheel" && (
-            <SpinningWheelPage />
+          {activeTab === "invitation" && (
+            <div className="w-full">
+              <InviteBonus hideHeader={true} />
+            </div>
           )}
 
+          {activeTab === "wheel" && <SpinningWheelPage />}
 
-          {/* =================================================
-              INVITE
-          ================================================= */}
+          {activeTab === "invite" && <Invite />}
 
-          {activeTab === "invite" && (
-            <Invite />
-          )}
+          {activeTab === "data" && <MyData />}
 
+          {activeTab === "reward" && <RewardPage />}
 
-          {/* =================================================
-              MY DATA
-          ================================================= */}
+          {activeTab === "team" && <TeamPage />}
 
-          {activeTab === "data" && (
-            <MyData />
-          )}
-
-
-          {/* =================================================
-              REWARD
-          ================================================= */}
-
-          {activeTab === "reward" && (
-            <RewardPage />
-          )}
-
-
-          {/* =================================================
-              TEAM
-          ================================================= */}
-
-          {activeTab === "team" && (
-            <TeamPage />
-          )}
-
-
-          {/* =================================================
-              FAQ
-          ================================================= */}
-
-          {activeTab === "faq" && (
-            <FaqPage />
-          )}
-
+          {activeTab === "faq" && <FaqPage />}
         </main>
-
       </div>
 
-
-      {/* =====================================================
-          HIDE SCROLLBARS
-          SCROLLING REMAINS ENABLED
-      ====================================================== */}
-
       <style>{`
-
         main::-webkit-scrollbar {
           width: 0px;
           height: 0px;
@@ -389,13 +281,10 @@ export default function Agency() {
         button {
           -webkit-tap-highlight-color: transparent;
         }
-
       `}</style>
-
     </div>
   );
 }
-
 
 /* =========================================================
    SPINNING WHEEL
@@ -404,7 +293,6 @@ export default function Agency() {
 function SpinningWheelPage() {
   return (
     <div className="w-full px-3 pb-8 pt-4">
-
       <div
         className="
           flex
@@ -422,9 +310,6 @@ function SpinningWheelPage() {
           p-6
         "
       >
-
-        {/* Wheel */}
-
         <div
           className="
             flex
@@ -439,7 +324,6 @@ function SpinningWheelPage() {
             shadow-[0_0_30px_rgba(0,200,255,.3)]
           "
         >
-
           <div
             className="
               flex
@@ -460,19 +344,15 @@ function SpinningWheelPage() {
             <br />
             Wheel
           </div>
-
         </div>
-
 
         <h2 className="mt-8 text-[24px] font-bold">
           Spinning Wheel
         </h2>
 
-
         <p className="mt-3 text-center text-white/60">
           Spin the wheel and get exciting rewards.
         </p>
-
 
         <button
           className="
@@ -495,13 +375,10 @@ function SpinningWheelPage() {
         >
           Spin Now
         </button>
-
       </div>
-
     </div>
   );
 }
-
 
 /* =========================================================
    REWARD
@@ -516,9 +393,7 @@ function RewardPage() {
 
   return (
     <>
-
       <div className="w-full px-3 pb-6 pt-4">
-
         <div
           className="
             rounded-[22px]
@@ -532,15 +407,9 @@ function RewardPage() {
             shadow-[0_0_18px_rgba(0,180,255,.08)]
           "
         >
-
-          {/* TITLE */}
-
           <h2 className="text-center text-[26px] font-bold text-white">
             Reward
           </h2>
-
-
-          {/* DATE */}
 
           <button
             onClick={() => setDateModalOpen(true)}
@@ -564,14 +433,9 @@ function RewardPage() {
               active:scale-[.98]
             "
           >
-
-            <span className="text-[34px] text-cyan-200">
-              ↗
-            </span>
-
+            <span className="text-[34px] text-cyan-200">↗</span>
 
             <div className="min-w-0 flex-1">
-
               <p className="text-[12px] text-cyan-200/70">
                 Selected Date
               </p>
@@ -579,52 +443,19 @@ function RewardPage() {
               <p className="mt-1 truncate text-[17px] font-bold text-white">
                 {selectedDate}
               </p>
-
             </div>
 
-
-            <span className="text-[28px] text-cyan-300">
-              ›
-            </span>
-
+            <span className="text-[28px] text-cyan-300">›</span>
           </button>
 
-
-          {/* REWARD BOXES */}
-
           <div className="mt-5 space-y-3">
-
-            <RewardBox
-              title="Invitation Reward"
-              value="0.00"
-            />
-
-            <RewardBox
-              title="Team Reward"
-              value="0.00"
-            />
-
-            <RewardBox
-              title="Commission Reward"
-              value="0.00"
-            />
-
-            <RewardBox
-              title="Total Reward"
-              value="0.00"
-            />
-
+            <RewardBox title="Invitation Reward" value="0.00" />
+            <RewardBox title="Team Reward" value="0.00" />
+            <RewardBox title="Commission Reward" value="0.00" />
+            <RewardBox title="Total Reward" value="0.00" />
           </div>
-
         </div>
-
-
-        <div className="h-[100px]" />
-
       </div>
-
-
-      {/* DATE MODAL */}
 
       <DateModal
         open={dateModalOpen}
@@ -632,11 +463,9 @@ function RewardPage() {
         selectedDate={selectedDate}
         setSelectedDate={setSelectedDate}
       />
-
     </>
   );
 }
-
 
 /* =========================================================
    TEAM
@@ -645,7 +474,6 @@ function RewardPage() {
 function TeamPage() {
   return (
     <div className="w-full px-3 pb-8 pt-4">
-
       <div
         className="
           min-h-[600px]
@@ -659,74 +487,47 @@ function TeamPage() {
           p-5
         "
       >
-
         <h2 className="text-center text-[25px] font-bold">
           Team
         </h2>
 
-
         <div className="mt-6 space-y-4">
-
-          <DataBox
-            title="Team Members"
-            value="0"
-          />
-
-          <DataBox
-            title="Active Members"
-            value="0"
-          />
-
-          <DataBox
-            title="Today Members"
-            value="0"
-          />
-
-          <DataBox
-            title="Total Team"
-            value="0"
-          />
-
+          <DataBox title="Team Members" value="0" />
+          <DataBox title="Active Members" value="0" />
+          <DataBox title="Today Members" value="0" />
+          <DataBox title="Total Team" value="0" />
         </div>
-
       </div>
-
     </div>
   );
 }
-
 
 /* =========================================================
    FAQ
 ========================================================= */
 
 function FaqPage() {
-
   const faqs = [
     {
       question: "How can I invite friends?",
       answer:
         "You can invite your friends by sharing your invitation link. When your invited friends register and complete the required activities, you can receive the corresponding rewards.",
     },
-
     {
       question: "How can I get commission?",
       answer:
         "You can earn commission through your team activity. The commission amount depends on the eligible activity and the applicable commission rules.",
     },
-
     {
       question: "How does the team reward work?",
       answer:
         "Team rewards are based on the eligible activity of your invited members and team. You can check your team information and rewards from the My Data section.",
     },
-
     {
       question: "When can I receive my reward?",
       answer:
         "Rewards are credited after the required conditions are completed and verified. The exact reward time may depend on the specific activity.",
     },
-
     {
       question: "How can I check my team data?",
       answer:
@@ -734,22 +535,14 @@ function FaqPage() {
     },
   ];
 
-
   const [openIndex, setOpenIndex] = useState(null);
 
-
   const toggleFaq = (index) => {
-    setOpenIndex(
-      openIndex === index
-        ? null
-        : index
-    );
+    setOpenIndex(openIndex === index ? null : index);
   };
-
 
   return (
     <div className="w-full px-3 pb-8 pt-4">
-
       <div
         className="
           overflow-hidden
@@ -764,11 +557,7 @@ function FaqPage() {
           shadow-[0_0_20px_rgba(0,180,255,.08)]
         "
       >
-
-        {/* FAQ HEADER */}
-
         <div className="mb-6 text-center">
-
           <div
             className="
               mx-auto
@@ -789,27 +578,18 @@ function FaqPage() {
             ?
           </div>
 
-
           <h2 className="mt-3 text-[25px] font-bold text-white">
             Frequently Asked Questions
           </h2>
 
-
           <p className="mt-1 text-[13px] text-cyan-100/60">
             Find answers to common questions
           </p>
-
         </div>
 
-
-        {/* FAQ ITEMS */}
-
         <div className="space-y-3">
-
           {faqs.map((item, index) => {
-
-            const isOpen =
-              openIndex === index;
+            const isOpen = openIndex === index;
 
             return (
               <div
@@ -820,7 +600,6 @@ function FaqPage() {
                   border
                   transition-all
                   duration-300
-
                   ${
                     isOpen
                       ? "border-cyan-300/60 bg-[#07304D]"
@@ -828,13 +607,8 @@ function FaqPage() {
                   }
                 `}
               >
-
-                {/* QUESTION */}
-
                 <button
-                  onClick={() =>
-                    toggleFaq(index)
-                  }
+                  onClick={() => toggleFaq(index)}
                   className="
                     flex
                     min-h-[65px]
@@ -846,16 +620,7 @@ function FaqPage() {
                     text-left
                   "
                 >
-
-                  <div
-                    className="
-                      flex
-                      min-w-0
-                      items-center
-                      gap-3
-                    "
-                  >
-
+                  <div className="flex min-w-0 items-center gap-3">
                     <span
                       className={`
                         flex
@@ -867,7 +632,6 @@ function FaqPage() {
                         rounded-full
                         text-[13px]
                         font-bold
-
                         ${
                           isOpen
                             ? "bg-cyan-400 text-[#032039]"
@@ -878,12 +642,10 @@ function FaqPage() {
                       {index + 1}
                     </span>
 
-
                     <span
                       className={`
                         text-[15px]
                         font-semibold
-
                         ${
                           isOpen
                             ? "text-cyan-100"
@@ -893,9 +655,7 @@ function FaqPage() {
                     >
                       {item.question}
                     </span>
-
                   </div>
-
 
                   <span
                     className={`
@@ -912,28 +672,18 @@ function FaqPage() {
                       text-cyan-300
                       transition-transform
                       duration-300
-
-                      ${
-                        isOpen
-                          ? "rotate-90"
-                          : ""
-                      }
+                      ${isOpen ? "rotate-90" : ""}
                     `}
                   >
                     ›
                   </span>
-
                 </button>
-
-
-                {/* ANSWER */}
 
                 <div
                   className={`
                     grid
                     transition-all
                     duration-300
-
                     ${
                       isOpen
                         ? "grid-rows-[1fr] opacity-100"
@@ -941,9 +691,7 @@ function FaqPage() {
                     }
                   `}
                 >
-
                   <div className="min-h-0 overflow-hidden">
-
                     <div
                       className="
                         mx-4
@@ -953,7 +701,6 @@ function FaqPage() {
                         pt-4
                       "
                     >
-
                       <p
                         className="
                           text-[14px]
@@ -963,37 +710,23 @@ function FaqPage() {
                       >
                         {item.answer}
                       </p>
-
                     </div>
-
                   </div>
-
                 </div>
-
               </div>
             );
           })}
-
         </div>
-
       </div>
-
-
-      <div className="h-[100px]" />
-
     </div>
   );
 }
-
 
 /* =========================================================
    DATA BOX
 ========================================================= */
 
-function DataBox({
-  title,
-  value,
-}) {
+function DataBox({ title, value }) {
   return (
     <div
       className="
@@ -1008,7 +741,6 @@ function DataBox({
         py-4
       "
     >
-
       <span className="text-[16px] text-white/80">
         {title}
       </span>
@@ -1016,20 +748,15 @@ function DataBox({
       <span className="text-[18px] font-bold text-cyan-200">
         {value}
       </span>
-
     </div>
   );
 }
-
 
 /* =========================================================
    REWARD BOX
 ========================================================= */
 
-function RewardBox({
-  title,
-  value,
-}) {
+function RewardBox({ title, value }) {
   return (
     <div
       className="
@@ -1044,7 +771,6 @@ function RewardBox({
         px-5
       "
     >
-
       <span className="text-[18px] font-semibold text-white/90">
         {title}
       </span>
@@ -1052,7 +778,6 @@ function RewardBox({
       <span className="text-[20px] font-bold text-cyan-200">
         {value}
       </span>
-
     </div>
   );
 }

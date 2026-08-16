@@ -28,7 +28,8 @@ export default function Balance() {
     }
   });
 
-  // Latest balance load
+  // ================= LOAD BALANCE =================
+
   useEffect(() => {
     const updateBalance = () => {
       setBalance(
@@ -51,10 +52,7 @@ export default function Balance() {
     window.addEventListener("storage", updateBalance);
 
     return () => {
-      window.removeEventListener(
-        "storage",
-        updateBalance
-      );
+      window.removeEventListener("storage", updateBalance);
     };
   }, []);
 
@@ -81,23 +79,12 @@ export default function Balance() {
   };
 
   return (
-    <div
-      className="
-        min-h-screen
-        w-full
-        overflow-x-hidden
-        bg-[#020B18]
-        text-white
-      "
-    >
-      {/* =====================================================
-          540px CONTAINER
-      ====================================================== */}
+    <div className="w-full overflow-x-hidden bg-[#020B18] text-white">
+      {/* 540px CONTAINER */}
 
       <div
         className="
           mx-auto
-          min-h-screen
           w-full
           max-w-[540px]
           overflow-x-hidden
@@ -105,12 +92,9 @@ export default function Balance() {
           from-[#020B18]
           via-[#06294A]
           to-[#020817]
-          pb-10
         "
       >
-        {/* =====================================================
-            HEADER
-        ====================================================== */}
+        {/* HEADER */}
 
         <header
           className="
@@ -168,11 +152,10 @@ export default function Balance() {
           </h1>
         </header>
 
-        {/* =====================================================
-            CURRENT BALANCE
-        ====================================================== */}
+        {/* CONTENT */}
 
-        <main className="px-4 pb-10 pt-5">
+        <main className="px-4 pt-5">
+          {/* CURRENT BALANCE */}
 
           <div
             className="
@@ -217,10 +200,9 @@ export default function Balance() {
               "
             />
 
-            {/* WALLET ICON */}
+            {/* WALLET */}
 
             <div className="relative flex items-center gap-3">
-
               <div
                 className="
                   flex
@@ -247,13 +229,11 @@ export default function Balance() {
                   Your Wallet
                 </p>
               </div>
-
             </div>
 
             {/* AMOUNT */}
 
             <div className="relative mt-6">
-
               <p className="text-[14px] text-cyan-100/60">
                 Current Balance
               </p>
@@ -269,17 +249,12 @@ export default function Balance() {
               >
                 Rs {formatAmount(balance)}
               </h2>
-
             </div>
-
           </div>
 
-          {/* =====================================================
-              DEPOSIT / WITHDRAW
-          ====================================================== */}
+          {/* DEPOSIT / WITHDRAW */}
 
           <div className="mt-5 grid grid-cols-2 gap-3">
-
             {/* DEPOSIT */}
 
             <button
@@ -332,23 +307,16 @@ export default function Balance() {
               <FaMoneyBillWave />
               Withdraw
             </button>
-
           </div>
 
-          {/* =====================================================
-              SUMMARY
-          ====================================================== */}
+          {/* SUMMARY */}
 
           <div className="mt-6">
-
             <h2 className="mb-3 text-[20px] font-bold">
               Balance Summary
             </h2>
 
             <div className="grid grid-cols-2 gap-3">
-
-              {/* TOTAL DEPOSIT */}
-
               <SummaryBox
                 icon={<FaArrowDown />}
                 title="Total Deposit"
@@ -356,35 +324,25 @@ export default function Balance() {
                 type="deposit"
               />
 
-              {/* TOTAL WITHDRAW */}
-
               <SummaryBox
                 icon={<FaArrowUp />}
                 title="Total Withdraw"
                 amount={totalWithdraw}
                 type="withdraw"
               />
-
             </div>
-
           </div>
 
-          {/* =====================================================
-              TRANSACTION HISTORY
-          ====================================================== */}
+          {/* TRANSACTION HISTORY */}
 
-          <div className="mt-7">
-
+          <div className="mt-7 pb-1">
             <div className="mb-3 flex items-center justify-between">
-
               <div className="flex items-center gap-2">
-
                 <FaHistory className="text-cyan-300" />
 
                 <h2 className="text-[20px] font-bold">
                   Transaction History
                 </h2>
-
               </div>
 
               {history.length > 0 && (
@@ -392,7 +350,6 @@ export default function Balance() {
                   {history.length} Transactions
                 </span>
               )}
-
             </div>
 
             {/* NO DATA */}
@@ -438,33 +395,20 @@ export default function Balance() {
                 </p>
               </div>
             ) : (
-
-              /* HISTORY LIST */
-
               <div className="space-y-3">
-
                 {history.map((item, index) => (
-
                   <Transaction
                     key={item.id || index}
                     item={item}
                   />
-
                 ))}
-
               </div>
-
             )}
-
           </div>
-
         </main>
-
       </div>
 
-      {/* =====================================================
-          HIDE SCROLLBAR
-      ====================================================== */}
+      {/* HIDE SCROLLBAR */}
 
       <style>{`
         ::-webkit-scrollbar {
@@ -482,11 +426,9 @@ export default function Balance() {
           -webkit-tap-highlight-color: transparent;
         }
       `}</style>
-
     </div>
   );
 }
-
 
 /* =========================================================
    SUMMARY BOX
@@ -510,7 +452,6 @@ function SummaryBox({
         p-4
       "
     >
-
       <div
         className={`
           flex
@@ -536,18 +477,15 @@ function SummaryBox({
       <p className="mt-1 text-[18px] font-bold text-white">
         Rs {Number(amount || 0).toFixed(2)}
       </p>
-
     </div>
   );
 }
-
 
 /* =========================================================
    TRANSACTION
 ========================================================= */
 
 function Transaction({ item }) {
-
   const isDeposit = item.type === "deposit";
 
   return (
@@ -564,7 +502,6 @@ function Transaction({ item }) {
         py-4
       "
     >
-
       {/* ICON */}
 
       <div
@@ -583,21 +520,14 @@ function Transaction({ item }) {
           }
         `}
       >
-        {isDeposit ? (
-          <FaArrowDown />
-        ) : (
-          <FaArrowUp />
-        )}
+        {isDeposit ? <FaArrowDown /> : <FaArrowUp />}
       </div>
 
       {/* INFO */}
 
       <div className="min-w-0 flex-1">
-
         <p className="truncate text-[15px] font-bold">
-          {isDeposit
-            ? "Deposit"
-            : "Withdraw"}
+          {isDeposit ? "Deposit" : "Withdraw"}
         </p>
 
         <p className="mt-1 text-[11px] text-white/45">
@@ -609,13 +539,11 @@ function Transaction({ item }) {
             {item.date}
           </p>
         )}
-
       </div>
 
       {/* AMOUNT */}
 
       <div className="text-right">
-
         <p
           className={`
             text-[16px]
@@ -651,9 +579,7 @@ function Transaction({ item }) {
         >
           {item.status || "completed"}
         </span>
-
       </div>
-
     </div>
   );
 }

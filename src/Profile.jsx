@@ -31,10 +31,6 @@ export default function Profile() {
     Number(localStorage.getItem("balance")) || 0
   );
 
-  /*
-    Deposit page se balance change hone ke baad
-    profile par latest balance show hoga.
-  */
   useEffect(() => {
     const updateBalance = () => {
       const currentBalance =
@@ -90,7 +86,6 @@ export default function Profile() {
         from-[#061d3b]
         via-[#082e58]
         to-[#020617]
-        pb-[110px]
         text-white
       "
       style={{
@@ -98,9 +93,7 @@ export default function Profile() {
         msOverflowStyle: "none",
       }}
     >
-      {/* =====================================================
-          540px PROFILE CONTAINER
-      ====================================================== */}
+      {/* PROFILE CONTAINER */}
 
       <div
         className="
@@ -111,17 +104,13 @@ export default function Profile() {
           overflow-x-hidden
         "
       >
-        {/* =====================================================
-            PROFILE HEADER
-        ====================================================== */}
+        {/* PROFILE HEADER */}
 
         <div className="px-4 pt-6">
           <div className="flex items-start justify-between gap-3">
-
-            {/* ================= USER INFO ================= */}
+            {/* USER INFO */}
 
             <div className="flex min-w-0 items-center gap-3">
-
               {/* AVATAR */}
 
               <div
@@ -147,7 +136,6 @@ export default function Profile() {
               {/* USER DETAILS */}
 
               <div className="min-w-0">
-
                 <h2
                   className="
                     truncate
@@ -160,7 +148,6 @@ export default function Profile() {
                 </h2>
 
                 <div className="mt-1 flex items-center gap-2">
-
                   <span className="text-[13px] font-semibold text-cyan-300">
                     Number:
                   </span>
@@ -168,10 +155,9 @@ export default function Profile() {
                   <span className="truncate text-[13px] text-white/80">
                     {user.phone}
                   </span>
-
                 </div>
 
-                {/* ================= BALANCE CAPSULE ================= */}
+                {/* BALANCE */}
 
                 <div
                   className="
@@ -187,7 +173,6 @@ export default function Profile() {
                     shadow-[0_0_12px_rgba(0,200,255,.12)]
                   "
                 >
-
                   <div
                     className="
                       flex
@@ -218,8 +203,6 @@ export default function Profile() {
                     Rs {balance.toFixed(2)}
                   </span>
 
-                  {/* PLUS = DEPOSIT */}
-
                   <button
                     onClick={openDeposit}
                     className="
@@ -244,12 +227,11 @@ export default function Profile() {
                   >
                     +
                   </button>
-
                 </div>
               </div>
             </div>
 
-            {/* ================= MESSAGE ================= */}
+            {/* MESSAGE */}
 
             <button
               onClick={() => navigate("/messages")}
@@ -272,20 +254,13 @@ export default function Profile() {
             >
               ✉️
             </button>
-
           </div>
         </div>
 
-        {/* =====================================================
-            DEPOSIT / WITHDRAW
-        ====================================================== */}
+        {/* DEPOSIT / WITHDRAW */}
 
         <div className="mt-6 px-4">
-
           <div className="grid grid-cols-2 gap-3">
-
-            {/* DEPOSIT */}
-
             <button
               onClick={openDeposit}
               className="
@@ -310,8 +285,6 @@ export default function Profile() {
               Deposit
             </button>
 
-            {/* WITHDRAW */}
-
             <button
               onClick={openWithdraw}
               className="
@@ -334,17 +307,12 @@ export default function Profile() {
               <FaMoneyBillWave />
               Withdraw
             </button>
-
           </div>
-
         </div>
 
-        {/* =====================================================
-            MENU
-        ====================================================== */}
+        {/* MENU */}
 
         <div className="mt-6 px-4">
-
           <div
             className="
               overflow-hidden
@@ -355,16 +323,11 @@ export default function Profile() {
               shadow-[0_0_20px_rgba(0,180,255,.06)]
             "
           >
-
-            {/* CUSTOMER SERVICE */}
-
             <Menu
               icon={<FaHeadset />}
               title="Customer Service"
               onClick={() => navigate("/customer-service")}
             />
-
-            {/* NOTIFICATIONS */}
 
             <Menu
               icon={<FaBell />}
@@ -373,15 +336,11 @@ export default function Profile() {
               onClick={() => navigate("/messages")}
             />
 
-            {/* DAILY STATISTICS */}
-
             <Menu
               icon={<FaChartBar />}
               title="Daily Statistics"
               onClick={() => navigate("/daily-statistics")}
             />
-
-            {/* EDIT PASSWORD */}
 
             <Menu
               icon={<FaLock />}
@@ -389,14 +348,10 @@ export default function Profile() {
               onClick={() => navigate("/edit-password")}
             />
 
-            {/* =================================================
-                LANGUAGE
-            ================================================== */}
+            {/* LANGUAGE */}
 
             <div
-              onClick={() =>
-                setShowLanguage(!showLanguage)
-              }
+              onClick={() => setShowLanguage(!showLanguage)}
               className="
                 flex
                 cursor-pointer
@@ -411,19 +366,15 @@ export default function Profile() {
                 hover:bg-cyan-500/10
               "
             >
-
               <div className="flex items-center gap-4">
-
                 <FaGlobe className="text-xl text-cyan-400" />
 
                 <span className="font-semibold">
                   Language
                 </span>
-
               </div>
 
               <div className="flex items-center gap-3">
-
                 <span className="text-cyan-300">
                   {language}
                 </span>
@@ -432,16 +383,10 @@ export default function Profile() {
                   className={`
                     text-cyan-400
                     transition-transform
-                    ${
-                      showLanguage
-                        ? "rotate-90"
-                        : ""
-                    }
+                    ${showLanguage ? "rotate-90" : ""}
                   `}
                 />
-
               </div>
-
             </div>
 
             {/* LANGUAGE OPTIONS */}
@@ -457,7 +402,6 @@ export default function Profile() {
                   p-4
                 "
               >
-
                 <button
                   onClick={(e) => {
                     e.stopPropagation();
@@ -501,13 +445,10 @@ export default function Profile() {
                 >
                   اردو
                 </button>
-
               </div>
             )}
 
-            {/* =================================================
-                LOGOUT
-            ================================================== */}
+            {/* LOGOUT */}
 
             <div
               onClick={logout}
@@ -524,33 +465,21 @@ export default function Profile() {
                 active:scale-[.99]
               "
             >
-
               <div className="flex items-center gap-4">
-
                 <FaSignOutAlt />
 
                 <span className="font-semibold">
                   Logout
                 </span>
-
               </div>
 
               <FaChevronRight />
-
             </div>
-
           </div>
         </div>
-
-        {/* BOTTOM SPACE */}
-
-        <div className="h-[120px]" />
-
       </div>
 
-      {/* =====================================================
-          HIDE SCROLLBAR
-      ====================================================== */}
+      {/* HIDE SCROLLBAR */}
 
       <style>{`
         div::-webkit-scrollbar {
@@ -567,11 +496,9 @@ export default function Profile() {
           -webkit-tap-highlight-color: transparent;
         }
       `}</style>
-
     </div>
   );
 }
-
 
 /* =========================================================
    MENU COMPONENT
@@ -601,11 +528,7 @@ function Menu({
         active:scale-[0.98]
       "
     >
-
-      {/* LEFT */}
-
       <div className="flex items-center gap-4">
-
         <span className="text-xl text-cyan-400">
           {icon}
         </span>
@@ -613,13 +536,9 @@ function Menu({
         <span className="font-semibold">
           {title}
         </span>
-
       </div>
 
-      {/* RIGHT */}
-
       <div className="flex items-center gap-3">
-
         {badge && (
           <div
             className="
@@ -641,9 +560,7 @@ function Menu({
         )}
 
         <FaChevronRight className="text-cyan-400" />
-
       </div>
-
     </div>
   );
 }

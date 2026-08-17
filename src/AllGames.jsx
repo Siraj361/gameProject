@@ -56,6 +56,7 @@ export default function AllGames() {
       icon: <FaFire />,
       color: "text-orange-400",
     },
+
     {
       id: "fav",
       name: "FAV",
@@ -68,6 +69,7 @@ export default function AllGames() {
       icon: <FaHeart />,
       color: "text-pink-400",
     },
+
     {
       id: "jili",
       name: "JILI",
@@ -79,6 +81,7 @@ export default function AllGames() {
       ),
       color: "text-cyan-300",
     },
+
     {
       id: "pg",
       name: "PG",
@@ -90,6 +93,7 @@ export default function AllGames() {
       ),
       color: "text-blue-200",
     },
+
     {
       id: "2j",
       name: "2J",
@@ -97,6 +101,7 @@ export default function AllGames() {
       icon: <FaGem />,
       color: "text-cyan-300",
     },
+
     {
       id: "sport",
       name: "SPORT",
@@ -109,6 +114,7 @@ export default function AllGames() {
       icon: <FaFutbol />,
       color: "text-green-400",
     },
+
     {
       id: "jdb",
       name: "JDB",
@@ -120,6 +126,7 @@ export default function AllGames() {
       ),
       color: "text-yellow-300",
     },
+
     {
       id: "pp",
       name: "PP",
@@ -135,6 +142,7 @@ export default function AllGames() {
       ),
       color: "text-purple-300",
     },
+
     {
       id: "tp",
       name: "TP",
@@ -149,7 +157,7 @@ export default function AllGames() {
   ];
 
   // ============================================================
-  // SEARCH RESULTS
+  // SEARCH
   // ============================================================
 
   const searchResults =
@@ -195,14 +203,12 @@ export default function AllGames() {
   };
 
   // ============================================================
-  // FAVORITE SECTION
+  // FAVORITES
   // ============================================================
 
   const renderFavorites = () => {
     return (
       <div className="w-full p-2 sm:p-3">
-        {/* HEADER */}
-
         <div
           className="
             rounded-xl
@@ -264,8 +270,6 @@ export default function AllGames() {
           </div>
         </div>
 
-        {/* NO FAVOURITES */}
-
         {favoriteGames.length === 0 ? (
           <div
             className="
@@ -305,8 +309,6 @@ export default function AllGames() {
             </p>
           </div>
         ) : (
-          /* FAVORITE GRID */
-
           <div
             className="
               grid
@@ -331,38 +333,23 @@ export default function AllGames() {
                   bg-[#08152e]
                 "
               >
-                {/* IMAGE */}
-
-                <div
+                <img
+                  src={game.image}
+                  alt={game.name || "Game"}
+                  loading="lazy"
                   className="
                     absolute
                     inset-0
-                    flex
-                    items-center
-                    justify-center
-                    bg-[#08152e]
+                    w-full
+                    h-full
+                    object-contain
+                    block
                   "
-                >
-                  <img
-                    src={game.image}
-                    alt={game.name || "Game"}
-                    loading="lazy"
-                    className="
-                      w-full
-                      h-full
-                      object-contain
-                      block
-                    "
-                  />
-                </div>
-
-                {/* FAVORITE BUTTON */}
+                />
 
                 <button
                   type="button"
-                  onClick={() =>
-                    toggleFavorite(game.id)
-                  }
+                  onClick={() => toggleFavorite(game.id)}
                   className="
                     absolute
                     top-1.5
@@ -412,47 +399,41 @@ export default function AllGames() {
   };
 
   // ============================================================
-  // RENDER NORMAL CATEGORY
+  // GAMES
   // ============================================================
 
   const renderGames = () => {
-    if (active === "hot") {
-      return <HotGames />;
-    }
+    switch (active) {
+      case "hot":
+        return <HotGames />;
 
-    if (active === "jili") {
-      return <JiliGames />;
-    }
+      case "jili":
+        return <JiliGames />;
 
-    if (active === "pg") {
-      return <PgGames />;
-    }
+      case "pg":
+        return <PgGames />;
 
-    if (active === "2j") {
-      return <TwoJGames />;
-    }
+      case "2j":
+        return <TwoJGames />;
 
-    if (active === "sport") {
-      return <SportSection />;
-    }
+      case "sport":
+        return <SportSection />;
 
-    if (active === "jdb") {
-      return <JDBGames />;
-    }
+      case "jdb":
+        return <JDBGames />;
 
-    if (active === "pp") {
-      return <PpGames />;
-    }
+      case "pp":
+        return <PpGames />;
 
-    if (active === "tp") {
-      return <TpGames />;
-    }
+      case "tp":
+        return <TpGames />;
 
-    if (active === "fav") {
-      return renderFavorites();
-    }
+      case "fav":
+        return renderFavorites();
 
-    return <HotGames />;
+      default:
+        return <HotGames />;
+    }
   };
 
   // ============================================================
@@ -460,39 +441,75 @@ export default function AllGames() {
   // ============================================================
 
   return (
-    <div className="w-full h-[100dvh] bg-[#020617] flex justify-center overflow-hidden">
-
+    <div
+      className="
+        w-full
+        h-[100dvh]
+        bg-[#020617]
+        flex
+        justify-center
+        overflow-hidden
+      "
+    >
       {/* ======================================================
-          FORCE ALL GAMES CHILD GRIDS TO 3 COLUMNS
+          ONLY ALL GAMES GRID CONTROL
       ====================================================== */}
 
       <style>
         {`
+          /* Every game grid inside All Games = exactly 3 columns */
           .all-games-content .grid {
+            display: grid !important;
             grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+            width: 100% !important;
             gap: 8px !important;
-            width: 100% !important;
+            align-items: start !important;
           }
 
+          /* Every card gets equal width */
           .all-games-content .grid > * {
-            min-width: 0 !important;
             width: 100% !important;
+            min-width: 0 !important;
+            max-width: 100% !important;
+            margin-left: 0 !important;
+            margin-right: 0 !important;
           }
 
-          .all-games-content img {
-            max-width: 100%;
+          /* Images stay inside their own card */
+          .all-games-content .grid img {
+            display: block !important;
+            width: 100% !important;
+            max-width: 100% !important;
+          }
+
+          /*
+             Prevent first JILI / PG card from becoming
+             full-width because of col-span classes.
+          */
+          .all-games-content .grid > .col-span-2,
+          .all-games-content .grid > .col-span-3,
+          .all-games-content .grid > [class*="col-span-"] {
+            grid-column: span 1 !important;
+          }
+
+          /*
+             If a child has flex-grow / basis styles,
+             keep every card equal.
+          */
+          .all-games-content .grid > * {
+            flex: none !important;
           }
 
           @media (min-width: 640px) {
             .all-games-content .grid {
-              gap: 12px !important;
+              gap: 10px !important;
             }
           }
         `}
       </style>
 
       {/* ======================================================
-          540PX CONTAINER
+          540PX MAIN CONTAINER
       ====================================================== */}
 
       <div
@@ -511,7 +528,6 @@ export default function AllGames() {
           border-cyan-500/20
         "
       >
-
         {/* ==================================================
             HEADER
         ================================================== */}
@@ -620,9 +636,7 @@ export default function AllGames() {
             <input
               type="text"
               value={search}
-              onChange={(e) =>
-                setSearch(e.target.value)
-              }
+              onChange={(e) => setSearch(e.target.value)}
               placeholder="Search JILI, PG, JDB, SPORT..."
               className="
                 flex-1
@@ -658,7 +672,7 @@ export default function AllGames() {
             )}
           </div>
 
-          {/* SEARCH RESULT */}
+          {/* SEARCH RESULTS */}
 
           {search.trim() && (
             <div
@@ -707,9 +721,7 @@ export default function AllGames() {
                       type="button"
                       key={category.id}
                       onClick={() =>
-                        handleSearchResultClick(
-                          category.id
-                        )
+                        handleSearchResultClick(category.id)
                       }
                       className="
                         w-full
@@ -804,7 +816,6 @@ export default function AllGames() {
             overflow-hidden
           "
         >
-
           {/* =================================================
               LEFT CATEGORY
           ================================================= */}
@@ -853,9 +864,6 @@ export default function AllGames() {
                     }
                   `}
                 >
-
-                  {/* ACTIVE LINE */}
-
                   {isActive && (
                     <div
                       className="
@@ -869,8 +877,6 @@ export default function AllGames() {
                       "
                     />
                   )}
-
-                  {/* ICON */}
 
                   <div
                     className={`
@@ -901,8 +907,6 @@ export default function AllGames() {
                     </span>
                   </div>
 
-                  {/* NAME */}
-
                   <span
                     className={`
                       text-[9px]
@@ -923,7 +927,7 @@ export default function AllGames() {
           </div>
 
           {/* =================================================
-              RIGHT GAMES
+              RIGHT GAME AREA
           ================================================= */}
 
           <div
@@ -940,7 +944,6 @@ export default function AllGames() {
           >
             {renderGames()}
           </div>
-
         </div>
       </div>
     </div>

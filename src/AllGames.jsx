@@ -21,7 +21,7 @@ import SportSection from "./SportSection";
 import PpGames from "./PpGames";
 import TpGames from "./TpGames";
 
-import { useFavorites } from "./useFavorites"
+import { useFavorites } from "./useFavorites";
 import { gamesData } from "./gamesData";
 
 export default function AllGames() {
@@ -30,11 +30,9 @@ export default function AllGames() {
   const [active, setActive] = useState("hot");
   const [search, setSearch] = useState("");
 
-  /*
-  ============================================================
-  FAVORITES
-  ============================================================
-  */
+  // ============================================================
+  // FAVORITES
+  // ============================================================
 
   const {
     favorites,
@@ -42,21 +40,13 @@ export default function AllGames() {
     isFavorite,
   } = useFavorites();
 
-  /*
-  ============================================================
-  FAVORITE GAMES
-  ============================================================
-  */
-
   const favoriteGames = gamesData.filter((game) =>
     favorites.includes(game.id)
   );
 
-  /*
-  ============================================================
-  CATEGORIES
-  ============================================================
-  */
+  // ============================================================
+  // CATEGORIES
+  // ============================================================
 
   const categories = [
     {
@@ -66,7 +56,6 @@ export default function AllGames() {
       icon: <FaFire />,
       color: "text-orange-400",
     },
-
     {
       id: "fav",
       name: "FAV",
@@ -79,7 +68,6 @@ export default function AllGames() {
       icon: <FaHeart />,
       color: "text-pink-400",
     },
-
     {
       id: "jili",
       name: "JILI",
@@ -91,7 +79,6 @@ export default function AllGames() {
       ),
       color: "text-cyan-300",
     },
-
     {
       id: "pg",
       name: "PG",
@@ -103,7 +90,6 @@ export default function AllGames() {
       ),
       color: "text-blue-200",
     },
-
     {
       id: "2j",
       name: "2J",
@@ -111,7 +97,6 @@ export default function AllGames() {
       icon: <FaGem />,
       color: "text-cyan-300",
     },
-
     {
       id: "sport",
       name: "SPORT",
@@ -124,7 +109,6 @@ export default function AllGames() {
       icon: <FaFutbol />,
       color: "text-green-400",
     },
-
     {
       id: "jdb",
       name: "JDB",
@@ -136,7 +120,6 @@ export default function AllGames() {
       ),
       color: "text-yellow-300",
     },
-
     {
       id: "pp",
       name: "PP",
@@ -152,7 +135,6 @@ export default function AllGames() {
       ),
       color: "text-purple-300",
     },
-
     {
       id: "tp",
       name: "TP",
@@ -166,69 +148,55 @@ export default function AllGames() {
     },
   ];
 
-  /*
-  ============================================================
-  SEARCH RESULTS
-  ============================================================
-  */
+  // ============================================================
+  // SEARCH RESULTS
+  // ============================================================
 
   const searchResults =
     search.trim().length > 0
       ? categories.filter((category) => {
-          const query = search
-            .toLowerCase()
-            .trim();
+          const query = search.toLowerCase().trim();
 
           return (
             category.name
               .toLowerCase()
               .includes(query) ||
             category.keywords.some((keyword) =>
-              keyword
-                .toLowerCase()
-                .includes(query)
+              keyword.toLowerCase().includes(query)
             )
           );
         })
       : [];
 
-  /*
-  ============================================================
-  SEARCH RESULT CLICK
-  ============================================================
-  */
+  // ============================================================
+  // SEARCH RESULT CLICK
+  // ============================================================
 
   const handleSearchResultClick = (categoryId) => {
     setActive(categoryId);
     setSearch("");
   };
 
-  /*
-  ============================================================
-  CATEGORY CLICK
-  ============================================================
-  */
+  // ============================================================
+  // CATEGORY CLICK
+  // ============================================================
 
   const handleCategoryClick = (categoryId) => {
     setActive(categoryId);
     setSearch("");
   };
 
-  /*
-  ============================================================
-  CLEAR SEARCH
-  ============================================================
-  */
+  // ============================================================
+  // CLEAR SEARCH
+  // ============================================================
 
   const clearSearch = () => {
     setSearch("");
   };
 
-  /*
-  ============================================================
-  FAVORITE SECTION
-  ============================================================
-  */
+  // ============================================================
+  // FAVORITE SECTION
+  // ============================================================
 
   const renderFavorites = () => {
     return (
@@ -337,9 +305,7 @@ export default function AllGames() {
             </p>
           </div>
         ) : (
-          /* ==================================================
-             FAV GAME GRID
-          ================================================== */
+          /* FAVORITE GRID */
 
           <div
             className="
@@ -347,6 +313,7 @@ export default function AllGames() {
               grid-cols-3
               gap-2
               sm:gap-3
+              w-full
             "
           >
             {favoriteGames.map((game) => (
@@ -355,6 +322,7 @@ export default function AllGames() {
                 className="
                   relative
                   w-full
+                  min-w-0
                   aspect-[3/4]
                   rounded-xl
                   overflow-hidden
@@ -388,7 +356,7 @@ export default function AllGames() {
                   />
                 </div>
 
-                {/* FAV BUTTON */}
+                {/* FAVORITE BUTTON */}
 
                 <button
                   type="button"
@@ -443,11 +411,9 @@ export default function AllGames() {
     );
   };
 
-  /*
-  ============================================================
-  RENDER NORMAL CATEGORY
-  ============================================================
-  */
+  // ============================================================
+  // RENDER NORMAL CATEGORY
+  // ============================================================
 
   const renderGames = () => {
     if (active === "hot") {
@@ -489,26 +455,45 @@ export default function AllGames() {
     return <HotGames />;
   };
 
-  /*
-  ============================================================
-  MAIN
-  ============================================================
-  */
+  // ============================================================
+  // MAIN
+  // ============================================================
 
   return (
-    <div
-      className="
-        w-full
-        h-[100dvh]
-        bg-[#020617]
-        flex
-        justify-center
-        overflow-hidden
-      "
-    >
-      {/* ====================================================
+    <div className="w-full h-[100dvh] bg-[#020617] flex justify-center overflow-hidden">
+
+      {/* ======================================================
+          FORCE ALL GAMES CHILD GRIDS TO 3 COLUMNS
+      ====================================================== */}
+
+      <style>
+        {`
+          .all-games-content .grid {
+            grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+            gap: 8px !important;
+            width: 100% !important;
+          }
+
+          .all-games-content .grid > * {
+            min-width: 0 !important;
+            width: 100% !important;
+          }
+
+          .all-games-content img {
+            max-width: 100%;
+          }
+
+          @media (min-width: 640px) {
+            .all-games-content .grid {
+              gap: 12px !important;
+            }
+          }
+        `}
+      </style>
+
+      {/* ======================================================
           540PX CONTAINER
-      ==================================================== */}
+      ====================================================== */}
 
       <div
         className="
@@ -526,6 +511,7 @@ export default function AllGames() {
           border-cyan-500/20
         "
       >
+
         {/* ==================================================
             HEADER
         ================================================== */}
@@ -547,6 +533,7 @@ export default function AllGames() {
           "
         >
           <button
+            type="button"
             onClick={() => navigate(-1)}
             className="
               w-10
@@ -651,6 +638,7 @@ export default function AllGames() {
 
             {search && (
               <button
+                type="button"
                 onClick={clearSearch}
                 className="
                   w-7
@@ -716,6 +704,7 @@ export default function AllGames() {
 
                   {searchResults.map((category) => (
                     <button
+                      type="button"
                       key={category.id}
                       onClick={() =>
                         handleSearchResultClick(
@@ -815,6 +804,7 @@ export default function AllGames() {
             overflow-hidden
           "
         >
+
           {/* =================================================
               LEFT CATEGORY
           ================================================= */}
@@ -839,6 +829,7 @@ export default function AllGames() {
 
               return (
                 <button
+                  type="button"
                   key={item.id}
                   onClick={() =>
                     handleCategoryClick(item.id)
@@ -862,6 +853,7 @@ export default function AllGames() {
                     }
                   `}
                 >
+
                   {/* ACTIVE LINE */}
 
                   {isActive && (
@@ -936,6 +928,7 @@ export default function AllGames() {
 
           <div
             className="
+              all-games-content
               flex-1
               min-w-0
               min-h-0
@@ -947,9 +940,9 @@ export default function AllGames() {
           >
             {renderGames()}
           </div>
+
         </div>
       </div>
     </div>
   );
 }
-

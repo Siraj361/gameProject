@@ -5,7 +5,6 @@ import { BrowserRouter } from "react-router-dom";
 import App from "./App.jsx";
 import "./index.css";
 
-// PWA Service Worker
 import { registerSW } from "virtual:pwa-register";
 
 registerSW({
@@ -14,7 +13,7 @@ registerSW({
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <BrowserRouter basename="/gameProject">
+    <BrowserRouter>
       <App />
     </BrowserRouter>
   </StrictMode>

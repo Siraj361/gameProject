@@ -21,7 +21,7 @@ import SportSection from "./SportSection";
 import PpGames from "./PpGames";
 import TpGames from "./TpGames";
 
-import { useFavorites } from "./UseFavorites"
+import { useFavorites } from "./useFavorites"
 import { gamesData } from "./gamesData";
 
 export default function AllGames() {

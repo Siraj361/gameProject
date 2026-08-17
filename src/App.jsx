@@ -109,7 +109,14 @@ function Home({
   navigate,
   setToast,
 }) {
-  const user = JSON.parse(localStorage.getItem("user")) || null;
+  let homeUser = null;
+
+  try {
+    homeUser = JSON.parse(localStorage.getItem("user")) || null;
+  } catch {
+    homeUser = null;
+  }
+
   const balance = Number(localStorage.getItem("balance")) || 0;
 
   return (
@@ -132,7 +139,7 @@ function Home({
           setOpenMenu={setOpenMenu}
           setLoginOpen={setLoginOpen}
           setSignupOpen={setSignupOpen}
-          user={user}
+          user={homeUser}
           balance={balance}
         />
       </div>
@@ -193,7 +200,7 @@ function Home({
 
       <SideWidget />
 
-      {/* LOGIN */}
+      {/* HOME LOGIN */}
 
       <LoginModal
         loginOpen={loginOpen}
@@ -203,7 +210,7 @@ function Home({
         setToast={setToast}
       />
 
-      {/* SIGNUP */}
+      {/* HOME SIGNUP */}
 
       <SignupModal
         signupOpen={signupOpen}
@@ -314,14 +321,8 @@ export default function App() {
 
     return () => {
       window.removeEventListener("storage", handleStorage);
-      window.removeEventListener(
-        "userLogin",
-        handleUserLogin
-      );
-      window.removeEventListener(
-        "userLogout",
-        handleUserLogout
-      );
+      window.removeEventListener("userLogin", handleUserLogin);
+      window.removeEventListener("userLogout", handleUserLogout);
     };
   }, []);
 
@@ -381,7 +382,7 @@ export default function App() {
   };
 
   /* =======================================================
-     BOTTOM NAVBAR PATHS
+     BOTTOM NAVBAR
   ======================================================= */
 
   const showBottomNavbar = [
@@ -421,9 +422,7 @@ export default function App() {
           bg-[#020617]
         "
       >
-        {/* =================================================
-            SPLASH
-        ================================================= */}
+        {/* SPLASH */}
 
         {showSplash && (
           <SplashScreen
@@ -431,9 +430,7 @@ export default function App() {
           />
         )}
 
-        {/* =================================================
-            TOAST
-        ================================================= */}
+        {/* TOAST */}
 
         {toast && (
           <Toast
@@ -443,9 +440,7 @@ export default function App() {
           />
         )}
 
-        {/* =================================================
-            SIDEBAR
-        ================================================= */}
+        {/* SIDEBAR */}
 
         <Sidebar
           open={openMenu}
@@ -461,6 +456,25 @@ export default function App() {
         ================================================= */}
 
         <Routes>
+          {/* HOME */}
+
+          <Route
+            path="/"
+            element={
+              <Home
+                setOpenMenu={setOpenMenu}
+                loginOpen={loginOpen}
+                setLoginOpen={setLoginOpen}
+                signupOpen={signupOpen}
+                setSignupOpen={setSignupOpen}
+                announcementOpen={announcementOpen}
+                setAnnouncementOpen={setAnnouncementOpen}
+                navigate={navigate}
+                setToast={setToast}
+              />
+            }
+          />
+
           {/* BALANCE */}
 
           <Route
@@ -472,6 +486,102 @@ export default function App() {
               >
                 <PageScroll>
                   <Balance />
+                </PageScroll>
+              </ProtectedRoute>
+            }
+          />
+
+          {/* DEPOSIT */}
+
+          <Route
+            path="/deposit"
+            element={
+              <ProtectedRoute
+                user={user}
+                onNeedLogin={requireLogin}
+              >
+                <PageScroll>
+                  <Deposit />
+                </PageScroll>
+              </ProtectedRoute>
+            }
+          />
+
+          {/* PROFILE */}
+
+          <Route
+            path="/profile"
+            element={
+              <ProtectedRoute
+                user={user}
+                onNeedLogin={requireLogin}
+              >
+                <PageScroll>
+                  <Profile />
+                </PageScroll>
+              </ProtectedRoute>
+            }
+          />
+
+          {/* INVITE BONUS */}
+
+          <Route
+            path="/invite-bonus"
+            element={
+              <ProtectedRoute
+                user={user}
+                onNeedLogin={requireLogin}
+              >
+                <PageScroll>
+                  <InviteBonus />
+                </PageScroll>
+              </ProtectedRoute>
+            }
+          />
+
+          {/* VIP */}
+
+          <Route
+            path="/vip"
+            element={
+              <ProtectedRoute
+                user={user}
+                onNeedLogin={requireLogin}
+              >
+                <PageScroll>
+                  <VipPage />
+                </PageScroll>
+              </ProtectedRoute>
+            }
+          />
+
+          {/* AGENCY */}
+
+          <Route
+            path="/agency"
+            element={
+              <ProtectedRoute
+                user={user}
+                onNeedLogin={requireLogin}
+              >
+                <PageScroll>
+                  <Agency />
+                </PageScroll>
+              </ProtectedRoute>
+            }
+          />
+
+          {/* LIMITED TIME ACTIVITIES */}
+
+          <Route
+            path="/limited-time-activities"
+            element={
+              <ProtectedRoute
+                user={user}
+                onNeedLogin={requireLogin}
+              >
+                <PageScroll>
+                  <LimitedTimeActivities />
                 </PageScroll>
               </ProtectedRoute>
             }
@@ -525,22 +635,6 @@ export default function App() {
             }
           />
 
-          {/* AGENCY */}
-
-          <Route
-            path="/agency"
-            element={
-              <ProtectedRoute
-                user={user}
-                onNeedLogin={requireLogin}
-              >
-                <PageScroll>
-                  <Agency />
-                </PageScroll>
-              </ProtectedRoute>
-            }
-          />
-
           {/* STATISTICS */}
 
           <Route
@@ -573,25 +667,6 @@ export default function App() {
             }
           />
 
-          {/* HOME */}
-
-          <Route
-            path="/"
-            element={
-              <Home
-                setOpenMenu={setOpenMenu}
-                loginOpen={loginOpen}
-                setLoginOpen={setLoginOpen}
-                signupOpen={signupOpen}
-                setSignupOpen={setSignupOpen}
-                announcementOpen={announcementOpen}
-                setAnnouncementOpen={setAnnouncementOpen}
-                navigate={navigate}
-                setToast={setToast}
-              />
-            }
-          />
-
           {/* ALL GAMES */}
 
           <Route
@@ -608,7 +683,7 @@ export default function App() {
             }
           />
 
-          {/* HOT GAMES */}
+          {/* HOT */}
 
           <Route
             path="/games/hot"
@@ -619,22 +694,6 @@ export default function App() {
               >
                 <PageScroll>
                   <GameGrid />
-                </PageScroll>
-              </ProtectedRoute>
-            }
-          />
-
-          {/* LIMITED TIME ACTIVITIES */}
-
-          <Route
-            path="/limited-time-activities"
-            element={
-              <ProtectedRoute
-                user={user}
-                onNeedLogin={requireLogin}
-              >
-                <PageScroll>
-                  <LimitedTimeActivities />
                 </PageScroll>
               </ProtectedRoute>
             }
@@ -752,68 +811,11 @@ export default function App() {
             }
           />
 
-          {/* VIP */}
+          {/* UNKNOWN ROUTE */}
 
           <Route
-            path="/vip"
-            element={
-              <ProtectedRoute
-                user={user}
-                onNeedLogin={requireLogin}
-              >
-                <PageScroll>
-                  <VipPage />
-                </PageScroll>
-              </ProtectedRoute>
-            }
-          />
-
-          {/* DEPOSIT */}
-
-          <Route
-            path="/deposit"
-            element={
-              <ProtectedRoute
-                user={user}
-                onNeedLogin={requireLogin}
-              >
-                <PageScroll>
-                  <Deposit />
-                </PageScroll>
-              </ProtectedRoute>
-            }
-          />
-
-          {/* PROFILE */}
-
-          <Route
-            path="/profile"
-            element={
-              <ProtectedRoute
-                user={user}
-                onNeedLogin={requireLogin}
-              >
-                <PageScroll>
-                  <Profile />
-                </PageScroll>
-              </ProtectedRoute>
-            }
-          />
-
-          {/* INVITE BONUS */}
-
-          <Route
-            path="/invite-bonus"
-            element={
-              <ProtectedRoute
-                user={user}
-                onNeedLogin={requireLogin}
-              >
-                <PageScroll>
-                  <InviteBonus />
-                </PageScroll>
-              </ProtectedRoute>
-            }
+            path="*"
+            element={<Navigate to="/" replace />}
           />
         </Routes>
 
@@ -840,9 +842,7 @@ export default function App() {
           </div>
         )}
 
-        {/* =================================================
-            ANNOUNCEMENT BLUR
-        ================================================= */}
+        {/* ANNOUNCEMENT BLUR */}
 
         {announcementOpen && (
           <div
@@ -857,9 +857,7 @@ export default function App() {
           />
         )}
 
-        {/* =================================================
-            GLOBAL LOGIN
-        ================================================= */}
+        {/* GLOBAL LOGIN */}
 
         <LoginModal
           loginOpen={loginOpen}
@@ -870,9 +868,7 @@ export default function App() {
           onLoginSuccess={handleLoginSuccess}
         />
 
-        {/* =================================================
-            GLOBAL SIGNUP
-        ================================================= */}
+        {/* GLOBAL SIGNUP */}
 
         <SignupModal
           signupOpen={signupOpen}

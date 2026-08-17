@@ -1,4 +1,3 @@
-
 import {
   FaChevronRight,
   FaGlobe,
@@ -25,91 +24,167 @@ export default function Sidebar({
 }) {
   const navigate = useNavigate();
 
-  const [user, setUser] = useState(
-    JSON.parse(localStorage.getItem("user")) || null
-  );
+  /* =========================================================
+     USER
+  ========================================================= */
+
+  const [user, setUser] = useState(() => {
+    try {
+      return JSON.parse(localStorage.getItem("user")) || null;
+    } catch {
+      return null;
+    }
+  });
+
+  /* =========================================================
+     UPDATE USER
+  ========================================================= */
 
   useEffect(() => {
     const updateUser = () => {
-      setUser(JSON.parse(localStorage.getItem("user")) || null);
+      try {
+        setUser(
+          JSON.parse(localStorage.getItem("user")) || null
+        );
+      } catch {
+        setUser(null);
+      }
     };
 
     window.addEventListener("userLogin", updateUser);
+    window.addEventListener("userLogout", updateUser);
 
     return () => {
       window.removeEventListener("userLogin", updateUser);
+      window.removeEventListener("userLogout", updateUser);
     };
   }, []);
 
-  const balance = localStorage.getItem("balance") || "0";
+  /* =========================================================
+     BALANCE
+  ========================================================= */
 
-  // =========================
-  // NAVIGATION
-  // =========================
+  const [balance, setBalance] = useState(() => {
+    return Number(localStorage.getItem("balance")) || 0;
+  });
+
+  useEffect(() => {
+    const updateBalance = () => {
+      setBalance(
+        Number(localStorage.getItem("balance")) || 0
+      );
+    };
+
+    updateBalance();
+
+    const interval = setInterval(updateBalance, 500);
+
+    window.addEventListener("storage", updateBalance);
+
+    return () => {
+      clearInterval(interval);
+      window.removeEventListener("storage", updateBalance);
+    };
+  }, []);
+
+  /* =========================================================
+     NAVIGATION
+  ========================================================= */
 
   const goTo = (path) => {
     setOpen(false);
+
+    // React Router automatically handles /gameProject
+    // because BrowserRouter has basename="/gameProject".
     navigate(path);
   };
+
+  /* =========================================================
+     MENU
+  ========================================================= */
 
   const menu = [
     {
       name: "Language",
       icon: <FaGlobe />,
+      action: () => {
+        setOpen(false);
+        // Language functionality can be added here later.
+      },
     },
+
     {
       name: "Invite Bonus",
       icon: <FaGift />,
       path: "/invite-bonus",
     },
+
     {
       name: "Lucky Wheel",
       icon: <FaGem />,
+      action: () => {
+        setOpen(false);
+      },
     },
+
     {
       name: "VIP",
       icon: <FaWallet />,
       path: "/vip",
     },
+
     {
       name: "Reward",
       icon: <FaGift />,
+      action: () => {
+        setOpen(false);
+      },
     },
+
     {
       name: "Wallet",
       icon: <FaWallet />,
-      path: "/wallet",
+      path: "/balance",
     },
   ];
 
-  // =========================
-  // LOGOUT
-  // =========================
+  /* =========================================================
+     LOGOUT
+  ========================================================= */
 
   const logout = () => {
     localStorage.removeItem("user");
+
     setUser(null);
     setOpen(false);
 
-    window.dispatchEvent(new Event("userLogin"));
+    window.dispatchEvent(new Event("userLogout"));
   };
 
-  // =========================
-  // DEPOSIT
-  // =========================
+  /* =========================================================
+     DEPOSIT
+  ========================================================= */
 
   const handleDeposit = () => {
-    setOpen(false);
-    navigate("/deposit");
+    goTo("/deposit");
   };
 
-  // =========================
-  // WITHDRAW
-  // =========================
+  /* =========================================================
+     WITHDRAW
+  ========================================================= */
 
   const handleWithdraw = () => {
+    // No /withdraw route currently exists in App.jsx.
+    // Keep sidebar closed instead of navigating to an invalid route.
     setOpen(false);
-    navigate("/withdraw");
+  };
+
+  /* =========================================================
+     CUSTOMER SERVICE
+  ========================================================= */
+
+  const handleCustomerService = () => {
+    goTo("/customer-service");
   };
 
   return (
@@ -129,7 +204,9 @@ export default function Sidebar({
         }
       `}
     >
-      {/* BLACK OVERLAY */}
+      {/* =====================================================
+          OVERLAY
+      ===================================================== */}
 
       <div
         onClick={() => setOpen(false)}
@@ -153,7 +230,9 @@ export default function Sidebar({
         `}
       />
 
-      {/* SIDEBAR */}
+      {/* =====================================================
+          SIDEBAR
+      ===================================================== */}
 
       <div
         className={`
@@ -161,7 +240,6 @@ export default function Sidebar({
           top-0
           left-0
           h-full
-
           w-[340px]
           sm:w-[360px]
 
@@ -186,8 +264,9 @@ export default function Sidebar({
           }
         `}
       >
-
-        {/* ================= HEADER ================= */}
+        {/* =================================================
+            HEADER
+        ================================================= */}
 
         <div
           className="
@@ -196,12 +275,9 @@ export default function Sidebar({
             items-center
             justify-between
             px-5
-
             border-b
             border-cyan-400/30
-
             bg-[#021b3a]
-
             sticky
             top-0
             z-50
@@ -229,19 +305,17 @@ export default function Sidebar({
           </h1>
 
           <button
+            type="button"
             onClick={() => setOpen(false)}
             className="
               h-10
               w-10
               rounded-full
-
               flex
               items-center
               justify-center
-
               border
               border-cyan-400/40
-
               bg-[#03182f]
             "
           >
@@ -254,7 +328,9 @@ export default function Sidebar({
           </button>
         </div>
 
-        {/* ================= USER SECTION ================= */}
+        {/* =================================================
+            USER
+        ================================================= */}
 
         {user ? (
           <div
@@ -262,16 +338,12 @@ export default function Sidebar({
               mx-5
               mt-5
               rounded-3xl
-
               border
               border-cyan-300/40
-
               bg-[#03182f]
-
               p-4
             "
           >
-
             {/* PROFILE */}
 
             <div
@@ -286,15 +358,12 @@ export default function Sidebar({
                   h-16
                   w-16
                   rounded-full
-
                   bg-gradient-to-b
                   from-cyan-300
                   to-blue-700
-
                   flex
                   items-center
                   justify-center
-
                   text-3xl
                 "
               >
@@ -333,11 +402,7 @@ export default function Sidebar({
                 text-center
               "
             >
-              <p
-                className="
-                  text-gray-300
-                "
-              >
+              <p className="text-gray-300">
                 Balance
               </p>
 
@@ -352,7 +417,7 @@ export default function Sidebar({
               </h1>
             </div>
 
-            {/* ================= DEPOSIT / WITHDRAW ================= */}
+            {/* DEPOSIT / WITHDRAW */}
 
             <div
               className="
@@ -362,21 +427,16 @@ export default function Sidebar({
                 mt-4
               "
             >
-
-              {/* DEPOSIT */}
-
               <button
+                type="button"
                 onClick={handleDeposit}
                 className="
                   h-12
                   rounded-xl
-
                   bg-gradient-to-r
                   from-green-400
                   to-green-700
-
                   font-bold
-
                   active:scale-95
                   transition
                 "
@@ -384,58 +444,49 @@ export default function Sidebar({
                 Deposit
               </button>
 
-              {/* WITHDRAW */}
-
               <button
+                type="button"
                 onClick={handleWithdraw}
                 className="
                   h-12
                   rounded-xl
-
                   bg-gradient-to-r
                   from-orange-400
                   to-red-600
-
                   font-bold
-
                   active:scale-95
                   transition
                 "
               >
                 Withdraw
               </button>
-
             </div>
 
             {/* LOGOUT */}
 
             <button
+              type="button"
               onClick={logout}
               className="
                 w-full
                 mt-4
                 h-10
-
                 rounded-xl
-
                 border
                 border-red-400
-
                 text-red-300
-
                 font-bold
-
                 active:scale-95
                 transition
               "
             >
               Logout
             </button>
-
           </div>
         ) : (
-
-          /* ================= LOGIN / SIGNUP ================= */
+          /* =================================================
+             LOGIN / SIGNUP
+          ================================================= */
 
           <div
             className="
@@ -445,21 +496,18 @@ export default function Sidebar({
               p-5
             "
           >
-
             <button
+              type="button"
               onClick={() => {
                 setOpen(false);
                 setLoginOpen(true);
               }}
               className="
                 h-[60px]
-
                 rounded-2xl
-
                 bg-gradient-to-r
                 from-cyan-400
                 to-blue-700
-
                 font-bold
                 text-xl
               "
@@ -468,58 +516,58 @@ export default function Sidebar({
             </button>
 
             <button
+              type="button"
               onClick={() => {
                 setOpen(false);
                 setSignupOpen(true);
               }}
               className="
                 h-[60px]
-
                 rounded-2xl
-
                 border
                 border-cyan-300
-
                 bg-[#031b35]
-
                 text-cyan-200
-
                 font-bold
                 text-xl
               "
             >
               Sign Up
             </button>
-
           </div>
         )}
 
-        {/* ================= MENU GRID ================= */}
+        {/* =================================================
+            MENU GRID
+        ================================================= */}
 
         <div
           className="
             grid
             grid-cols-3
-
             gap-5
-
             px-5
-
             mt-5
           "
         >
           {menu.map((item, index) => (
-            <div
+            <button
+              type="button"
               key={index}
               onClick={() => {
                 if (item.path) {
                   goTo(item.path);
+                  return;
+                }
+
+                if (item.action) {
+                  item.action();
                 }
               }}
               className={`
                 text-center
                 ${
-                  item.path
+                  item.path || item.action
                     ? "cursor-pointer active:scale-95 transition"
                     : ""
                 }
@@ -529,21 +577,15 @@ export default function Sidebar({
                 className="
                   h-[70px]
                   w-[70px]
-
                   mx-auto
-
                   rounded-2xl
-
                   flex
                   items-center
                   justify-center
-
                   text-3xl
-
                   bg-gradient-to-b
                   from-[#1475c9]
                   to-[#03204b]
-
                   border
                   border-cyan-300/40
                 "
@@ -560,25 +602,30 @@ export default function Sidebar({
               >
                 {item.name}
               </p>
-            </div>
+            </button>
           ))}
         </div>
 
-        {/* ================= CUSTOMER SERVICE ================= */}
+        {/* =================================================
+            CUSTOMER SERVICE
+        ================================================= */}
 
-        <div
+        <button
+          type="button"
+          onClick={handleCustomerService}
           className="
+            block
+            w-[calc(100%-40px)]
             mx-5
             mt-10
-
+            text-left
             rounded-3xl
-
             border
             border-cyan-300/40
-
             bg-[#03182f]
-
             p-5
+            active:scale-[0.99]
+            transition
           "
         >
           <div
@@ -592,15 +639,11 @@ export default function Sidebar({
               className="
                 h-12
                 w-12
-
                 rounded-full
-
                 bg-cyan-500
-
                 flex
                 items-center
                 justify-center
-
                 text-xl
               "
             >
@@ -608,11 +651,7 @@ export default function Sidebar({
             </div>
 
             <div>
-              <h2
-                className="
-                  font-bold
-                "
-              >
+              <h2 className="font-bold">
                 Customer Service
               </h2>
 
@@ -626,21 +665,20 @@ export default function Sidebar({
               </p>
             </div>
           </div>
-        </div>
+        </button>
 
-        {/* ================= SOCIAL ================= */}
+        {/* =================================================
+            SOCIAL
+        ================================================= */}
 
         <div
           className="
             mx-5
             mt-5
             mb-6
-
             rounded-3xl
-
             border
             border-cyan-300/40
-
             p-5
           "
         >
@@ -648,7 +686,6 @@ export default function Sidebar({
             className="
               flex
               justify-around
-
               text-2xl
             "
           >
@@ -693,7 +730,6 @@ export default function Sidebar({
             />
           </div>
         </div>
-
       </div>
     </div>
   );

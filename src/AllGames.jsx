@@ -56,7 +56,6 @@ export default function AllGames() {
       icon: <FaFire />,
       color: "text-orange-400",
     },
-
     {
       id: "fav",
       name: "FAV",
@@ -69,31 +68,28 @@ export default function AllGames() {
       icon: <FaHeart />,
       color: "text-pink-400",
     },
-
     {
       id: "jili",
       name: "JILI",
       keywords: ["jili", "jili games"],
       icon: (
-        <span className="text-[15px] sm:text-[17px] font-black">
+        <span className="text-[13px] font-black min-[390px]:text-[14px] sm:text-[16px]">
           JILI
         </span>
       ),
       color: "text-cyan-300",
     },
-
     {
       id: "pg",
       name: "PG",
       keywords: ["pg", "pg games"],
       icon: (
-        <span className="text-[18px] sm:text-[20px] font-black">
+        <span className="text-[16px] font-black min-[390px]:text-[17px] sm:text-[19px]">
           PG
         </span>
       ),
       color: "text-blue-200",
     },
-
     {
       id: "2j",
       name: "2J",
@@ -101,7 +97,6 @@ export default function AllGames() {
       icon: <FaGem />,
       color: "text-cyan-300",
     },
-
     {
       id: "sport",
       name: "SPORT",
@@ -114,19 +109,17 @@ export default function AllGames() {
       icon: <FaFutbol />,
       color: "text-green-400",
     },
-
     {
       id: "jdb",
       name: "JDB",
       keywords: ["jdb", "jdb games"],
       icon: (
-        <span className="text-[15px] sm:text-[17px] font-black">
+        <span className="text-[13px] font-black min-[390px]:text-[14px] sm:text-[16px]">
           JDB
         </span>
       ),
       color: "text-yellow-300",
     },
-
     {
       id: "pp",
       name: "PP",
@@ -136,19 +129,18 @@ export default function AllGames() {
         "pragmatic play",
       ],
       icon: (
-        <span className="text-[15px] sm:text-[17px] font-black">
+        <span className="text-[13px] font-black min-[390px]:text-[14px] sm:text-[16px]">
           PP
         </span>
       ),
       color: "text-purple-300",
     },
-
     {
       id: "tp",
       name: "TP",
       keywords: ["tp", "tp games"],
       icon: (
-        <span className="text-[15px] sm:text-[17px] font-black">
+        <span className="text-[13px] font-black min-[390px]:text-[14px] sm:text-[16px]">
           TP
         </span>
       ),
@@ -177,7 +169,7 @@ export default function AllGames() {
       : [];
 
   // ============================================================
-  // SEARCH RESULT CLICK
+  // SEARCH
   // ============================================================
 
   const handleSearchResultClick = (categoryId) => {
@@ -185,18 +177,10 @@ export default function AllGames() {
     setSearch("");
   };
 
-  // ============================================================
-  // CATEGORY CLICK
-  // ============================================================
-
   const handleCategoryClick = (categoryId) => {
     setActive(categoryId);
     setSearch("");
   };
-
-  // ============================================================
-  // CLEAR SEARCH
-  // ============================================================
 
   const clearSearch = () => {
     setSearch("");
@@ -208,186 +192,63 @@ export default function AllGames() {
 
   const renderFavorites = () => {
     return (
-      <div className="w-full p-2 sm:p-3">
-        <div
-          className="
-            rounded-xl
-            border
-            border-cyan-500
-            bg-[#08152e]
-            mb-3
-            sm:mb-4
-            overflow-hidden
-          "
-        >
-          <div
-            className="
-              flex
-              items-center
-              justify-between
-              px-3
-              py-2.5
-              sm:px-4
-              sm:py-3
-            "
-          >
-            <div className="flex items-center gap-2">
-              <FaHeart
-                className="
-                  text-pink-400
-                  text-xl
-                  sm:text-2xl
-                "
-              />
+      <div className="w-full min-w-0 p-2 sm:p-3">
+        {/* TITLE */}
+        <div className="mb-3 overflow-hidden rounded-xl border border-cyan-500 bg-[#08152e] sm:mb-4">
+          <div className="flex items-center justify-between gap-2 px-3 py-2.5 sm:px-4 sm:py-3">
+            <div className="flex min-w-0 items-center gap-2">
+              <FaHeart className="shrink-0 text-xl text-pink-400 sm:text-2xl" />
 
-              <h2
-                className="
-                  text-cyan-300
-                  text-lg
-                  sm:text-xl
-                  font-bold
-                "
-              >
+              <h2 className="truncate text-lg font-bold text-cyan-300 sm:text-xl">
                 Favourite
               </h2>
             </div>
 
-            <div
-              className="
-                px-2.5
-                sm:px-3
-                py-1
-                rounded-lg
-                border
-                border-cyan-500
-                text-cyan-300
-                text-xs
-                sm:text-sm
-              "
-            >
+            <div className="shrink-0 rounded-lg border border-cyan-500 px-2.5 py-1 text-xs text-cyan-300 sm:px-3 sm:text-sm">
               All {favoriteGames.length}
             </div>
           </div>
         </div>
 
+        {/* EMPTY */}
         {favoriteGames.length === 0 ? (
-          <div
-            className="
-              rounded-xl
-              border
-              border-cyan-500/30
-              bg-[#08152e]
-              py-14
-              px-4
-              text-center
-            "
-          >
-            <div
-              className="
-                w-16
-                h-16
-                mx-auto
-                rounded-2xl
-                border
-                border-pink-400/20
-                bg-pink-500/10
-                flex
-                items-center
-                justify-center
-                mb-3
-              "
-            >
+          <div className="rounded-xl border border-cyan-500/30 bg-[#08152e] px-4 py-14 text-center">
+            <div className="mx-auto mb-3 flex h-16 w-16 items-center justify-center rounded-2xl border border-pink-400/20 bg-pink-500/10">
               <FaHeart className="text-3xl text-pink-400/50" />
             </div>
 
-            <p className="text-white font-bold text-sm">
+            <p className="text-sm font-bold text-white">
               No Favourite Games
             </p>
 
-            <p className="text-gray-500 text-xs mt-1">
+            <p className="mt-1 text-xs text-gray-500">
               Tap ❤️ on any game to add it here
             </p>
           </div>
         ) : (
-          <div
-            className="
-              grid
-              grid-cols-3
-              gap-2
-              sm:gap-3
-              w-full
-            "
-          >
+          /* FAVORITE GRID */
+          <div className="grid w-full min-w-0 grid-cols-3 gap-1.5 min-[360px]:gap-2 sm:gap-3">
             {favoriteGames.map((game) => (
               <div
                 key={game.id}
-                className="
-                  relative
-                  w-full
-                  min-w-0
-                  aspect-[3/4]
-                  rounded-xl
-                  overflow-hidden
-                  border
-                  border-cyan-500
-                  bg-[#08152e]
-                "
+                className="relative aspect-[3/4] min-w-0 overflow-hidden rounded-xl border border-cyan-500 bg-transparent shadow-none"
               >
                 <img
                   src={game.image}
                   alt={game.name || "Game"}
                   loading="lazy"
-                  className="
-                    absolute
-                    inset-0
-                    w-full
-                    h-full
-                    object-contain
-                    block
-                  "
+                  className="absolute inset-0 block h-full w-full object-cover object-center bg-transparent shadow-none"
                 />
 
                 <button
                   type="button"
                   onClick={() => toggleFavorite(game.id)}
-                  className="
-                    absolute
-                    top-1.5
-                    right-1.5
-                    sm:top-2
-                    sm:right-2
-                    w-7
-                    h-7
-                    sm:w-8
-                    sm:h-8
-                    rounded-full
-                    bg-[#071426]/90
-                    border
-                    border-cyan-500
-                    flex
-                    items-center
-                    justify-center
-                    active:scale-90
-                    transition
-                    z-10
-                  "
+                  className="absolute right-1.5 top-1.5 z-10 flex h-7 w-7 items-center justify-center rounded-full border border-cyan-500 bg-[#071426]/90 transition active:scale-90 sm:right-2 sm:top-2 sm:h-8 sm:w-8"
                 >
                   {isFavorite(game.id) ? (
-                    <FaHeart
-                      className="
-                        text-pink-400
-                        text-xs
-                        sm:text-sm
-                      "
-                    />
+                    <FaHeart className="text-xs text-pink-400 sm:text-sm" />
                   ) : (
-                    <FaRegHeart
-                      className="
-                        text-white/70
-                        text-xs
-                        sm:text-sm
-                      "
-                    />
+                    <FaRegHeart className="text-xs text-white/70 sm:text-sm" />
                   )}
                 </button>
               </div>
@@ -441,277 +302,67 @@ export default function AllGames() {
   // ============================================================
 
   return (
-    <div
-      className="
-        w-full
-        h-[100dvh]
-        bg-[#020617]
-        flex
-        justify-center
-        overflow-hidden
-      "
-    >
-      {/* ======================================================
-          ONLY ALL GAMES GRID CONTROL
-      ====================================================== */}
-
-      <style>
-        {`
-          /* Every game grid inside All Games = exactly 3 columns */
-          .all-games-content .grid {
-            display: grid !important;
-            grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
-            width: 100% !important;
-            gap: 8px !important;
-            align-items: start !important;
-          }
-
-          /* Every card gets equal width */
-          .all-games-content .grid > * {
-            width: 100% !important;
-            min-width: 0 !important;
-            max-width: 100% !important;
-            margin-left: 0 !important;
-            margin-right: 0 !important;
-          }
-
-          /* Images stay inside their own card */
-          .all-games-content .grid img {
-            display: block !important;
-            width: 100% !important;
-            max-width: 100% !important;
-          }
-
-          /*
-             Prevent first JILI / PG card from becoming
-             full-width because of col-span classes.
-          */
-          .all-games-content .grid > .col-span-2,
-          .all-games-content .grid > .col-span-3,
-          .all-games-content .grid > [class*="col-span-"] {
-            grid-column: span 1 !important;
-          }
-
-          /*
-             If a child has flex-grow / basis styles,
-             keep every card equal.
-          */
-          .all-games-content .grid > * {
-            flex: none !important;
-          }
-
-          @media (min-width: 640px) {
-            .all-games-content .grid {
-              gap: 10px !important;
-            }
-          }
-        `}
-      </style>
-
-      {/* ======================================================
-          540PX MAIN CONTAINER
-      ====================================================== */}
-
-      <div
-        className="
-          w-full
-          max-w-[540px]
-          h-full
-          overflow-hidden
-          flex
-          flex-col
-          bg-gradient-to-b
-          from-[#021224]
-          via-[#072b59]
-          to-[#010914]
-          border-x
-          border-cyan-500/20
-        "
-      >
-        {/* ==================================================
+    <div className="flex h-[100dvh] w-full justify-center overflow-hidden bg-[#020617]">
+      {/* MAIN 540px CONTAINER */}
+      <div className="flex h-full w-full max-w-[540px] min-w-0 flex-col overflow-hidden border-x border-cyan-500/20 bg-gradient-to-b from-[#021224] via-[#072b59] to-[#010914]">
+        {/* ====================================================
             HEADER
-        ================================================== */}
+        ==================================================== */}
 
-        <div
-          className="
-            h-[64px]
-            sm:h-[70px]
-            shrink-0
-            flex
-            items-center
-            gap-3
-            sm:gap-4
-            px-3
-            sm:px-4
-            border-b
-            border-cyan-500/30
-            bg-[#041729]
-          "
-        >
+        <header className="flex h-[64px] min-h-[64px] shrink-0 items-center gap-3 border-b border-cyan-500/30 bg-[#041729] px-3 sm:h-[70px] sm:min-h-[70px] sm:gap-4 sm:px-4">
           <button
             type="button"
             onClick={() => navigate(-1)}
-            className="
-              w-10
-              h-10
-              shrink-0
-              rounded-xl
-              border
-              border-cyan-500/60
-              bg-[#06213e]
-              flex
-              items-center
-              justify-center
-              text-cyan-300
-              text-lg
-              sm:text-xl
-              active:scale-95
-              transition
-            "
+            className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-cyan-500/60 bg-[#06213e] text-lg text-cyan-300 transition active:scale-95 sm:h-11 sm:w-11 sm:text-xl"
           >
             <FaArrowLeft />
           </button>
 
           <div className="min-w-0">
-            <h1
-              className="
-                text-white
-                text-lg
-                sm:text-xl
-                font-bold
-              "
-            >
+            <h1 className="truncate text-lg font-bold text-white sm:text-xl">
               All Games
             </h1>
 
-            <p
-              className="
-                text-cyan-400/60
-                text-[9px]
-                sm:text-[10px]
-              "
-            >
+            <p className="truncate text-[9px] text-cyan-400/60 sm:text-[10px]">
               Find your favourite game
             </p>
           </div>
-        </div>
+        </header>
 
-        {/* ==================================================
+        {/* ====================================================
             SEARCH
-        ================================================== */}
+        ==================================================== */}
 
-        <div
-          className="
-            relative
-            shrink-0
-            px-2.5
-            sm:px-3
-            py-2.5
-            sm:py-3
-            border-b
-            border-cyan-500/20
-            bg-[#041729]
-          "
-        >
-          <div
-            className="
-              h-11
-              sm:h-12
-              rounded-xl
-              border
-              border-cyan-500/50
-              bg-[#071426]
-              flex
-              items-center
-              px-3
-              sm:px-4
-              gap-2.5
-              sm:gap-3
-              focus-within:border-cyan-300
-              transition
-            "
-          >
-            <FaSearch className="text-cyan-300 shrink-0" />
+        <div className="relative shrink-0 border-b border-cyan-500/20 bg-[#041729] px-2.5 py-2.5 sm:px-3 sm:py-3">
+          <div className="flex h-11 items-center gap-2.5 rounded-xl border border-cyan-500/50 bg-[#071426] px-3 transition focus-within:border-cyan-300 sm:h-12 sm:gap-3 sm:px-4">
+            <FaSearch className="shrink-0 text-cyan-300" />
 
             <input
               type="text"
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               placeholder="Search JILI, PG, JDB, SPORT..."
-              className="
-                flex-1
-                min-w-0
-                bg-transparent
-                outline-none
-                text-white
-                text-xs
-                sm:text-sm
-                placeholder:text-gray-500
-              "
+              className="min-w-0 flex-1 bg-transparent text-xs text-white outline-none placeholder:text-gray-500 sm:text-sm"
             />
 
             {search && (
               <button
                 type="button"
                 onClick={clearSearch}
-                className="
-                  w-7
-                  h-7
-                  shrink-0
-                  rounded-full
-                  bg-cyan-500/10
-                  flex
-                  items-center
-                  justify-center
-                  text-cyan-300
-                  active:scale-90
-                "
+                className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-cyan-500/10 text-cyan-300 active:scale-90"
               >
                 <FaTimes className="text-xs" />
               </button>
             )}
           </div>
 
-          {/* SEARCH RESULTS */}
-
+          {/* SEARCH DROPDOWN */}
           {search.trim() && (
-            <div
-              className="
-                absolute
-                left-2.5
-                right-2.5
-                sm:left-3
-                sm:right-3
-                top-[62px]
-                sm:top-[68px]
-                z-50
-                rounded-xl
-                border
-                border-cyan-400/30
-                bg-[#061a31]
-                shadow-2xl
-                overflow-hidden
-              "
-            >
+            <div className="absolute left-2.5 right-2.5 top-[62px] z-50 overflow-hidden rounded-xl border border-cyan-400/30 bg-[#061a31] shadow-2xl sm:left-3 sm:right-3 sm:top-[68px]">
               {searchResults.length > 0 ? (
-                <div>
-                  <div
-                    className="
-                      px-3
-                      sm:px-4
-                      py-2.5
-                      border-b
-                      border-cyan-500/15
-                    "
-                  >
-                    <p
-                      className="
-                        text-gray-400
-                        text-[10px]
-                        uppercase
-                        tracking-wider
-                      "
-                    >
+                <>
+                  <div className="border-b border-cyan-500/15 px-3 py-2.5 sm:px-4 sm:py-3">
+                    <p className="text-[10px] uppercase tracking-wider text-gray-400">
                       Categories
                     </p>
                   </div>
@@ -723,79 +374,41 @@ export default function AllGames() {
                       onClick={() =>
                         handleSearchResultClick(category.id)
                       }
-                      className="
-                        w-full
-                        flex
-                        items-center
-                        gap-3
-                        px-3
-                        sm:px-4
-                        py-3
-                        border-b
-                        border-cyan-500/10
-                        hover:bg-cyan-500/10
-                        active:bg-cyan-500/20
-                        transition
-                      "
+                      className="flex w-full items-center gap-3 border-b border-cyan-500/10 px-3 py-3 transition hover:bg-cyan-500/10 active:bg-cyan-500/20 sm:px-4"
                     >
-                      <div
-                        className="
-                          w-10
-                          h-10
-                          shrink-0
-                          rounded-lg
-                          border
-                          border-cyan-400/30
-                          bg-gradient-to-b
-                          from-[#0d4ea3]
-                          to-[#031a3b]
-                          flex
-                          items-center
-                          justify-center
-                        "
-                      >
+                      <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg border border-cyan-400/30 bg-gradient-to-b from-[#0d4ea3] to-[#031a3b]">
                         <span
-                          className={`
-                            text-xl
-                            ${category.color}
-                          `}
+                          className={`text-xl ${category.color}`}
                         >
                           {category.icon}
                         </span>
                       </div>
 
-                      <div className="flex-1 text-left min-w-0">
-                        <p className="text-white text-sm font-bold">
+                      <div className="min-w-0 flex-1 text-left">
+                        <p className="text-sm font-bold text-white">
                           {category.name}
                         </p>
 
-                        <p className="text-gray-500 text-[10px] mt-0.5">
+                        <p className="mt-0.5 text-[10px] text-gray-500">
                           Open {category.name} Games
                         </p>
                       </div>
 
-                      <span className="text-cyan-400 text-sm">
+                      <span className="shrink-0 text-sm text-cyan-400">
                         →
                       </span>
                     </button>
                   ))}
-                </div>
+                </>
               ) : (
                 <div className="px-5 py-6 text-center">
-                  <FaSearch
-                    className="
-                      mx-auto
-                      text-2xl
-                      text-cyan-500/30
-                      mb-2
-                    "
-                  />
+                  <FaSearch className="mx-auto mb-2 text-2xl text-cyan-500/30" />
 
-                  <p className="text-white text-xs font-bold">
+                  <p className="text-xs font-bold text-white">
                     No Category Found
                   </p>
 
-                  <p className="text-gray-500 text-[10px] mt-1">
+                  <p className="mt-1 text-[10px] text-gray-500">
                     Try JILI, PG, JDB, PP, TP, 2J or SPORT
                   </p>
                 </div>
@@ -804,37 +417,16 @@ export default function AllGames() {
           )}
         </div>
 
-        {/* ==================================================
+        {/* ====================================================
             CONTENT
-        ================================================== */}
+        ==================================================== */}
 
-        <div
-          className="
-            flex
-            flex-1
-            min-h-0
-            overflow-hidden
-          "
-        >
-          {/* =================================================
-              LEFT CATEGORY
-          ================================================= */}
+        <div className="flex min-h-0 min-w-0 flex-1 overflow-hidden">
+          {/* ==================================================
+              SIDEBAR
+          ================================================== */}
 
-          <div
-            className="
-              w-[78px]
-              min-[390px]:w-[88px]
-              sm:w-[100px]
-              shrink-0
-              border-r
-              border-cyan-500/20
-              bg-[#06172d]
-              overflow-y-auto
-              hide-scrollbar
-              py-1.5
-              sm:py-2
-            "
-          >
+          <aside className="w-[60px] min-w-[60px] shrink-0 overflow-y-auto overflow-x-hidden border-r border-cyan-500/20 bg-[#06172d] py-1.5 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden min-[360px]:w-[64px] min-[360px]:min-w-[64px] min-[390px]:w-[68px] min-[390px]:min-w-[68px] sm:w-[74px] sm:min-w-[74px] md:w-[78px] md:min-w-[78px]">
             {categories.map((item) => {
               const isActive = active === item.id;
 
@@ -845,105 +437,54 @@ export default function AllGames() {
                   onClick={() =>
                     handleCategoryClick(item.id)
                   }
-                  className={`
-                    relative
-                    w-full
-                    flex
-                    flex-col
-                    items-center
-                    justify-center
-                    gap-1
-                    sm:gap-1.5
-                    py-2.5
-                    sm:py-3
-                    transition-all
-                    ${
-                      isActive
-                        ? "bg-gradient-to-r from-cyan-500/25 via-blue-600/20 to-transparent"
-                        : "opacity-70 hover:opacity-100"
-                    }
-                  `}
+                  className={`relative flex w-full flex-col items-center justify-center gap-1 px-1 py-2.5 transition-all sm:gap-1.5 sm:py-3 ${
+                    isActive
+                      ? "bg-gradient-to-r from-cyan-500/25 via-blue-600/20 to-transparent"
+                      : "opacity-70 hover:opacity-100"
+                  }`}
                 >
+                  {/* ACTIVE LINE */}
                   {isActive && (
-                    <div
-                      className="
-                        absolute
-                        right-0
-                        top-2
-                        bottom-2
-                        w-[3px]
-                        rounded-l-full
-                        bg-cyan-300
-                      "
-                    />
+                    <span className="absolute bottom-2 right-0 top-2 w-[3px] rounded-l-full bg-cyan-300 shadow-[0_0_8px_rgba(34,211,238,.7)]" />
                   )}
 
-                  <div
-                    className={`
-                      w-10
-                      h-10
-                      sm:w-12
-                      sm:h-12
-                      rounded-xl
-                      border
-                      flex
-                      items-center
-                      justify-center
-                      ${
-                        isActive
-                          ? "border-cyan-300/70 bg-gradient-to-b from-cyan-500/25 to-blue-700/30"
-                          : "border-cyan-500/30 bg-gradient-to-b from-[#0d4ea3] to-[#031a3b]"
-                      }
-                    `}
+                  {/* ICON */}
+                  <span
+                    className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-xl border min-[390px]:h-10 min-[390px]:w-10 sm:h-10 sm:w-10 ${
+                      isActive
+                        ? "border-cyan-300/70 bg-gradient-to-b from-cyan-500/25 to-blue-700/30 shadow-[0_0_12px_rgba(34,211,238,.12)]"
+                        : "border-cyan-500/30 bg-gradient-to-b from-[#0d4ea3] to-[#031a3b]"
+                    }`}
                   >
                     <span
-                      className={`
-                        text-xl
-                        sm:text-2xl
-                        ${item.color}
-                      `}
+                      className={`flex items-center justify-center text-base sm:text-lg sm:font-bold ${item.color}`}
                     >
                       {item.icon}
                     </span>
-                  </div>
+                  </span>
 
+                  {/* NAME */}
                   <span
-                    className={`
-                      text-[9px]
-                      sm:text-[10px]
-                      font-bold
-                      ${
-                        isActive
-                          ? "text-cyan-200"
-                          : "text-white"
-                      }
-                    `}
+                    className={`max-w-full overflow-hidden text-ellipsis whitespace-nowrap text-center text-[8px] font-bold leading-3 min-[390px]:text-[9px] sm:text-[9px] ${
+                      isActive
+                        ? "text-cyan-200"
+                        : "text-white"
+                    }`}
                   >
                     {item.name}
                   </span>
                 </button>
               );
             })}
-          </div>
+          </aside>
 
-          {/* =================================================
-              RIGHT GAME AREA
-          ================================================= */}
+          {/* ==================================================
+              GAMES AREA
+          ================================================== */}
 
-          <div
-            className="
-              all-games-content
-              flex-1
-              min-w-0
-              min-h-0
-              overflow-y-auto
-              overflow-x-hidden
-              hide-scrollbar
-              bg-[#020617]
-            "
-          >
+          <main className="min-h-0 min-w-0 flex-1 overflow-x-hidden overflow-y-auto bg-[#020617] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
             {renderGames()}
-          </div>
+          </main>
         </div>
       </div>
     </div>

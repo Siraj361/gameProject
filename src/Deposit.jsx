@@ -14,20 +14,11 @@ import {
 export default function Deposit() {
   const navigate = useNavigate();
 
-  /* =========================================================
-     STATES
-  ========================================================= */
-
   const [method, setMethod] = useState("jazzcash");
-
   const [channel, setChannel] = useState("S4");
-
   const [amount, setAmount] = useState(null);
-
   const [customAmount, setCustomAmount] = useState("");
-
   const [showHistory, setShowHistory] = useState(false);
-
   const [showDateModal, setShowDateModal] = useState(false);
 
   const [selectedDate, setSelectedDate] = useState(
@@ -35,7 +26,6 @@ export default function Deposit() {
   );
 
   const [historyFilter, setHistoryFilter] = useState("All");
-
   const [message, setMessage] = useState("");
 
   /* =========================================================
@@ -115,7 +105,6 @@ export default function Deposit() {
 
   /* =========================================================
      HISTORY DATA
-     ABHI NO DATA
   ========================================================= */
 
   const historyData = [];
@@ -137,9 +126,7 @@ export default function Deposit() {
   ========================================================= */
 
   const finalAmount =
-    customAmount !== ""
-      ? Number(customAmount)
-      : amount;
+    customAmount !== "" ? Number(customAmount) : amount;
 
   /* =========================================================
      DEPOSIT FUNCTION
@@ -170,11 +157,8 @@ export default function Deposit() {
     const firstChannel = channels[id][0];
 
     setChannel(firstChannel.id);
-
     setAmount(null);
-
     setCustomAmount("");
-
     setMessage("");
   };
 
@@ -325,7 +309,7 @@ export default function Deposit() {
             overflow-x-hidden
             overflow-y-auto
             px-4
-            pb-[130px]
+            pb-5
             pt-5
           "
           style={{
@@ -347,9 +331,7 @@ export default function Deposit() {
               return (
                 <button
                   key={item.id}
-                  onClick={() =>
-                    handleMethodChange(item.id)
-                  }
+                  onClick={() => handleMethodChange(item.id)}
                   className={`
                     relative
                     h-[125px]
@@ -379,8 +361,6 @@ export default function Deposit() {
                     }
                   `}
                 >
-                  {/* Glow */}
-
                   {active && (
                     <div
                       className="
@@ -409,6 +389,7 @@ export default function Deposit() {
                       rounded-2xl
                       text-[18px]
                       font-black
+
                       ${
                         active
                           ? "bg-white text-[#075B92]"
@@ -564,9 +545,7 @@ export default function Deposit() {
               return (
                 <button
                   key={value}
-                  onClick={() =>
-                    handleAmount(value)
-                  }
+                  onClick={() => handleAmount(value)}
                   className={`
                     h-[75px]
                     rounded-[20px]
@@ -653,9 +632,7 @@ export default function Deposit() {
 
             {customAmount && (
               <button
-                onClick={() =>
-                  setCustomAmount("")
-                }
+                onClick={() => setCustomAmount("")}
                 className="
                   flex
                   h-8
@@ -775,8 +752,6 @@ export default function Deposit() {
           >
             Deposit
           </button>
-
-          <div className="h-[60px]" />
         </main>
       </div>
 
@@ -1026,9 +1001,7 @@ function HistoryModal({
               return (
                 <button
                   key={item.name}
-                  onClick={() =>
-                    setFilter(item.name)
-                  }
+                  onClick={() => setFilter(item.name)}
                   className={`
                     flex
                     min-h-[72px]
@@ -1111,8 +1084,7 @@ function HistoryModal({
               </h3>
 
               <p className="mt-2 px-8 text-[14px] text-white/40">
-                No deposit records available for this
-                period.
+                No deposit records available for this period.
               </p>
             </div>
           ) : (
@@ -1294,6 +1266,7 @@ function DatePickerModal({
                 <span
                   className={`
                     text-[15px]
+
                     ${
                       active
                         ? "font-bold"

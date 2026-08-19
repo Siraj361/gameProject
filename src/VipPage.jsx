@@ -9,6 +9,10 @@ import {
   HandCoins,
 } from "lucide-react";
 
+/* =========================================================
+   VIP LEVELS
+========================================================= */
+
 const levels = [
   { grade: "VIP1", points: "500", upgrade: "10", monthly: "5", weekly: "0" },
   { grade: "VIP2", points: "1000", upgrade: "15", monthly: "10", weekly: "5" },
@@ -37,16 +41,40 @@ const levels = [
   { grade: "VIP25", points: "10000000", upgrade: "12000", monthly: "1500", weekly: "1000" },
 ];
 
+/* =========================================================
+   TABS
+========================================================= */
+
 const tabs = [
-  { id: "upgrade", name: "Upgrade Rewards" },
-  { id: "monthly", name: "Monthly Reward" },
-  { id: "weekly", name: "Weekly Reward" },
-  { id: "relegation", name: "Relegation Points" },
+  {
+    id: "upgrade",
+    name: "Upgrade Rewards",
+  },
+  {
+    id: "monthly",
+    name: "Monthly Reward",
+  },
+  {
+    id: "weekly",
+    name: "Weekly Reward",
+  },
+  {
+    id: "relegation",
+    name: "Relegation Points",
+  },
 ];
+
+/* =========================================================
+   TABLE CONFIG
+========================================================= */
 
 const tableConfig = {
   upgrade: {
-    headers: ["Grade", "Required Points", "Upgrade Rewards"],
+    headers: [
+      "Grade",
+      "Required Points",
+      "Upgrade Rewards",
+    ],
     cells: (r) => [r.points, r.upgrade],
   },
 
@@ -81,6 +109,10 @@ const tableConfig = {
   },
 };
 
+/* =========================================================
+   BENEFITS
+========================================================= */
+
 const benefits = [
   {
     title: "Weekly\nRewards",
@@ -95,6 +127,11 @@ const benefits = [
     icon: Crown,
   },
 ];
+
+/* =========================================================
+   VIP PAGE
+========================================================= */
+
 export default function VipPage() {
   const navigate = useNavigate();
 
@@ -103,214 +140,400 @@ export default function VipPage() {
   const config = tableConfig[activeTab];
 
   return (
-    <div className="min-h-screen w-full bg-[#071321] flex justify-center overflow-x-hidden">
+    <div
+      className="
+        min-h-screen
+        w-full
+        overflow-x-hidden
+        bg-[#071321]
+      "
+    >
+      {/* =====================================================
+          MOBILE CONTAINER
+      ====================================================== */}
 
-      {/* 540px Mobile Container */}
       <div
-        className="w-full max-w-[540px] min-h-screen overflow-x-hidden pb-10"
+        className="
+          relative
+          mx-auto
+          min-h-screen
+          w-full
+          max-w-[540px]
+          overflow-x-hidden
+          bg-[#071321]
+          pb-8
+        "
         style={{
           background: "var(--gradient-page)",
         }}
       >
 
-        {/* ================= HEADER ================= */}
+        {/* =====================================================
+            HEADER
+        ====================================================== */}
 
-<header
-  className="
-    fixed
-    top-0
-    left-1/2
-    -translate-x-1/2
-    z-50
-    w-full
-    max-w-[540px]
-    h-16
-    grid
-    grid-cols-[56px_1fr_56px]
-    items-center
-    px-4
-    bg-[#071321]/95
-    backdrop-blur-xl
-    border-b
-    border-cyan-500/20
-    shadow-lg
-  "
->
+        <header
+          className="
+            fixed
+            left-1/2
+            top-0
+            z-50
+            grid
+            h-16
+            w-full
+            max-w-[540px]
+            -translate-x-1/2
+            grid-cols-[52px_1fr_52px]
+            items-center
+            border-b
+            border-cyan-500/20
+            bg-[#071321]/95
+            px-3
+            shadow-lg
+            backdrop-blur-xl
+          "
+        >
 
-  {/* Back Button */}
+          {/* BACK BUTTON */}
 
-  <button
-    onClick={() => navigate(-1)}
-    className="
-      h-11
-      w-11
-      flex
-      items-center
-      justify-center
-      rounded-full
-      bg-white/5
-      hover:bg-cyan-500/20
-      transition
-    "
-  >
-    <ArrowLeft
-      size={24}
-      className="text-white"
-    />
-  </button>
+          <button
+            onClick={() => navigate(-1)}
+            aria-label="Go back"
+            className="
+              flex
+              h-10
+              w-10
+              items-center
+              justify-center
+              rounded-full
+              bg-white/5
+              text-white
+              transition
+              hover:bg-cyan-500/20
+              active:scale-90
+            "
+          >
+            <ArrowLeft size={23} />
+          </button>
 
-  {/* Title */}
+          {/* TITLE */}
 
-  <h1
-    className="
-      text-center
-      text-[28px]
-      font-extrabold
-      tracking-[10px]
-      text-cyan-300
-      drop-shadow-[0_0_15px_rgba(34,211,238,.8)]
-    "
-  >
-    VIP
-  </h1>
+          <h1
+            className="
+              overflow-hidden
+              text-center
+              text-[24px]
+              font-extrabold
+              tracking-[7px]
+              text-cyan-300
+              drop-shadow-[0_0_15px_rgba(34,211,238,.8)]
+              sm:text-[27px]
+              sm:tracking-[9px]
+            "
+          >
+            VIP
+          </h1>
 
-  {/* History */}
+          {/* HISTORY */}
 
-  <button
-    className="
-      h-11
-      w-11
-      flex
-      items-center
-      justify-center
-      rounded-full
-      bg-white/5
-      text-cyan-300
-      hover:bg-cyan-500/20
-      transition
-    "
-  >
-    <ClipboardClock size={24} />
-  </button>
+          <button
+            aria-label="VIP history"
+            className="
+              ml-auto
+              flex
+              h-10
+              w-10
+              items-center
+              justify-center
+              rounded-full
+              bg-white/5
+              text-cyan-300
+              transition
+              hover:bg-cyan-500/20
+              active:scale-90
+            "
+          >
+            <ClipboardClock size={22} />
+          </button>
 
-</header>
+        </header>
 
-{/* ================= VIP BANNER ================= */}
+        {/* =====================================================
+            TOP SPACER FOR FIXED HEADER
+        ====================================================== */}
 
-<section
-  className="
-    relative
-    mt-16
-    h-[190px]
-    px-5
-    flex
-    items-center
-    overflow-hidden
-  "
-  style={{
-    background: "var(--gradient-vip)",
-  }}
->
+        <div className="h-16" />
 
-  {/* Left */}
+        {/* =====================================================
+            VIP BANNER
+        ====================================================== */}
 
-  <div className="flex w-1/3 flex-col justify-center">
+        <section
+          className="
+            relative
+            flex
+            min-h-[180px]
+            w-full
+            items-center
+            overflow-hidden
+            px-4
+            py-5
+            sm:min-h-[195px]
+            sm:px-5
+          "
+          style={{
+            background: "var(--gradient-vip)",
+          }}
+        >
 
-    <h2
-      className="text-5xl font-black italic"
-      style={{
-        background: "var(--gradient-cyan)",
-        WebkitBackgroundClip: "text",
-        backgroundClip: "text",
-        color: "transparent",
-      }}
-    >
-      VIP
-    </h2>
+          {/* LEFT */}
 
-    <span className="mt-2 text-sm text-white/70">
-      Welcome to VIP Center
-    </span>
+          <div
+            className="
+              flex
+              w-[30%]
+              min-w-0
+              flex-col
+              justify-center
+            "
+          >
 
-  </div>
+            <h2
+              className="
+                text-[40px]
+                font-black
+                italic
+                leading-none
+                sm:text-5xl
+              "
+              style={{
+                background: "var(--gradient-cyan)",
+                WebkitBackgroundClip: "text",
+                backgroundClip: "text",
+                color: "transparent",
+              }}
+            >
+              VIP
+            </h2>
 
-  {/* Center */}
+            <span
+              className="
+                mt-2
+                max-w-[100px]
+                text-[11px]
+                leading-4
+                text-white/70
+                sm:text-sm
+              "
+            >
+              Welcome to VIP Center
+            </span>
 
-  <div className="flex w-1/3 justify-center">
+          </div>
 
-    <div className="relative flex h-36 w-36 items-center justify-center">
+          {/* CENTER */}
 
-      <span className="absolute inset-0 rounded-full bg-cyan-400/30 blur-3xl" />
+          <div
+            className="
+              flex
+              w-[40%]
+              justify-center
+            "
+          >
 
-      <span className="absolute inset-0 rounded-full border-[5px] border-cyan-300" />
+            <div
+              className="
+                relative
+                flex
+                h-[125px]
+                w-[125px]
+                items-center
+                justify-center
+                sm:h-36
+                sm:w-36
+              "
+            >
 
-      <span className="absolute inset-[10px] rounded-full border-2 border-dashed border-cyan-200" />
+              {/* GLOW */}
 
-      <div
-        className="
-          relative
-          flex
-          h-24
-          w-24
-          items-center
-          justify-center
-          rounded-full
-          text-4xl
-          font-bold
-          text-white
-        "
-        style={{
-          background: "var(--gradient-cyan)",
-        }}
-      >
-        0
-      </div>
+              <span
+                className="
+                  absolute
+                  inset-0
+                  rounded-full
+                  bg-cyan-400/30
+                  blur-3xl
+                "
+              />
 
-    </div>
+              {/* OUTER RING */}
 
-  </div>
+              <span
+                className="
+                  absolute
+                  inset-0
+                  rounded-full
+                  border-[4px]
+                  border-cyan-300
+                  sm:border-[5px]
+                "
+              />
 
-  {/* Right */}
+              {/* DASHED RING */}
 
-  <div className="flex w-1/3 flex-col items-end justify-center">
+              <span
+                className="
+                  absolute
+                  inset-[9px]
+                  rounded-full
+                  border-2
+                  border-dashed
+                  border-cyan-200
+                  sm:inset-[10px]
+                "
+              />
 
-    <span className="text-base text-cyan-100">
-      Current
-    </span>
+              {/* LEVEL */}
 
-    <h2 className="text-3xl font-extrabold text-cyan-300">
-      Level
-    </h2>
+              <div
+                className="
+                  relative
+                  flex
+                  h-[78px]
+                  w-[78px]
+                  items-center
+                  justify-center
+                  rounded-full
+                  text-[30px]
+                  font-bold
+                  text-white
+                  sm:h-24
+                  sm:w-24
+                  sm:text-4xl
+                "
+                style={{
+                  background: "var(--gradient-cyan)",
+                }}
+              >
+                0
+              </div>
 
-  </div>
+            </div>
 
-</section>
-        {/* ================= PROGRESS ================= */}
+          </div>
+
+          {/* RIGHT */}
+
+          <div
+            className="
+              flex
+              w-[30%]
+              flex-col
+              items-end
+              justify-center
+              text-right
+            "
+          >
+
+            <span
+              className="
+                text-[12px]
+                text-cyan-100
+                sm:text-base
+              "
+            >
+              Current
+            </span>
+
+            <h2
+              className="
+                text-[24px]
+                font-extrabold
+                text-cyan-300
+                sm:text-3xl
+              "
+            >
+              Level
+            </h2>
+
+          </div>
+
+        </section>
+
+        {/* =====================================================
+            PROGRESS
+        ====================================================== */}
 
         <section className="px-4 pt-5">
 
-          <div className="rounded-2xl border border-white/10 bg-[#102542]/70 p-3">
+          <div
+            className="
+              rounded-2xl
+              border
+              border-white/10
+              bg-[#102542]/70
+              p-3
+              shadow-lg
+            "
+          >
 
-            {/* Cumulative Bets */}
+            {/* CUMULATIVE BETS */}
 
-            <div className="rounded-xl bg-[#0d2038] p-4">
+            <div
+              className="
+                rounded-xl
+                bg-[#0d2038]
+                p-4
+              "
+            >
 
-              <div className="flex items-center justify-between">
+              <div
+                className="
+                  flex
+                  items-center
+                  justify-between
+                  gap-3
+                "
+              >
 
-                <span className="font-medium">
+                <span
+                  className="
+                    text-sm
+                    font-medium
+                    sm:text-base
+                  "
+                >
                   Cumulative Bets
                 </span>
 
-                <span className="text-xl font-bold">
+                <span
+                  className="
+                    shrink-0
+                    text-lg
+                    font-bold
+                    sm:text-xl
+                  "
+                >
                   0.00
                 </span>
 
               </div>
 
-              <div className="mt-3 h-2 overflow-hidden rounded-full bg-[#071321]">
+              <div
+                className="
+                  mt-3
+                  h-2
+                  overflow-hidden
+                  rounded-full
+                  bg-[#071321]
+                "
+              >
 
                 <div
-                  className="h-full rounded-full"
+                  className="
+                    h-full
+                    rounded-full
+                  "
                   style={{
                     width: "2%",
                     background: "var(--gradient-cyan)",
@@ -319,13 +542,23 @@ export default function VipPage() {
 
               </div>
 
-              <div className="mt-2 flex items-center justify-between text-sm">
+              <div
+                className="
+                  mt-2
+                  flex
+                  items-center
+                  justify-between
+                  gap-3
+                  text-xs
+                  sm:text-sm
+                "
+              >
 
                 <span className="text-gray-400">
                   0.00
                 </span>
 
-                <span className="text-cyan-300">
+                <span className="text-right text-cyan-300">
                   500.00 (VIP1)
                 </span>
 
@@ -333,26 +566,64 @@ export default function VipPage() {
 
             </div>
 
-            {/* Monthly Bets */}
+            {/* MONTHLY BETS */}
 
-            <div className="mt-3 rounded-xl bg-[#0d2038] p-4">
+            <div
+              className="
+                mt-3
+                rounded-xl
+                bg-[#0d2038]
+                p-4
+              "
+            >
 
-              <div className="flex items-center justify-between">
+              <div
+                className="
+                  flex
+                  items-center
+                  justify-between
+                  gap-3
+                "
+              >
 
-                <span className="font-medium">
+                <span
+                  className="
+                    text-sm
+                    font-medium
+                    sm:text-base
+                  "
+                >
                   Monthly Bets
                 </span>
 
-                <span className="text-xl font-bold">
+                <span
+                  className="
+                    shrink-0
+                    text-lg
+                    font-bold
+                    sm:text-xl
+                  "
+                >
                   0.00
                 </span>
 
               </div>
 
-              <div className="mt-3 h-2 overflow-hidden rounded-full bg-[#071321]">
+              <div
+                className="
+                  mt-3
+                  h-2
+                  overflow-hidden
+                  rounded-full
+                  bg-[#071321]
+                "
+              >
 
                 <div
-                  className="h-full rounded-full"
+                  className="
+                    h-full
+                    rounded-full
+                  "
                   style={{
                     width: "2%",
                     background: "var(--gradient-cyan)",
@@ -361,13 +632,23 @@ export default function VipPage() {
 
               </div>
 
-              <div className="mt-2 flex items-center justify-between text-sm">
+              <div
+                className="
+                  mt-2
+                  flex
+                  items-center
+                  justify-between
+                  gap-3
+                  text-xs
+                  sm:text-sm
+                "
+              >
 
                 <span className="text-gray-400">
                   0.00
                 </span>
 
-                <span className="text-cyan-300">
+                <span className="text-right text-cyan-300">
                   Relegation Points : 0.00
                 </span>
 
@@ -379,33 +660,50 @@ export default function VipPage() {
 
         </section>
 
-        {/* ===== Part 2 starts from VIP Benefits ===== */}
-                {/* ================= VIP BENEFITS ================= */}
+        {/* =====================================================
+            VIP BENEFITS
+        ====================================================== */}
 
         <section className="px-4 pt-7">
 
-          <h2 className="mb-4 flex items-center gap-2 text-lg font-bold">
+          <h2
+            className="
+              mb-4
+              flex
+              items-center
+              gap-2
+              text-lg
+              font-bold
+            "
+          >
 
             <Crown
               size={20}
-              className="text-cyan-300"
+              className="shrink-0 text-cyan-300"
             />
 
             VIP Level Benefits
 
           </h2>
 
-          <div className="grid grid-cols-3 gap-3">
+          <div
+            className="
+              grid
+              grid-cols-3
+              gap-2
+              sm:gap-3
+            "
+          >
 
             {benefits.map((item) => {
 
               const Icon = item.icon;
 
               return (
-
                 <div
                   key={item.title}
                   className="
+                    min-w-0
                     rounded-2xl
                     border
                     border-white/10
@@ -414,7 +712,7 @@ export default function VipPage() {
                     py-4
                     text-center
                     transition
-                    hover:scale-[1.03]
+                    hover:scale-[1.02]
                   "
                 >
 
@@ -422,32 +720,47 @@ export default function VipPage() {
                     className="
                       mx-auto
                       flex
-                      h-12
-                      w-12
+                      h-10
+                      w-10
                       items-center
                       justify-center
                       rounded-full
                       bg-cyan-500/10
+                      sm:h-12
+                      sm:w-12
                     "
                   >
 
                     <Icon
-                      size={26}
-                      className="text-cyan-300"
+                      size={23}
+                      className="text-cyan-300 sm:size-[26px]"
                     />
 
                   </div>
 
-                  <p className="mt-3 whitespace-pre-line text-sm font-semibold leading-tight">
-
+                  <p
+                    className="
+                      mt-3
+                      whitespace-pre-line
+                      text-[11px]
+                      font-semibold
+                      leading-4
+                      sm:text-sm
+                    "
+                  >
                     {item.title}
-
                   </p>
 
-                  <p className="mt-2 text-base font-bold text-cyan-300">
-
+                  <p
+                    className="
+                      mt-2
+                      text-sm
+                      font-bold
+                      text-cyan-300
+                      sm:text-base
+                    "
+                  >
                     +0.00
-
                   </p>
 
                   <button
@@ -460,15 +773,15 @@ export default function VipPage() {
                       border-white/10
                       bg-[#1b3558]
                       py-2
-                      text-sm
+                      text-[11px]
                       text-gray-400
+                      sm:text-sm
                     "
                   >
                     Receive
                   </button>
 
                 </div>
-
               );
 
             })}
@@ -477,7 +790,9 @@ export default function VipPage() {
 
         </section>
 
-        {/* ================= TABS ================= */}
+        {/* =====================================================
+            TABS
+        ====================================================== */}
 
         <section className="pt-7">
 
@@ -485,11 +800,17 @@ export default function VipPage() {
             className="
               hide-scrollbar
               flex
+              w-full
               overflow-x-auto
+              overscroll-x-contain
               border-b
               border-white/10
               px-2
             "
+            style={{
+              scrollbarWidth: "none",
+              msOverflowStyle: "none",
+            }}
           >
 
             {tabs.map((tab) => (
@@ -498,22 +819,21 @@ export default function VipPage() {
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id)}
                 className={`
-
                   relative
                   shrink-0
-                  min-w-[120px]
-                  px-3
+                  px-4
                   py-3
-                  text-sm
+                  text-xs
                   font-semibold
                   transition
+                  sm:px-5
+                  sm:text-sm
 
                   ${
                     activeTab === tab.id
                       ? "text-cyan-300"
                       : "text-white/70"
                   }
-
                 `}
               >
 
@@ -524,9 +844,9 @@ export default function VipPage() {
                   <span
                     className="
                       absolute
+                      bottom-0
                       left-2
                       right-2
-                      bottom-0
                       h-1
                       rounded-full
                     "
@@ -545,20 +865,41 @@ export default function VipPage() {
 
         </section>
 
-        {/* ===== Part 3 starts from Rewards Table ===== */}
-                {/* ================= REWARDS TABLE ================= */}
+        {/* =====================================================
+            REWARDS TABLE
+        ====================================================== */}
 
         <section className="px-4 pt-5">
 
-          <div className="overflow-x-auto rounded-2xl border border-white/10 bg-[#102542]/70">
+          <div
+            className="
+              w-full
+              overflow-x-auto
+              rounded-2xl
+              border
+              border-white/10
+              bg-[#102542]/70
+            "
+            style={{
+              scrollbarWidth: "thin",
+              WebkitOverflowScrolling: "touch",
+            }}
+          >
 
-            <table className="min-w-full text-sm">
+            <table
+              className="
+                min-w-[560px]
+                w-full
+                text-sm
+              "
+            >
 
               <thead
                 style={{
                   background: "var(--gradient-vip)",
                 }}
               >
+
                 <tr>
 
                   {config.headers.map((head) => (
@@ -567,11 +908,13 @@ export default function VipPage() {
                       key={head}
                       className="
                         whitespace-nowrap
-                        px-3
+                        px-4
                         py-3
                         text-center
+                        text-xs
                         font-bold
                         text-white
+                        sm:text-sm
                       "
                     >
                       {head}
@@ -580,6 +923,7 @@ export default function VipPage() {
                   ))}
 
                 </tr>
+
               </thead>
 
               <tbody>
@@ -599,26 +943,37 @@ export default function VipPage() {
                     `}
                   >
 
-                    <td className="px-3 py-4 text-center font-bold text-cyan-300">
+                    <td
+                      className="
+                        whitespace-nowrap
+                        px-4
+                        py-4
+                        text-center
+                        font-bold
+                        text-cyan-300
+                      "
+                    >
                       {row.grade}
                     </td>
 
-                    {config.cells(row).map((cell, i) => (
+                    {config.cells(row).map(
+                      (cell, i) => (
 
-                      <td
-                        key={i}
-                        className="
-                          whitespace-nowrap
-                          px-3
-                          py-4
-                          text-center
-                          text-white/90
-                        "
-                      >
-                        {cell}
-                      </td>
+                        <td
+                          key={i}
+                          className="
+                            whitespace-nowrap
+                            px-4
+                            py-4
+                            text-center
+                            text-white/90
+                          "
+                        >
+                          {cell}
+                        </td>
 
-                    ))}
+                      )
+                    )}
 
                   </tr>
 
@@ -632,35 +987,64 @@ export default function VipPage() {
 
         </section>
 
-        {/* ===== Part 3B starts here ===== */}
-                {/* ================= ACTIVITY DESCRIPTION ================= */}
+        {/* =====================================================
+            ACTIVITY DESCRIPTION
+        ====================================================== */}
 
         <section className="px-4 pt-7">
 
-          <div className="rounded-2xl border border-white/10 bg-[#102542]/70 p-5">
+          <div
+            className="
+              rounded-2xl
+              border
+              border-white/10
+              bg-[#102542]/70
+              p-4
+              sm:p-5
+            "
+          >
 
-            <h2 className="mb-5 text-center text-lg font-bold">
+            <h2
+              className="
+                mb-5
+                text-center
+                text-lg
+                font-bold
+              "
+            >
               Activity Description
             </h2>
 
-            <ol className="list-decimal space-y-3 pl-5 text-sm leading-7 text-white/80">
+            <ol
+              className="
+                list-decimal
+                space-y-3
+                pl-5
+                text-[13px]
+                leading-6
+                text-white/80
+                sm:text-sm
+                sm:leading-7
+              "
+            >
 
               <li>
-                Reach the required turnover points to claim the Upgrade Reward.
+                Reach the required turnover points to claim
+                the Upgrade Reward.
               </li>
 
               <li>
-                Monthly Rewards can be claimed at
+                Monthly Rewards can be claimed at{" "}
                 <span className="font-semibold text-cyan-300">
-                  {" "}4:00 AM (GMT+5)
-                </span>
-                {" "}on the first day of every month.
+                  4:00 AM (GMT+5)
+                </span>{" "}
+                on the first day of every month.
               </li>
 
               <li>
-                Weekly Rewards can be claimed every Monday at
+                Weekly Rewards can be claimed every Monday at{" "}
                 <span className="font-semibold text-cyan-300">
-                  {" "}4:00 AM (GMT+5).
+                  4:00 AM (GMT+5).
                 </span>
               </li>
 
@@ -669,9 +1053,10 @@ export default function VipPage() {
               </li>
 
               <li>
-                To ensure fairness, the platform reserves the right to
-                cancel, suspend, freeze or modify this promotion at any
-                time if abnormal betting, fraud or cheating is detected.
+                To ensure fairness, the platform reserves the
+                right to cancel, suspend, freeze or modify this
+                promotion at any time if abnormal betting, fraud
+                or cheating is detected.
               </li>
 
             </ol>
@@ -680,10 +1065,37 @@ export default function VipPage() {
 
         </section>
 
+        {/* =====================================================
+            BOTTOM SPACE
+        ====================================================== */}
+
+        <div className="h-6" />
+
       </div>
 
+      {/* =====================================================
+          GLOBAL MOBILE STYLES
+      ====================================================== */}
+
+      <style>{`
+        .hide-scrollbar::-webkit-scrollbar {
+          display: none;
+        }
+
+        .hide-scrollbar {
+          scrollbar-width: none;
+          -ms-overflow-style: none;
+        }
+
+        button {
+          -webkit-tap-highlight-color: transparent;
+        }
+
+        * {
+          box-sizing: border-box;
+        }
+      `}</style>
+
     </div>
-
   );
-
 }
